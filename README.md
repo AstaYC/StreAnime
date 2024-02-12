@@ -1,35 +1,66 @@
-# StreAnime
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-# Anime Series & Movies Streaming
-  Un site de streaming d'animes est un site web qui permet aux utilisateurs de diffuser des animes. Les utilisateurs peuvent parcourir un catalogue d’animes et choisir de les regarder à la demande. Les sites de streaming d’anime deviennent de plus en plus populaires en tant qu'alternative à la télévision câblée traditionnelle, car ils offrent plus de flexibilité et de commodité aux utilisateurs. Ils peuvent être accessibles sur une variété d'appareils, notamment des smartphones, des tablettes et des ordinateurs de bureau, et permettent aux utilisateurs de regarder des animes à leur propre rythme, plutôt que d'être liés à un horaire.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-# Les Objectifs du Site :
-   En fournissant des statistiques utiles, cette application aidera les utilisateurs à sélectionner leur prochain animes à regarder , ainsi que la rareté du site qui donne la meilleure expérience de regarder les animes .
+## About Laravel
 
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-# Les finalités du site :
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
- 1-  Expérience de diffusion en continu : C'est gratuit, rapide et transparent. Normalement, vous ne pouvez en choisir qu'un, mais le site coche les trois cases.
- 2- Compatibilité des appareils : le site est compatible avec les appareils mobiles et prend en charge Chromecast afin que vous puissiez diffuser des animes et des émissions de télévision avec n'importe quel appareil disponible.
- 3- Annonces et popups : Ils sont vitaux pour la survie de tout site de streaming, mais le site ne semble pas gourmand. Vous rencontrerez des publicités et des popups ici et là, mais dans l'ensemble, l'expérience de visionnage est assez transparente.
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
+## Learning Laravel
 
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-# User story :
-Page d'accueil affichant les films les plus récents et les plus populaires. 
-Lecteur vidéo : Vous aurez besoin d'un lecteur vidéo capable de diffuser des films dans différents formats, tels que MP4, AVI et MKV. Le lecteur devrait également comporter des fonctionnalités telles que la pause/lecture, la recherche et le mode plein écran. 
-Barre de recherche permettant aux utilisateurs de rechercher des films spécifiques. 
-Page de détails du film affichant des informations sur le film, telles que son intrigue, sa distribution et sa note. 
-Système de notation permettant aux utilisateurs de noter les films et de voir la note moyenne donnée par les autres utilisateurs.
- Système de connexion utilisateur permettant aux utilisateurs de créer un compte et de sauvegarder leurs films préférés. 
-Page de profil utilisateur affichant les informations du compte de l'utilisateur et ses films préférés. 
-Design adaptable fonctionnant sur différents appareils, tels que les ordinateurs de bureau, les tablettes et les smartphones.
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-# using
-Css(bootstrap , Tailwind)
-html5
-javascript-jquery
-php(Laravel)
+## Laravel Sponsors
 
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
+### Premium Partners
+
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[WebReinvent](https://webreinvent.com/)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Jump24](https://jump24.co.uk)**
+- **[Redberry](https://redberry.international/laravel/)**
+- **[Active Logic](https://activelogic.com)**
+- **[byte5](https://byte5.de)**
+- **[OP.GG](https://op.gg)**
+
+## Contributing
+
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+
+## Code of Conduct
+
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
