@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\CategorieModel;
+use App\Models\Categorie;
 
 
 class CategorieController extends Controller
 {
     public function displayCategorie (){
-        $categories = CategorieModel::all();
+        $categories = Categorie::all();
         return view('Back-office.CategorieTable' , compact('categories'));
     }
 
@@ -20,7 +20,7 @@ class CategorieController extends Controller
            'nom' => 'required',
        ]);
 
-       $categorie = new CategorieModel();
+       $categorie = new Categorie();
        $categorie->nom = $request->nom;
        $categorie->save();
 
@@ -34,7 +34,7 @@ class CategorieController extends Controller
             'nom' => 'required',
         ]);
 
-        $categorie = CategorieModel::find($request->id);
+        $categorie = Categorie::find($request->id);
         $categorie->nom = $request->nom;
         $categorie->update();
 
@@ -45,7 +45,7 @@ class CategorieController extends Controller
         $request->validate([
             'id' => 'required',
         ]);
-        $categorie = CategorieModel::find($request->id);
+        $categorie = Categorie::find($request->id);
        $categorie->delete();
 
        return redirect('/categorie/display')->with('status' , 'La suppression est bien faite');

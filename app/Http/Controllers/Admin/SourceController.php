@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\SourceModel;
+use App\Models\Source;
 
 class SourceController extends Controller
 {
-    public function displaySource (){
-        $sources = SourceModel::all();
+    public function displaySource(){
+        $sources = Source::all();
         return view('Admin.SourceTable' , compact('sources'));
     }
 
@@ -20,7 +20,7 @@ class SourceController extends Controller
            'nom' => 'required',
        ]);
 
-       $source = new SourceModel();
+       $source = new Source();
        $source->nom = $request->nom;
        $source->save();
 
@@ -29,12 +29,11 @@ class SourceController extends Controller
 
     public function updateSource(Request $request){
        
-        
         $request->validate([
             'nom' => 'required',
         ]);
 
-        $source = SourceModel::find($request->id);
+        $source = Source::find($request->id);
         $source->nom = $request->nom;
         $source->update();
 
@@ -45,8 +44,8 @@ class SourceController extends Controller
         $request->validate([
             'id' => 'required',
         ]);
-        $source = SourceModel::find($request->id);
-       $source->delete();
+        $source = Source::find($request->id);
+        $source->delete();
 
        return redirect('/source')->with('status' , 'La suppression est bien faite');
     }
