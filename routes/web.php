@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\AnimeController;
-use App\Http\Controllers\AnimeDetailController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\User\AnimeController;
+use App\Http\Controllers\User\AnimeDetailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +22,6 @@ Route::get('/register' , [AuthController::class , 'displayRegister']);
 
 
 Route::get('/' , [AnimeController::class , 'displayAnime']);
-Route::get('/anime-liste' , [AnimeController::class , 'displayAnimeListe']);
-Route::get('/anime-details' , [AnimeDetailController::class , 'displayAnimeDetails']);
+Route::get('/home' , [AnimeController::class , 'displayAnime']);
+Route::get('/animeListe' , [AnimeController::class , 'displayAnimeListe']);
+Route::get('/animeDetails' , [AnimeDetailController::class , 'displayAnimeDetails']);

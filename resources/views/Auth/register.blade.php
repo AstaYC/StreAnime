@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
-                        <h2>Sign Up</h2>
+                        <h2>Register</h2>
                         <p>Welcome to the official Anime blog.</p>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="login__form">
-                        <h3>Sign Up</h3>
+                        <h3>Register</h3>
                         <form action="#">
                             <div class="input__item">
                                 <input type="text" placeholder="Email address">
@@ -34,7 +34,11 @@
                                 <input type="text" placeholder="Password">
                                 <span class="icon_lock"></span>
                             </div>
-                            <button type="submit" class="site-btn">Login Now</button>
+                            <div class="input__item">
+                                <input type="text" placeholder=" Confirmation du Password">
+                                <span class="icon_lock"></span>
+                            </div>
+                            <button type="submit" class="site-btn">Register Now</button>
                         </form>
                         <h5>Already have an account? <a href="/login">Log In!</a></h5>
                     </div>

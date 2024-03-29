@@ -47,7 +47,7 @@
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li class="active"><a href="/">Homepage</a></li>
-                                <li><a href="/anime-liste">Anime Liste<span class="arrow_carrot-down"></span></a></li>
+                                <li><a href="/animeListe">Anime Liste<span class="arrow_carrot-down"></span></a></li>
                                 <li><a href="./blog.html">Our Blog</a></li>
                                 <li><a href="#">Contacts</a></li>
                             </ul>
