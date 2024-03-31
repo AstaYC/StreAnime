@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\AnimeController;
 use App\Http\Controllers\User\AnimeDetailController;
@@ -25,3 +26,7 @@ Route::get('/' , [AnimeController::class , 'displayAnime']);
 Route::get('/home' , [AnimeController::class , 'displayAnime']);
 Route::get('/animeListe' , [AnimeController::class , 'displayAnimeListe']);
 Route::get('/animeDetails' , [AnimeDetailController::class , 'displayAnimeDetails']);
+
+
+Route::get('/categorie' , [CategorieController::class , 'displayCategorie']);
+

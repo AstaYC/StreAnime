@@ -12,7 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('anime_films', function (Blueprint $table) {
-            $table->id();
+            $table->id();   
+            $table->string('nom');
+            $table->string('poster');
+            $table->time('duration');
+            $table->string('trailerLink');
+            $table->string('imbdLink');
+            $table->string('media');
+            $table->date('releaseYear');
+            $table->string('description');
+            $table->string('mangaka');
+            $table->string('studio');
+            $table->enum('status' , ['showing' , 'hidding'])->default('showing');
             $table->timestamps();
         });
     }

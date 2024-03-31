@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('animes', function (Blueprint $table) {
-            $table->id();
+            $table->id();   
             $table->string('nom');
-            $table->string('photo');
+            $table->string('poster');
             $table->string('trailerLink');
             $table->string('imbdLink');
             $table->date('releaseYear');
             $table->string('description');
             $table->string('mangaka');
             $table->string('studio');
-            $table->enum('status' , ['showing' , 'archived' , 'pending'])->default('showing');
+            $table->enum('status' , ['showing' , 'hidding'])->default('showing');
             $table->timestamps();
         });
     }
