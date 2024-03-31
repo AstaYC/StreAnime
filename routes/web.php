@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\CategorieController;
+use App\Http\Controllers\Admin\CharacterController;
+use App\Http\Controllers\Admin\SourceController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\AnimeController;
 use App\Http\Controllers\User\AnimeDetailController;
@@ -27,6 +29,25 @@ Route::get('/home' , [AnimeController::class , 'displayAnime']);
 Route::get('/animeListe' , [AnimeController::class , 'displayAnimeListe']);
 Route::get('/animeDetails' , [AnimeDetailController::class , 'displayAnimeDetails']);
 
+//  Categorie Route//
 
 Route::get('/categorie' , [CategorieController::class , 'displayCategorie']);
+Route::post('/categorie/add' , [CategorieController::class , 'addCategorie']);
+Route::post('/categorie/update' , [CategorieController::class , 'updateCategorie']);
+Route::post('/categorie/delete' , [CategorieController::class , 'deleteCategorie']);
 
+
+// Source Route //
+
+Route::get('/source' , [SourceController::class , 'displaySource']);
+Route::post('/source/add' , [SourceController::class , 'addSource']);
+Route::post('/source/update' , [SourceController::class , 'updateSource']);
+Route::post('/source/delete' , [SourceController::class , 'deleteSource']);
+
+
+// Character Route //
+
+Route::get('/character' , [CharacterController::class , 'displayCharacter']);
+Route::post('/character/add' , [CharacterController::class , 'addCharacter']);
+Route::post('/character/update' , [CharacterController::class , 'updateCharacter']);
+Route::post('/character/delete' , [CharacterController::class , 'deleteCharacter']);

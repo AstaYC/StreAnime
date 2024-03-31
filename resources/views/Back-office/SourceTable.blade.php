@@ -75,7 +75,7 @@
      @endif
         <div class="head-title">
             <div class="left">
-                <h1>My Categories</h1>
+                <h1>My Sources</h1>
             </div>
             
         </div>
@@ -87,29 +87,29 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-5">
-                                <h2>Categories <b>Management</b></h2>
+                                <h2>Sources <b>Management</b></h2>
                             </div>
                                 <div class="modal" id="addCategorieModal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <!-- Modal Header -->
                                             <div class="modal-header">
-                                                <h4 class="modal-title text-primary">Add New Categorie</h4>
+                                                <h4 class="modal-title text-primary">Add New Source</h4>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
                                             <!-- Modal Body -->
                                             <div class="modal-body">
                                                 <!-- Add medicine form -->
-                                                <form method="POST" action="/categorie/add">
+                                                <form method="POST" action="/source/add">
                                                     @csrf
                                                     <!-- Input fields for medicine details -->
                                                     <div class="form-group">
-                                                        <label for="CategorieName">Categorie Name:</label>
-                                                        <input type="text" class="form-control" id="CategorieName" placeholder="CategorieName" name="nom" required>
+                                                        <label for="CategorieName">Source Name:</label>
+                                                        <input type="text" class="form-control" id="CategorieName" name="nom" required>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="submit" name="add" class="btn btn-primary">Add Categorie</button>
+                                                        <button type="submit" name="add" class="btn btn-primary">Add Source</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -118,7 +118,7 @@
                                 </div>
                             <div class="col-sm-7">
                                 <!-- <a href="" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New Categories</span></a> -->
-                                <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#addCategorieModal"><i class="material-icons">&#xE147;</i> <span>Add New Categorie</span></a>				
+                                <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#addCategorieModal"><i class="material-icons">&#xE147;</i> <span>Add New Source</span></a>				
                             </div>
                         </div>
                     </div>
@@ -126,20 +126,20 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nom de Categorie</th>											
+                                <th>Nom de Source</th>											
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>	
-                        @foreach($categories as $categorie)
+                        @foreach($sources as $source)
                             <tr>
-                                <td>{{$categorie->id}}</td>
-                                <td>{{$categorie->nom}}</td>
+                                <td>{{$source->id}}</td>
+                                <td>{{$source->nom}}</td>
                                 <td>
-                                        <a href="#" class="settings" title="Settings" data-toggle="modal" data-target="#updateCategoryModal{{$categorie->id}}">
+                                        <a href="#" class="settings" title="Settings" data-toggle="modal" data-target="#updateCategoryModal{{$source->id}}">
                                             <i class="material-icons">&#xE8B8;</i>
                                         </a>
-                                        <a href="#" class="delete" title="Delete" data-toggle="modal" data-target="#deleteCategoryModal{{$categorie->id}}">
+                                        <a href="#" class="delete" title="Delete" data-toggle="modal" data-target="#deleteCategoryModal{{$source->id}}">
                                             <i class="material-icons">&#xE5C9;</i>
                                         </a>
                                 </td>
@@ -152,34 +152,34 @@
         </div>  
     </main>
 
-    @foreach($categories as $categorie)
+    @foreach($sources as $source)
 
        <!-- modal de update -->
-       <div class="modal" id="updateCategoryModal{{$categorie->id}}">
+       <div class="modal" id="updateCategoryModal{{$source->id}}">
     <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Update Categorie</h4>
+                        <h4 class="modal-title">Update source</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <!-- Modal Body -->
                     <div class="modal-body">
                         <!-- Update medicine form -->
-                        <form method="POST" action="/categorie/update">
+                        <form method="POST" action="/source/update">
                             @csrf
 
                             <input type="hidden" name="action" value="update">
-                            <input type="hidden" name="id" value="{{$categorie->id}}">
+                            <input type="hidden" name="id" value="{{$source->id}}">
 
                             <!-- Input fields for updated medicine details -->
                             <div class="form-group">
-                                <label for="updateMedicineName">Categorie Name:</label>
-                                <input type="text" class="form-control" id="updateCategoryName" name="nom" value="{{$categorie->nom}}" required>
+                                <label for="updateMedicineName">sources Name:</label>
+                                <input type="text" class="form-control" id="updateCategoryName" name="nom" value="{{$source->nom}}" required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Update Categorie</button>
+                                <button type="submit" class="btn btn-primary">Update sources</button>
                             </div>
                         </form>
                     </div>
@@ -187,25 +187,25 @@
             </div>
         </div>
   <!-- Delete Medicine Modal -->
-<div class="modal" id="deleteCategoryModal{{$categorie->id}}">										
+<div class="modal" id="deleteCategoryModal{{$source->id}}">										
 <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Categorie</h4>
+                    <h4 class="modal-title">Delete sources</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <!-- Delete medicine form -->
-                    <form method="POST" action="/categorie/delete">
+                    <form method="POST" action="/source/delete">
                     @csrf
                         <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="id" value="{{$categorie->id}}">
-                        <p>Are you sure you want to delete this Categorie "{{$categorie->nom}}"?</p>
+                        <input type="hidden" name="id" value="{{$source->id}}">
+                        <p>Are you sure you want to delete this sources "{{$source->nom}}"?</p>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete Categorie</button>
+                            <button type="submit" class="btn btn-danger">Delete sources</button>
                         </div>
                     </form>
                 </div>

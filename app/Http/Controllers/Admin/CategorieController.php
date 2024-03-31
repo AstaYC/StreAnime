@@ -31,14 +31,15 @@ class CategorieController extends Controller
        
         
         $request->validate([
-            'nom' => 'required',
+            'id' => 'required',
+            'nom' => 'required'
         ]);
 
         $categorie = Categorie::find($request->id);
         $categorie->nom = $request->nom;
         $categorie->update();
 
-        return redirect('/categorie/display')->with('status' , 'La Modification Est Bien Faite !!');
+        return redirect('/categorie')->with('status' , 'La Modification Est Bien Faite !!');
     }
 
     public function deleteCategorie(Request $request){
@@ -48,6 +49,6 @@ class CategorieController extends Controller
         $categorie = Categorie::find($request->id);
        $categorie->delete();
 
-       return redirect('/categorie/display')->with('status' , 'La suppression est bien faite');
+       return redirect('/categorie')->with('status' , 'La suppression est bien faite');
     }
 }

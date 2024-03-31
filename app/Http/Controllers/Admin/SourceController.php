@@ -11,7 +11,7 @@ class SourceController extends Controller
 {
     public function displaySource(){
         $sources = Source::all();
-        return view('Admin.SourceTable' , compact('sources'));
+        return view('Back-office.SourceTable' , compact('sources'));
     }
 
     public function addSource(Request $request){
