@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('role_routes', function (Blueprint $table) {
-            $table->id();
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('route_id');
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade')->onUpdate('cascade');

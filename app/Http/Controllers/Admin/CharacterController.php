@@ -5,18 +5,20 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Anime;
+use App\Models\Anime_film;
+use App\Models\Anime_film_character;
 use App\Models\Character;
 
 class CharacterController extends Controller
 {
     public function displayCharacter (){
-        $characters = Character::select('characters.*', 'animes.nom as anime_nom', 'anime_films.nom as anime_films_nom')
+        $characters = Character::select('characters.*', 'animes.nom as anime_nom')
                       ->join('animes', 'characters.anime_id', '=', 'animes.id')
-                      ->join('anime_films', 'characters.animeFilm_id', '=', 'anime_films.id')
                       ->get();
-                      
+        $characterWithFilms = Character::with('anime_films')->get();
         $animes = Anime::all();
-        return view('Back-office.CharacterTable' , compact('characters'));
+        $animeFilms = Anime_film::all();
+        return view('Back-office.CharacterTable' , compact('characters' , 'animes' , 'animeFilms'));
     }
 
     public function addCharacter(Request $request){
@@ -37,8 +39,25 @@ class CharacterController extends Controller
        $character->glance = $request->glance;
        $character->image = $data['images'];
        $character->anime_id = $request->anime_id;
-       $character->animeFilm_id  = $request->animeFilm_id ;
        $character->save();
+
+       $films = [];
+       if(is_array($request->input('films_id'))) {
+        foreach($request->input('films_id') as $films_id) {
+            $films[] = $films_id;
+        }
+       }
+    //    $lastCharacter = Character::latest('id')->first();
+       $lastCharacter = $character->id;
+
+       if (count($films) > 0){
+        foreach($films as $film) {
+            $film_character = new Anime_film_character();
+            $film_character->anime_film_id = $film ;
+            $film_character->character_id = $lastCharacter ;
+            $film_character->save();
+        }
+       }
 
        return redirect('/character')->with('status' , 'Ajoutage Bien Faite !!');
     }
@@ -47,8 +66,8 @@ class CharacterController extends Controller
        
         
         $request->validate([
-            'id' => 'required',
-            'nom' => 'required'
+            'nom' => 'required',
+            'glance' => 'required',
         ]);
 
         if ($request->hasFile('images')) {
@@ -60,10 +79,36 @@ class CharacterController extends Controller
         $character = Character::find($request->id);
         $character->nom = $request->nom;
         $character->glance = $request->glance;
-        $character->image = $data['images'];
+        if($request->hasFile('images')){
+            $character->image = $data['images'];
+        }
         $character->anime_id = $request->anime_id;
-        $character->animeFilm_id  = $request->animeFilm_id ;
         $character->update();
+
+        $film_characters = Anime_film_character::where('character_id', $request->id)->get();
+        foreach($film_characters as $film_character){
+            $film_character->delete();
+        }
+
+        $films = [];
+        if(is_array($request->input('films_id'))) {
+        foreach($request->input('films_id') as $films_id) {
+            $films[] = $films_id;
+        }
+       }
+    //    $lastCharacter = Character::latest('id')->first();
+        // $lastCharacter = $character->id;
+
+
+       if (count($films) > 0){
+        foreach($films as $film) {
+            $film_character = new Anime_film_character();
+            $film_character->anime_film_id = $film ;
+            $film_character->character_id = $request->id;
+            $film_character->save();
+        }
+       }
+
 
         return redirect('/character')->with('status' , 'La Modification Est Bien Faite !!');
     }
@@ -73,7 +118,7 @@ class CharacterController extends Controller
             'id' => 'required',
         ]);
         $character = Character::find($request->id);
-       $character->delete();
+        $character->delete();
 
        return redirect('/character')->with('status' , 'La suppression est bien faite');
     }

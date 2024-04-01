@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('animes', function (Blueprint $table) {
             $table->id();   
-            $table->string('nom');
+            $table->string('titre');
             $table->string('poster');
             $table->string('trailerLink');
             $table->string('imbdLink');

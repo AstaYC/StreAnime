@@ -104,8 +104,30 @@
                                                     @csrf
                                                     <!-- Input fields for medicine details -->
                                                     <div class="form-group">
-                                                        <label for="CategorieName">character Name:</label>
+                                                        <label for="CategorieName">Character Name:</label>
                                                         <input type="text" class="form-control" id="CategorieName" name="nom" required>
+                                                        
+                                                        <label for="CategorieName">Character glance:</label>
+                                                        <input type="text" class="form-control" id="CategorieName" name="glance" required>
+                                                        
+                                                        <label for="CategorieName">Character image:</label>
+                                                        <input type="file" class="form-control" id="CategorieName" name="images" >
+                                                      
+                                                        <label for="CategorieName">In Anime ?</label>
+                                                        <select class="form-control" id="CategorieName" name="anime_id" >
+                                                            <option value="">Choose an anime</option>  
+                                                            @foreach ($animes as $anime)
+                                                            <option value="{{$anime->id}}">{{$anime->nom}}</option>  
+                                                            @endforeach
+                                                        </select>
+                                                        <br>
+                                                        <label for="films_id">In Film(s) ?</label>
+                                                        <select name="films_id[]" id="films_id" multiple>
+                                                            @foreach ($animeFilms as $animeFilm)
+                                                            <option value="{{$animeFilm->id}}">{{$animeFilm->nom}}</option>  
+                                                            @endforeach
+                                                        </select>
+                                                    
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -127,6 +149,9 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nom de character</th>											
+                                <th>Glance</th>											
+                                <th>Anime Associé</th>											
+                                <th>Film(s) Associé</th>											
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -135,6 +160,9 @@
                             <tr>
                                 <td>{{$character->id}}</td>
                                 <td>{{$character->nom}}</td>
+                                <td>{{$character->glance}}</td>
+                                <td>{{$character->anime_nom}}</td>
+                                <td>@foreach($characterWithFilms->find($character->id)->anime_films as $film){{$film->titre}} & </td>
                                 <td>
                                         <a href="#" class="settings" title="Settings" data-toggle="modal" data-target="#updateCategoryModal{{$character->id}}">
                                             <i class="material-icons">&#xE8B8;</i>
@@ -155,8 +183,8 @@
     @foreach($characters as $character)
 
        <!-- modal de update -->
-       <div class="modal" id="updateCategoryModal{{$character->id}}">
-    <div class="modal-dialog">
+    <div class="modal" id="updateCategoryModal{{$character->id}}">
+        <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
@@ -174,8 +202,29 @@
 
                             <!-- Input fields for updated medicine details -->
                             <div class="form-group">
-                                <label for="updateMedicineName">characters Name:</label>
-                                <input type="text" class="form-control" id="updateCategoryName" name="nom" value="{{$character->nom}}" required>
+                                <label for="CategorieName">Character Name:</label>
+                                <input type="text" class="form-control" id="CategorieName" name="nom" value="{{$character->nom}} required>
+                                
+                                <label for="CategorieName">Character glance:</label>
+                                <input type="text" class="form-control" id="CategorieName" name="glance" value="{{$character->glance}} required>
+                                
+                                <label for="CategorieName">Character image:</label>
+                                <input type="file" class="form-control" id="CategorieName" name="images" >
+                              
+                                <label for="CategorieName">In Anime ?</label>
+                                <select class="form-control" id="CategorieName" name="anime_id" >
+                                    <option value="">Choose an anime</option>  
+                                    @foreach ($animes as $anime)
+                                    <option value="{{$anime->id}}">{{$anime->nom}}</option>  
+                                    @endforeach
+                                </select>
+                                <br>
+                                <label for="films_id">In Film(s) ?</label>
+                                <select name="films_id[]" id="films_id" multiple>
+                                    @foreach ($animeFilms as $animeFilm)
+                                    <option value="{{$animeFilm->id}}">{{$animeFilm->nom}}</option>  
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -205,7 +254,7 @@
                         <p>Are you sure you want to delete this characters "{{$character->nom}}"?</p>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete characters</button>
+                            <button type="submit" class="btn btn-danger">Delete character</button>
                         </div>
                     </form>
                 </div>
@@ -213,4 +262,20 @@
         </div>
     </div>
 @endforeach
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
+<script>
+new MultiSelectTag('films_id', {
+    rounded: true,    // default true
+    shadow: true,      // default false
+    placeholder: 'Search',  // default Search...
+    tagColor: {
+        textColor: 'black',
+        borderColor: 'black',
+        bgColor: 'white',
+    },
+    onChange: function(values) {
+        console.log(values)
+    }
+})
+</script>
 @endsection

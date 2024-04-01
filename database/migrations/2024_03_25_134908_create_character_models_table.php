@@ -16,9 +16,7 @@ return new class extends Migration
             $table->string('nom');
             $table->string('glance');
             $table->unsignedBigInteger('anime_id');
-            $table->unsignedBigInteger('animeFilm_id');
             $table->foreign('anime_id')->references('id')->on('animes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('animeFilm_id')->references('id')->on('anime_films')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

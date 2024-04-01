@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/css/multi-select-tag.css">
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<!-- My CSS -->
@@ -17,7 +18,6 @@
     <link rel="stylesheet" href="{{asset('asset/css/dashboard.css')}}">
 
 	<title>StreAnime</title>
-
 </head>
 <style>
 
@@ -51,6 +51,7 @@
     @yield('content')
 
 </section>
+
 
 </body>
 </html>
