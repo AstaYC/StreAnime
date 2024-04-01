@@ -18,7 +18,7 @@ class CharacterController extends Controller
         $characterWithFilms = Character::with('anime_films')->get();
         $animes = Anime::all();
         $animeFilms = Anime_film::all();
-        return view('Back-office.CharacterTable' , compact('characters' , 'animes' , 'animeFilms'));
+        return view('Back-office.Admin.CharacterTable' , compact('characters' , 'animes' , 'animeFilms'));
     }
 
     public function addCharacter(Request $request){

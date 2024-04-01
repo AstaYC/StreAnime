@@ -11,7 +11,7 @@ class CategorieController extends Controller
 {
     public function displayCategorie (){
         $categories = Categorie::all();
-        return view('Back-office.CategorieTable' , compact('categories'));
+        return view('Back-office.Admin.CategorieTable' , compact('categories'));
     }
 
     public function addCategorie(Request $request){

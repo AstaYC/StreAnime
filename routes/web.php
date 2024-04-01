@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\Admin\CharacterController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SourceController;
+use App\Http\Controllers\Admin\userController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\AnimeController;
 use App\Http\Controllers\User\AnimeDetailController;
@@ -51,3 +53,17 @@ Route::get('/character' , [CharacterController::class , 'displayCharacter']);
 Route::post('/character/add' , [CharacterController::class , 'addCharacter']);
 Route::post('/character/update' , [CharacterController::class , 'updateCharacter']);
 Route::post('/character/delete' , [CharacterController::class , 'deleteCharacter']);
+
+
+// Role Route //
+
+Route::get('/role' , [RoleController::class , 'displayRole']);
+Route::post('/role/add' , [RoleController::class , 'addRole']);
+Route::post('/role/update' , [RoleController::class , 'updateRole']);
+Route::post('/role/delete' , [RoleController::class , 'deleteRole']);
+
+// User Route //
+
+Route::post('/user' , [userController::class , 'displayUser']);
+Route::post('/user/delete' , [userController::class , 'deleteUser']);
+

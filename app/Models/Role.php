@@ -12,4 +12,9 @@ class Role extends Model
     protected $fillable = [
         'nom',
     ];
+
+    public function routes()
+    {
+        return $this->belongsToMany(Route::class);
+    }
 }

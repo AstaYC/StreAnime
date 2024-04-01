@@ -13,7 +13,7 @@ class RoleController extends Controller
       public function displayRole(){
         $rolesWithRoutes = Role::with('routes')->get();
         $routes = Route::all();
-        return view('Admin.RoleTable',compact('rolesWithRoutes','routes'));
+        return view('Back-office.SuperAdmin.RoleTable',compact('rolesWithRoutes','routes'));
       }
 
       public function addRole(Request $request){
