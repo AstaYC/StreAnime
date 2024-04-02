@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('media_id');
-            $table->enum('type', ['anime', 'anime-Film']);
-            $table->foreign('media_id')->references('id')->on('animes')->onDelete('cascade')->onUpdate('cascade')->name('sliders_animes_fk');
-            $table->foreign('media_id')->references('id')->on('anime_films')->onDelete('cascade')->onUpdate('cascade')->name('sliders_animeFilms_fk');
+            $table->enum('type', ['anime', 'animeFilm']);
+            $table->foreign('media_id')->references('id')->on('animes')->onDelete('cascade')->onUpdate('cascade')->name('slider-anime');
+            $table->foreign('media_id')->references('id')->on('anime_films')->onDelete('cascade')->onUpdate('cascade')->name('slider-film');
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\Admin\CharacterController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SourceController;
 use App\Http\Controllers\Admin\userController;
 use App\Http\Controllers\Auth\AuthController;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/login' , [AuthController::class , 'displayLogin']);
 Route::get('/register' , [AuthController::class , 'displayRegister']);
 
@@ -64,6 +66,12 @@ Route::post('/role/delete' , [RoleController::class , 'deleteRole']);
 
 // User Route //
 
-Route::post('/user' , [userController::class , 'displayUser']);
+Route::get('/user' , [userController::class , 'displayUser']);
 Route::post('/user/delete' , [userController::class , 'deleteUser']);
 
+
+// Slider Route //
+
+Route::get('/slider' , [SliderController::class , 'displaySlider']);
+
+    

@@ -12,7 +12,7 @@ use App\Models\Character;
 class CharacterController extends Controller
 {
     public function displayCharacter (){
-        $characters = Character::select('characters.*', 'animes.nom as anime_nom')
+        $characters = Character::select('characters.*', 'animes.titre')
                       ->join('animes', 'characters.anime_id', '=', 'animes.id')
                       ->get();
         $characterWithFilms = Character::with('anime_films')->get();

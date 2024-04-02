@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class RoleController extends Controller
 {
       public function displayRole(){
-        $rolesWithRoutes = Role::with('routes')->get();
+        $rolesWithRoutes = Role::with('routes')->where('nom' , '!=' , 'superadmin')->get();
         $routes = Route::all();
         return view('Back-office.SuperAdmin.RoleTable',compact('rolesWithRoutes','routes'));
       }

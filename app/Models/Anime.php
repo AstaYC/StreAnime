@@ -19,4 +19,9 @@ class Anime extends Model
         'studio',
         'status',
     ];
+    
+    public function categories()
+    {
+        return $this->belongsToMany(Categorie::class);
+    }
 }
