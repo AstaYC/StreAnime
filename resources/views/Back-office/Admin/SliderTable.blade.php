@@ -77,9 +77,7 @@
             <div class="left">
                 <h1>My Sliders</h1>
             </div>
-            
         </div>
-
 
         <div class="container-xl">
             <div class="table-responsive">
@@ -105,7 +103,7 @@
                                                     <!-- Input fields for medicine details -->
                                                     <div class="form-group">
                                                         <label for="CategorieName">Choose The Anime Or Anime-Film</label>
-                                                        <select  class="form-control select_search" id="CategorieName" name="media_id" data-live-search="true" required>
+                                                        <select  class="form-control select" id="CategorieName" name="media_id" data-live-search="true" required>
 
                                                              <optgroup label="Animes">
                                                                 {{-- @foreach($otakus as $otaku)
@@ -238,36 +236,22 @@
     </div>
     
 @endforeach
-<select  class="form-control select_search" id="CategorieName" name="media_id" data-live-search="true" required>
 
-    <optgroup label="Animes" disabled>
-       {{-- @foreach($otakus as $otaku)
-       <option value="{{$otaku->anime_id}}">{{$otaku->anime_titre}}</option>
-       @endforeach --}}
-       <option >one piece </option>
-       <option >naruto </option>
-       <option >bleach </option>
+@endsection 
 
+@section('styles')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+@endsection
 
-     </optgroup>
-     <optgroup label="Anime-Films">
-       {{-- @foreach($otakus as $otaku)
-       <option value="{{$otaku->film_id}}">{{$otaku->film_titre}}</option>
-       @endforeach --}}
-       <option >one piece film </option>
-       <option >naruto film</option>
-       <option >bleach film</option>
-     </optgroup>
+@section('scripts')
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  <script src="/build/bootstrap-select.min.js"></script>
 
-</select>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-<script>
+    <script>
     $(document).ready(function(){
-        $('.select_search').selectpicker();
+        $('.select').selectpicker();
     })
-  </script>
+    </script>
 @endsection
