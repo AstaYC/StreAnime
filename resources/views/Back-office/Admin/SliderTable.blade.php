@@ -106,21 +106,15 @@
                                                         <select  class="form-control select" id="CategorieName" name="media_id" data-live-search="true" required>
 
                                                              <optgroup label="Animes">
-                                                                {{-- @foreach($otakus as $otaku)
-                                                                <option value="{{$otaku->anime_id}}">{{$otaku->anime_titre}}</option>
-                                                                @endforeach --}}
-                                                                <option >one piece </option>
-                                                                <option >naruto </option>
-                                                                <option >bleach </option>
+                                                                @foreach($animes as $anime)
+                                                                <option value="{{$anime->anime_id}}">{{$anime->anime_titre}}</option>
+                                                                @endforeach
                                                               </optgroup>
                                                               <optgroup label="Anime-Films">
-                                                                {{-- @foreach($otakus as $otaku)
-                                                                <option value="{{$otaku->film_id}}">{{$otaku->film_titre}}</option>
-                                                                @endforeach --}}
-                                                                <option >one piece film </option>
-                                                                <option >naruto film</option>
-                                                                <option >bleach film</option>
-                                                              </optgroup>
+                                                                @foreach($films as $film)
+                                                                <option value="{{$film->film_id}}">{{$film->film_titre}}</option>
+                                                                @endforeach
+                                                              </optgroup>   
     
                                                         </select>
                                                         <label for="CategorieName">Type de Media:</label>
@@ -196,12 +190,30 @@
 
                             <!-- Input fields for updated medicine details -->
                             <div class="form-group">
-                                <label for="updateMedicineName">sliders Name:</label>
-                                <input type="text" class="form-control" id="updateCategoryName" name="nom" value="{{$slider->nom}}" required>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Update sliders</button>
+                                <label for="CategorieName">Choose The Anime Or Anime-Film</label>
+                                <select  class="form-control select" id="CategorieName" name="media_id" data-live-search="true" required>
+
+                                   <optgroup label="Animes">
+                                      @foreach($animes as $anime)
+                                      <option value="{{$anime->anime_id}}">{{$anime->anime_titre}}</option>
+                                      @endforeach
+                                    </optgroup>
+                                    <optgroup label="Anime-Films">
+                                      @foreach($films as $film)
+                                      <option value="{{$film->film_id}}">{{$film->film_titre}}</option>
+                                      @endforeach
+                                    </optgroup>   
+    
+                                </select>
+                                    <label for="CategorieName">Type de Media:</label>
+                                    <select  class="form-control" id="CategorieName" name="type" required>
+                                        <option value="anime">Anime !</option>
+                                   <option value="animeFilm">Anime Film !</option>
+                                </select>
+                             </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Update sliders</button>
                             </div>
                         </form>
                     </div>
@@ -240,18 +252,19 @@
 @endsection 
 
 @section('styles')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 @endsection
 
 @section('scripts')
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-  <script src="/build/bootstrap-select.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 
-    <script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+<script>
     $(document).ready(function(){
         $('.select').selectpicker();
     })
-    </script>
+</script>  
 @endsection

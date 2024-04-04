@@ -28,7 +28,7 @@ class SliderController extends Controller
 
     $otakus = $animes->merge($films);
     
-    return view('Back-office.Admin.SliderTable' , compact('sliders' , 'otakus'));
+    return view('Back-office.Admin.SliderTable' , compact('sliders' , 'otakus' ,'animes' , 'films'));
   }
 
   public function addSlider (Request $request){
@@ -57,7 +57,6 @@ class SliderController extends Controller
     $slider->update();
 
     return redirect('/slider')->with('status' , 'La Modidication est  Bien Faite !!');
-
 
   }
 

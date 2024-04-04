@@ -76,7 +76,7 @@
      @endif
         <div class="head-title">
             <div class="left">
-                <h1>My Character</h1>
+                <h1>My Seasons</h1>
             </div>
             
         </div>
@@ -87,51 +87,53 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-5">
-                                <h2>Character <b>Management</b></h2>
+                                <h2>Seasons <b>Management</b></h2>
                             </div>
                                 <div class="modal" id="addCategorieModal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <!-- Modal Header -->
                                             <div class="modal-header">
-                                                <h4 class="modal-title text-primary">Add New character</h4>
+                                                <h4 class="modal-title text-primary">Add New Season</h4>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
                                             <!-- Modal Body -->
                                             <div class="modal-body">
                                                 <!-- Add medicine form -->
-                                                <form method="POST" action="/character/add">
+                                                <form method="POST" action="/season/add">
                                                     @csrf
                                                     <!-- Input fields for medicine details -->
-                                                    <div class="form-group">
-                                                        <label for="CategorieName">Character Name:</label>
-                                                        <input type="text" class="form-control" id="CategorieName" name="nom" required>
+                                                   <div class="form-group">
+                                                        <label for="CategorieName">Season Poster:</label>
+                                                        <input type="file" class="form-control" id="CategorieName" name="posterLink" required>
                                                         
-                                                        <label for="CategorieName">Character glance:</label>
-                                                        <input type="text" class="form-control" id="CategorieName" name="glance" required>
+                                                        <label for="CategorieName">Season Titre:</label>
+                                                        <input type="text" class="form-control" id="CategorieName" name="titre" required>
                                                         
-                                                        <label for="CategorieName">Character image:</label>
-                                                        <input type="file" class="form-control" id="CategorieName" name="images" >
+                                                        <label for="CategorieName">Season Description:</label>
+                                                        <input type="text" class="form-control" id="CategorieName" name="description" >
+                                                        
+                                                        <label for="CategorieName">Release Year:</label>
+                                                        <input type="date" class="form-control" id="CategorieName" name="releaseYear" >
+                                                        
+                                                        <label for="CategorieName">Season trailler:</label>
+                                                        <input type="text" class="form-control" id="CategorieName" name="traillerLink" >
+                                                        
+                                                        <label for="CategorieName">Season Ranking:</label>
+                                                        <input type="number" class="form-control" id="CategorieName" name="seasonNumber" >
                                                       
-                                                        <label for="CategorieName">In Anime ?</label>
-                                                        <select class="form-control" id="CategorieName" name="anime_id" >
+                                                        <label for="CategorieName">Anime Associate:</label>
+                                                        <select class="form-control search" id="CategorieName" name="anime_id" data-live-search="true">
                                                             <option value="">Choose an anime</option>  
                                                             @foreach ($animes as $anime)
                                                             <option value="{{$anime->id}}">{{$anime->titre}}</option>  
                                                             @endforeach
                                                         </select>
                                                         <br>
-                                                        <label for="films_id">In Film(s) ?</label>
-                                                        <select name="films_id[]" id="films_id" multiple>
-                                                            @foreach ($animeFilms as $animeFilm)
-                                                            <option value="{{$animeFilm->id}}">{{$animeFilm->titre}}</option>  
-                                                            @endforeach
-                                                        </select>
-                                                    
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="submit" name="add" class="btn btn-primary">Add character</button>
+                                                        <button type="submit" name="add" class="btn btn-primary">Add Season</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -140,7 +142,7 @@
                                 </div>
                             <div class="col-sm-7">
                                 <!-- <a href="" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New Categories</span></a> -->
-                                <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#addCategorieModal"><i class="material-icons">&#xE147;</i> <span>Add New character</span></a>				
+                                <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#addCategorieModal"><i class="material-icons">&#xE147;</i> <span>Add New Season</span></a>				
                             </div>
                         </div>
                     </div>
@@ -148,7 +150,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nom de character</th>											
+                                <th>Nom de season</th>											
                                 <th>Glance</th>											
                                 <th>Anime Associé</th>											
                                 <th>Film(s) Associé</th>											
@@ -156,18 +158,18 @@
                             </tr>
                         </thead>
                         <tbody>	
-                        @foreach($characters as $character)
+                        @foreach($seasons as $season)
                             <tr>
-                                <td>{{$character->id}}</td>
-                                <td>{{$character->nom}}</td>
-                                <td>{{$character->glance}}</td>
-                                <td>{{$character->titre}}</td>
-                                <td>@foreach($characterWithFilms->find($character->id)->anime_films as $film){{$film->titre}} & @endforeach</td>
+                                <td>{{$season->id}}</td>
+                                <td>{{$season->nom}}</td>
+                                <td>{{$season->glance}}</td>
+                                <td>{{$season->titre}}</td>
+                                <td>@foreach($seasonWithFilms->find($season->id)->anime_films as $film){{$film->titre}} & @endforeach</td>
                                 <td>
-                                        <a href="#" class="settings" title="Settings" data-toggle="modal" data-target="#updateCategoryModal{{$character->id}}">
+                                        <a href="#" class="settings" title="Settings" data-toggle="modal" data-target="#updateCategoryModal{{$season->id}}">
                                             <i class="material-icons">&#xE8B8;</i>
                                         </a>
-                                        <a href="#" class="delete" title="Delete" data-toggle="modal" data-target="#deleteCategoryModal{{$character->id}}">
+                                        <a href="#" class="delete" title="Delete" data-toggle="modal" data-target="#deleteCategoryModal{{$season->id}}">
                                             <i class="material-icons">&#xE5C9;</i>
                                         </a>
                                 </td>
@@ -180,55 +182,59 @@
         </div>  
     </main>
 
-    @foreach($characters as $character)
+    @foreach($seasons as $season)
 
        <!-- modal de update -->
-    <div class="modal" id="updateCategoryModal{{$character->id}}">
+    <div class="modal" id="updateCategoryModal{{$season->id}}">
         <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Update character</h4>
+                        <h4 class="modal-title">Update season</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <!-- Modal Body -->
                     <div class="modal-body">
                         <!-- Update medicine form -->
-                        <form method="POST" action="/character/update">
+                        <form method="POST" action="/season/update">
                             @csrf
 
                             <input type="hidden" name="action" value="update">
-                            <input type="hidden" name="id" value="{{$character->id}}">
+                            <input type="hidden" name="id" value="{{$season->id}}">
 
                             <!-- Input fields for updated medicine details -->
                             <div class="form-group">
-                                <label for="CategorieName">Character Name:</label>
-                                <input type="text" class="form-control" id="CategorieName" name="nom" value="{{$character->nom}} required>
                                 
-                                <label for="CategorieName">Character glance:</label>
-                                <input type="text" class="form-control" id="CategorieName" name="glance" value="{{$character->glance}} required>
+                                <label for="CategorieName">Season Poster:</label>
+                                <input type="file" class="form-control" id="CategorieName" name="posterLink"  required>
                                 
-                                <label for="CategorieName">Character image:</label>
-                                <input type="file" class="form-control" id="CategorieName" name="images" >
+                                <label for="CategorieName">Season Titre:</label>
+                                <input type="text" class="form-control" id="CategorieName" name="titre" required>
+                                
+                                <label for="CategorieName">Season Description:</label>
+                                <input type="text" class="form-control" id="CategorieName" name="description" >
+                                
+                                <label for="CategorieName">Release Year:</label>
+                                <input type="date" class="form-control" id="CategorieName" name="releaseYear" >
+                                
+                                <label for="CategorieName">Season trailler:</label>
+                                <input type="text" class="form-control" id="CategorieName" name="traillerLink" >
+                                
+                                <label for="CategorieName">Season Ranking:</label>
+                                <input type="number" class="form-control" id="CategorieName" name="seasonNumber" >
                               
-                                <label for="CategorieName">In Anime ?</label>
-                                <select class="form-control" id="CategorieName" name="anime_id" >
+                                <label for="CategorieName">Anime Associate:</label>
+                                <select class="form-control search" id="CategorieName" name="anime_id" data-live-search="true">
                                     <option value="">Choose an anime</option>  
                                     @foreach ($animes as $anime)
-                                    <option value="{{$anime->id}}">{{$anime->nom}}</option>  
+                                    <option value="{{$anime->id}}">{{$anime->titre}}</option>  
                                     @endforeach
                                 </select>
                                 <br>
-                                <label for="films_id">In Film(s) ?</label>
-                                <select name="films_id[]" id="films_id" multiple>
-                                    @foreach ($animeFilms as $animeFilm)
-                                    <option value="{{$animeFilm->id}}">{{$animeFilm->nom}}</option>  
-                                    @endforeach
-                                </select>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Update characters</button>
+                                <button type="submit" class="btn btn-primary">Update seasons</button>
                             </div>
                         </form>
                     </div>
@@ -236,25 +242,25 @@
             </div>
         </div>
   <!-- Delete Medicine Modal -->
-<div class="modal" id="deleteCategoryModal{{$character->id}}">										
+<div class="modal" id="deleteCategoryModal{{$season->id}}">										
 <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete characters</h4>
+                    <h4 class="modal-title">Delete seasons</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <!-- Delete medicine form -->
-                    <form method="POST" action="/character/delete">
+                    <form method="POST" action="/season/delete">
                     @csrf
                         <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="id" value="{{$character->id}}">
-                        <p>Are you sure you want to delete this characters "{{$character->nom}}"?</p>
+                        <input type="hidden" name="id" value="{{$season->id}}">
+                        <p>Are you sure you want to delete this seasons "{{$season->nom}}"?</p>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete character</button>
+                            <button type="submit" class="btn btn-danger">Delete season</button>
                         </div>
                     </form>
                 </div>
@@ -264,28 +270,25 @@
 
 @endforeach
 
-@endsection('content')
-
 @section('styles')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/css/multi-select-tag.css">
-    @endsection('styles')
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+@endsection('styles')
 
 @section('scripts')
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
 <script>
-new MultiSelectTag('films_id', {
-    rounded: true,    // default true
-    shadow: true,      // default false
-    placeholder: 'Search',  // default Search...
-    tagColor: {
-        textColor: 'black',
-        borderColor: 'black',
-        bgColor: 'white',
-    },
-    onChange: function(values) {
-        console.log(values)
-    }
-})
-</script>
+    $(document).ready(function(){
+        $('.search').selectpicker();
+    })
+</script>  
+
 @endsection('scripts')
+
+@endsection('content')

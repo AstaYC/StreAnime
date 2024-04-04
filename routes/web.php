@@ -3,9 +3,10 @@
 use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\Admin\CharacterController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SeasonController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SourceController;
-use App\Http\Controllers\Admin\userController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\AnimeController;
 use App\Http\Controllers\User\AnimeDetailController;
@@ -73,5 +74,16 @@ Route::post('/user/delete' , [userController::class , 'deleteUser']);
 // Slider Route //
 
 Route::get('/slider' , [SliderController::class , 'displaySlider']);
+Route::post('/slider/add' , [SliderController::class , 'addSlider']);
+Route::post('/slider/update' , [SliderController::class , 'updateSlider']);
+Route::post('/slider/delete' , [SliderController::class , 'deleteSlider']);
 
-    
+// Season Route //
+
+Route::get('/season' , [SeasonController::class , 'displaySeason']);
+Route::post('/season/add' , [SeasonController::class , 'addSeason']);
+Route::post('/season/update' , [SeasonController::class , 'updateSeason']);
+Route::post('/season/delete' , [SeasonController::class , 'deleteSeason']);
+
+
+// Anime Route 
