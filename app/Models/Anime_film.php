@@ -21,6 +21,7 @@ class Anime_film extends Model
         'mangaka',
         'studio',
         'status',
+        'anime_id'
    ];
 
 

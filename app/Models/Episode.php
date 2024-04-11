@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Season extends Model
+class Episode extends Model
 {
     use HasFactory;
     protected $fillable = [
         'titre',
-        'description',
+        'episodeNumber',
         'releaseYear',
         'posterLink',
-        'traillerLink',
         'imbdLink',
-        'seasonNumber',
-        'anime_id',
+        'mediaLink',
+        'duration',
+        'episodeNumber',
+        'season_id',
     ];
 }

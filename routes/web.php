@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AnimeFilmController;
 use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\Admin\CharacterController;
 use App\Http\Controllers\Admin\RoleController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Admin\SourceController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\AnimeController;
+use App\Http\Controllers\Admin\AnimeController as AdminAnimeController;
 use App\Http\Controllers\User\AnimeDetailController;
 use Illuminate\Support\Facades\Route;
 
@@ -86,4 +88,16 @@ Route::post('/season/update' , [SeasonController::class , 'updateSeason']);
 Route::post('/season/delete' , [SeasonController::class , 'deleteSeason']);
 
 
-// Anime Route 
+// Anime Route //
+
+Route::get('/anime' , [AdminAnimeController::class , 'displayAnime']);
+Route::post('/anime/add' , [AdminAnimeController::class , 'addAnime']);
+Route::post('/anime/update' , [AdminAnimeController::class , 'updateAnime']);
+Route::post('/anime/delete' , [AdminAnimeController::class , 'deleteAnime']);
+
+// Anime Film //
+
+Route::get('/animeFilm' , [AnimeFilmController::class , 'displayAnimeFilm']);
+Route::post('/animeFilm/add' , [AnimeFilmController::class , 'addAnimeFilm']);
+Route::post('/animeFilm/update' , [AnimeFilmController::class , 'updateAnimeFilm']);
+Route::post('/animeFilm/delete' , [AnimeFilmController::class , 'deleteAnimeFilm']);

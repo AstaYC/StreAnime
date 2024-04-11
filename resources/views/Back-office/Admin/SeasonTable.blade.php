@@ -81,7 +81,7 @@
             
         </div>
 
-        <div class="container-xl">
+        <div class="container-xxxl">
             <div class="table-responsive">
                 <div class="table-wrapper">
                     <div class="table-title">
@@ -105,7 +105,7 @@
                                                     <!-- Input fields for medicine details -->
                                                    <div class="form-group">
                                                         <label for="CategorieName">Season Poster:</label>
-                                                        <input type="file" class="form-control" id="CategorieName" name="posterLink" required>
+                                                        <input type="file" class="form-control" id="CategorieName" name="posterLink" >
                                                         
                                                         <label for="CategorieName">Season Titre:</label>
                                                         <input type="text" class="form-control" id="CategorieName" name="titre" required>
@@ -118,6 +118,9 @@
                                                         
                                                         <label for="CategorieName">Season trailler:</label>
                                                         <input type="text" class="form-control" id="CategorieName" name="traillerLink" >
+
+                                                        <label for="CategorieName">Imdb Season Rating:</label>
+                                                        <input type="text" class="form-control" id="CategorieName" name="imbdLink" >
                                                         
                                                         <label for="CategorieName">Season Ranking:</label>
                                                         <input type="number" class="form-control" id="CategorieName" name="seasonNumber" >
@@ -149,22 +152,29 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Nom de season</th>											
-                                <th>Glance</th>											
-                                <th>Anime Associé</th>											
-                                <th>Film(s) Associé</th>											
+                                <th>Poster</th>
+                                <th>TiTre de season</th>											
+                                <th>Description</th>											
+                                <th>Release Year</th>											
+                                <th>Trailler</th>											
+                                <th>Imbd Link</th>											
+                                <th>Season Ranking</th>											
+                                <th>Anime Ranking</th>											
+                                <th>Anime Associate</th>											
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>	
                         @foreach($seasons as $season)
                             <tr>
-                                <td>{{$season->id}}</td>
-                                <td>{{$season->nom}}</td>
-                                <td>{{$season->glance}}</td>
-                                <td>{{$season->titre}}</td>
-                                <td>@foreach($seasonWithFilms->find($season->id)->anime_films as $film){{$film->titre}} & @endforeach</td>
+                                <td>{{$season->poster}}</td>
+                                <td>{{$season->Titre}}</td>
+                                <td>{{$season->description}}</td>
+                                <td>{{$season->releaseYear}}</td>
+                                <td>{{$season->traillerLink}}</td>
+                                <td>{{$season->imbdLink}}</td>
+                                <td>{{$season->seasonNumber}}</td>
+                                <td>{{$season->animeTitre}}</td>
                                 <td>
                                         <a href="#" class="settings" title="Settings" data-toggle="modal" data-target="#updateCategoryModal{{$season->id}}">
                                             <i class="material-icons">&#xE8B8;</i>
@@ -219,6 +229,9 @@
                                 
                                 <label for="CategorieName">Season trailler:</label>
                                 <input type="text" class="form-control" id="CategorieName" name="traillerLink" >
+
+                                <label for="CategorieName">Imdb Season Rating:</label>
+                                <input type="text" class="form-control" id="CategorieName" name="imbdLink" >
                                 
                                 <label for="CategorieName">Season Ranking:</label>
                                 <input type="number" class="form-control" id="CategorieName" name="seasonNumber" >
@@ -282,7 +295,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-
 <script>
     $(document).ready(function(){
         $('.search').selectpicker();

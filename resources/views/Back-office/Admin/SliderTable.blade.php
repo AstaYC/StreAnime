@@ -79,7 +79,7 @@
             </div>
         </div>
 
-        <div class="container-xl">
+        <div class="container-xxxl">
             <div class="table-responsive">
                 <div class="table-wrapper">
                     <div class="table-title">

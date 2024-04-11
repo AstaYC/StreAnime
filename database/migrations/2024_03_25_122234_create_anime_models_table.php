@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('description');
             $table->string('mangaka');
             $table->string('studio');
+            $table->unsignedBigInteger('source_id');
+            $table->foreign('source_id')->references('id')->on('sources')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('status' , ['showing' , 'hidding'])->default('showing');
             $table->timestamps();
         });

@@ -17,8 +17,14 @@ class Anime extends Model
         'description',
         'mangaka',
         'studio',
+        'source',
         'status',
     ];
+
+    public function animeFilms()
+    {
+        return $this->hasMany(Anime_film::class);
+    }
     
     public function categories()
     {

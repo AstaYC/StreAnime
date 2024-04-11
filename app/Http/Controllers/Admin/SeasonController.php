@@ -24,6 +24,8 @@ class SeasonController extends Controller
             'titre' => 'required',
             'description' => 'required',
             'releaseYear' => 'required',
+            'posterLink' => 'required',
+            'imbdLink' => 'required',
             'traillerLink' => 'required',
             'seasonNumber' => 'required',
             'anime_id' => 'required',
@@ -36,6 +38,7 @@ class SeasonController extends Controller
         $seasons->description = $request->description;
         $seasons->releaseYear = $request->releaseYear;
         $seasons->traillerLink = $request->traillerLink;
+        $seasons->imbdLink = $request->imbdLink;
         $seasons->seasonNumber = $request->seasonNumber;
         $seasons->anime_id = $request->anime_id;
         
