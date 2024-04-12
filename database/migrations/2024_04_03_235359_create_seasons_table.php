@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('seasonNumber');
             $table->unsignedBigInteger('anime_id');
             $table->foreign('anime_id')->references('id')->on('animes')->onDelete('cascade')->onUpdate('cascade');
+            $table->enum('status' , ['showing' , 'hidding'])->default('showing');
             $table->timestamps();
         });
     }

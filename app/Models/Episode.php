@@ -10,13 +10,12 @@ class Episode extends Model
     use HasFactory;
     protected $fillable = [
         'titre',
-        'episodeNumber',
-        'releaseYear',
         'posterLink',
+        'releaseYear',
         'imbdLink',
         'mediaLink',
-        'duration',
         'episodeNumber',
+        'duration',
         'season_id',
     ];
 }
