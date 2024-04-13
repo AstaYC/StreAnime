@@ -8,11 +8,13 @@ use App\Models\Anime;
 use App\Models\anime_categorie;
 use App\Models\Categorie;
 use App\Models\Source;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class AnimeController extends Controller
 {
     public function displayAnime(){
-        $animes = Anime::select("*")->join('sources' ,  'animes.source_id' ,'=' , 'sources.id')->with('categories')->get();
+        $animes = Anime::select("*")->join('sources' ,  'animes.source_id' ,'=' , 'sources.id')->where('status' ,  '=' , 'showing')->with('categories')->get();
         $categories = Categorie::All();
         $sources = Source::All();
         return view('Back-office.Admin.AnimeTable' , compact('animes' , 'categories' , 'sources'));
@@ -22,7 +24,7 @@ class AnimeController extends Controller
         $request->validate([
             'titre' => 'required',
             'description' => 'required',
-            'poster' => 'required',
+            'posterLink' => 'required',
             'traillerLink' => 'required',
             'imbdLink' => 'required',
             'releaseYear' => 'required',
@@ -31,6 +33,9 @@ class AnimeController extends Controller
             'studio' => 'required',
             'source_id' => 'required'
         ]);
+
+        $path = $request->file('posterLink')->store('posters ', 's3');
+
 
         $categories = [] ;
         
@@ -45,15 +50,15 @@ class AnimeController extends Controller
         // $animes->fill($request->all());    
 
         $animes->titre = $request->titre;
-        $animes->traillerLink = $request->traillerLink;
         $animes->description = $request->description;
-        $animes->poster = $request->poster;
+        $animes->posterLink = Storage::disk('s3')->url($path);
+        $animes->traillerLink = $request->traillerLink;
         $animes->imbdLink = $request->imbdLink;
         $animes->releaseYear = $request->releaseYear;
-        $animes->releaseYear = $request->releaseYear;
+        $animes->endYear = $request->endYear;
         $animes->mangaka = $request->mangaka;
         $animes->studio = $request->studio;
-        //   SSS Configurations
+        $animes->source_id = $request->source_id;
         $animes->save();
 
         // $lastId = Anime::latest('id')->first;
@@ -69,32 +74,41 @@ class AnimeController extends Controller
             }
         }
 
-        return redirect('/anime')->with('status' , 'LAjoutage est Bien Faite !!');
-    }
+        return redirect('/anime')->with('status' , "L'ajoutage est Bien Faite!!");
+    }   
 
     public function updateAnime(Request $request){
         $request->validate([
             'titre' => 'required',
-            'traillerLink' => 'required',
             'description' => 'required',
-            'poster' => 'required',
+            'posterLink' => 'required',
+            'traillerLink' => 'required',
             'imbdLink' => 'required',
             'releaseYear' => 'required',
+            'endYear' => 'required',
             'mangaka' => 'required',
             'studio' => 'required',
             'source_id' => 'required'
-        ]);   
+        ]);
+
+        $path = $request->file('posterLink')->store('posters ', 's3');
 
         $anime = Anime::find($request->id);
         $anime->titre = $request->titre;
-        $anime->traillerLink = $request->traillerLink;
         $anime->description = $request->description;
-        $anime->poster = $request->poster;
+        $anime->posterLink = Storage::disk('s3')->url($path);
+        $anime->traillerLink = $request->traillerLink;
         $anime->imbdLink = $request->imbdLink;
         $anime->releaseYear = $request->releaseYear;
-        $anime->releaseYear = $request->releaseYear;
+        $anime->endYear = $request->endYear;
         $anime->mangaka = $request->mangaka;
-        $anime->studio = $request->studio;    
+        $anime->studio = $request->studio;
+        $anime->source_id = $request->source_id;
+        if($request->status == 's'){
+            $anime->status = 'showing';
+        }else{
+            $anime->status = 'hidden';
+        }
         
         $anime->update();
 
@@ -127,11 +141,15 @@ class AnimeController extends Controller
 
     }
 
-    public function deleteAnime(Request $request){
+    public function hiddenAnime(Request $request){
         $request->validate([
             'id' => 'required',
         ]);
         $animes = Anime::find($request->id);
-        $animes->delete();
+        $animes->status = 'hidden';
+        $animes->update();
+
+        return redirect('/anime')->with('status' , 'L"Anime Est Bien caché!!');
+
     }
 }

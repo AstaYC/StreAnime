@@ -111,7 +111,7 @@
                                                         <textarea class="form-control" id="CategorieName" name="description" required></textarea>
                                                         
                                                         <label for="CategorieName">Anime Poster:</label>
-                                                        <input type="file" class="form-control" id="CategorieName" name="poster" >
+                                                        <input type="file" class="form-control" id="CategorieName" name="posterLink" >
                                                         
                                                         <label for="CategorieName">Anime Trailler:</label>
                                                         <input type="text" class="form-control" id="CategorieName" name="traillerLink" >
@@ -169,7 +169,7 @@
                                 <th>Title</th>											
                                 <th>Description</th>											
                                 <th>Trailler</th>											
-                                <th>Rating</th>											
+                                <th>Imbd</th>											
                                 <th>Release Year</th>											
                                 <th>End Year</th>											
                                 <th>Mangaka</th>											
@@ -299,20 +299,20 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Animes</h4>
+                    <h4 class="modal-title">Hidden Animes</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <!-- Delete medicine form -->
-                    <form method="POST" action="/anime/delete">
+                    <form method="POST" action="/anime/hidden">
                     @csrf
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="{{$anime->id}}">
-                        <p>Are you sure you want to delete this Animes "{{$anime->titre}}"?</p>
+                        <p>Are you sure you want to Hidde this Animes "{{$anime->titre}}"?</p>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete Anime</button>
+                            <button type="submit" class="btn btn-danger">Hidden Anime</button>
                         </div>
                     </form>
                 </div>
@@ -348,4 +348,18 @@ new MultiSelectTag('categories', {
     }
 })
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var status = '{{ session("status") }}';
+
+        if (status) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès !',
+                text: status,
+            });
+        }
+    });
+</script>
+
 @endsection('scripts')

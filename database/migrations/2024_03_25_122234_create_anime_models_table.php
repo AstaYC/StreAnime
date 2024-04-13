@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('animes', function (Blueprint $table) {
             $table->id();   
             $table->string('titre');
-            $table->string('poster');
+            $table->string('posterLink');
             $table->string('trailerLink');
             $table->string('imbdLink');
             $table->date('releaseYear');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('studio');
             $table->unsignedBigInteger('source_id');
             $table->foreign('source_id')->references('id')->on('sources')->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('status' , ['showing' , 'hidding'])->default('showing');
+            $table->enum('status' , ['showing' , 'hidden'])->default('showing');
             $table->timestamps();
         });
     }

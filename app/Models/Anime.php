@@ -30,4 +30,9 @@ class Anime extends Model
     {
         return $this->belongsToMany(Categorie::class);
     }
+
+    public function rating_animes()
+{
+    return $this->hasMany(RatingAnime::class);
+}
 }

@@ -81,11 +81,15 @@ class AnimeFilmController extends Controller
 
     }
 
-    public function deleteAnimeFilm(Request $request){
+    public function hiddenAnimeFilm(Request $request){
         $request->validate([
             'id' => 'required',
         ]);
-        $animes = Anime::find($request->id);
-        $animes->delete();
+        $animeFilm = Anime_film::find($request->id);
+        $animeFilm->status = 'hidden';
+        $animeFilm->update();
+
+        return redirect('/anime')->with('status' , 'La Modification Est Bien Faite !!');
+
     }
 }

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('mangaka');
             $table->string('studio');
-            $table->enum('status' , ['showing' , 'hidding'])->default('showing');
+            $table->enum('status' , ['showing' , 'hidden'])->default('showing');
             $table->unsignedBigInteger('anime_id');
             $table->foreign('anime_id')->references('id')->on('animes')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

@@ -3,15 +3,16 @@
 use App\Http\Controllers\Admin\AnimeFilmController;
 use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\Admin\CharacterController;
-use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SeasonController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SourceController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\AnimeController;
 use App\Http\Controllers\Admin\AnimeController as AdminAnimeController;
 use App\Http\Controllers\Admin\EpisodeController;
+use App\Http\Controllers\Admin\HiddenContentController;
+use App\Http\Controllers\SuperAdmin\RoleController;
+use App\Http\Controllers\SuperAdmin\UserController;
 use App\Http\Controllers\User\AnimeDetailController;
 use Illuminate\Support\Facades\Route;
 
@@ -70,8 +71,8 @@ Route::post('/role/delete' , [RoleController::class , 'deleteRole']);
 
 // User Route //
 
-Route::get('/user' , [userController::class , 'displayUser']);
-Route::post('/user/delete' , [userController::class , 'deleteUser']);
+Route::get('/user' , [UserController::class , 'displayUser']);
+Route::post('/user/delete' , [UserController::class , 'deleteUser']);
 
 
 // Slider Route //
@@ -88,7 +89,13 @@ Route::post('/slider/delete' , [SliderController::class , 'deleteSlider']);
 Route::get('/anime' , [AdminAnimeController::class , 'displayAnime']);
 Route::post('/anime/add' , [AdminAnimeController::class , 'addAnime']);
 Route::post('/anime/update' , [AdminAnimeController::class , 'updateAnime']);
-Route::post('/anime/delete' , [AdminAnimeController::class , 'deleteAnime']);
+Route::post('/anime/hidden' , [AdminAnimeController::class , 'hiddenAnime']);
+
+// Hidden Anime Route //
+
+Route::get('/hiddenAnime' , [HiddenContentController::class , 'displayHiddenAnime']);
+Route::post('/hiddenAnime/recuperate' , [HiddenContentController::class , 'recuperateAnime']);
+Route::post('/hiddenAnime/delete' , [HiddenContentController::class , 'deleteAnime']);
 
 // Anime Film //
 
@@ -96,6 +103,12 @@ Route::get('/animeFilm' , [AnimeFilmController::class , 'displayAnimeFilm']);
 Route::post('/animeFilm/add' , [AnimeFilmController::class , 'addAnimeFilm']);
 Route::post('/animeFilm/update' , [AnimeFilmController::class , 'updateAnimeFilm']);
 Route::post('/animeFilm/delete' , [AnimeFilmController::class , 'deleteAnimeFilm']);
+
+// Hidden film Route //
+
+Route::get('/hiddenAnimeFilm' , [HiddenContentController::class , 'displayHiddenAnimeFilm']);
+Route::post('/hiddenAnimeFilm/recuperate' , [HiddenContentController::class , 'recuperateAnimFilm']);
+Route::post('/hiddenAnimeFilm/delete' , [HiddenContentController::class , 'deleteAnimeFilm']);
 
 // Season Route //
 

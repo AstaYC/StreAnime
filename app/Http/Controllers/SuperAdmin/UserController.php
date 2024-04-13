@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\SuperAdmin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -8,7 +8,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class userController extends Controller
+class UserController extends Controller
 {
     public function displayUser(Request $request){
         $users = DB::table('users')->join('roles','users.role_id','=','roles.id')

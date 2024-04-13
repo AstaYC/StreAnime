@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Anime_film_character extends Model
+class anime_film_character extends Model
 {
     use HasFactory;
 

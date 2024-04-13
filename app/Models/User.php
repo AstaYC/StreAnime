@@ -53,4 +53,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function rating_animes()
+    {
+        return $this->hasMany(RatingAnime::class);
+    }
 }
