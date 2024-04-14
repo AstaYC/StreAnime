@@ -68,11 +68,11 @@
           </li>
         </ul>
      @endif
-     @if(session('status'))
+     {{-- @if(session('status'))
        <div class="alert alert-success">
          {{session('status')}}
        </div>
-     @endif
+     @endif --}}
         <div class="head-title">
             <div class="left">
                 <h1>My Sources</h1>
@@ -214,3 +214,21 @@
     </div>
 @endforeach
 @endsection
+
+@section('scripts')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var status = '{{ session("status") }}';
+
+        if (status) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès !',
+                text: status,
+            });
+        }
+    });
+</script>
+
+@endsection('scripts')

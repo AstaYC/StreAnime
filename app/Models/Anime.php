@@ -14,6 +14,7 @@ class Anime extends Model
         'trailerLink',
         'imbdLink',
         'releaseYear',
+        'endYear',
         'description',
         'mangaka',
         'studio',

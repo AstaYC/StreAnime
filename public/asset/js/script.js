@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 
 allSideMenu.forEach(item=> {

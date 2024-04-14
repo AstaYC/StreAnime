@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('anime_categories', function (Blueprint $table) {
             $table->unsignedBigInteger('anime_id');
-            $table->unsignedBigInteger('categories_id');
+            $table->unsignedBigInteger('categorie_id');
             $table->foreign('anime_id')->references('id')->on('animes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('categories_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
-
+            $table->foreign('categorie_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('anime_categorie_models');
+        Schema::dropIfExists('anime_categories');
     }
 };

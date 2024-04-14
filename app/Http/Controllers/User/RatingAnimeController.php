@@ -53,12 +53,12 @@ use Illuminate\Http\Request;
          $rating = RatingAnime::where('user_id', session('user_id'))
                 ->where('anime_id', $request->id)
                 ->delete();
-    
+
     }
 
 
     public function getAvgRatingAnime(){
-        
+
     }
 
 }

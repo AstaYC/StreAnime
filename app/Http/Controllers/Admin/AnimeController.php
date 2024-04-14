@@ -17,25 +17,26 @@ class AnimeController extends Controller
         $animes = Anime::select("*")->join('sources' ,  'animes.source_id' ,'=' , 'sources.id')->where('status' ,  '=' , 'showing')->with('categories')->get();
         $categories = Categorie::All();
         $sources = Source::All();
+
         return view('Back-office.Admin.AnimeTable' , compact('animes' , 'categories' , 'sources'));
     }
 
     public function addAnime(Request $request){
         $request->validate([
-            'titre' => 'required',
+            'titre' => 'required',                      
             'description' => 'required',
             'posterLink' => 'required',
-            'traillerLink' => 'required',
+            'trailerLink' => 'required',
             'imbdLink' => 'required',
             'releaseYear' => 'required',
-            'endYear' => 'required',
+            // 'endYear' => 'required',
             'mangaka' => 'required',
             'studio' => 'required',
             'source_id' => 'required'
         ]);
 
+        // dd($request->file('posterLink'));
         $path = $request->file('posterLink')->store('posters ', 's3');
-
 
         $categories = [] ;
         
@@ -52,7 +53,7 @@ class AnimeController extends Controller
         $animes->titre = $request->titre;
         $animes->description = $request->description;
         $animes->posterLink = Storage::disk('s3')->url($path);
-        $animes->traillerLink = $request->traillerLink;
+        $animes->trailerLink = $request->trailerLink;
         $animes->imbdLink = $request->imbdLink;
         $animes->releaseYear = $request->releaseYear;
         $animes->endYear = $request->endYear;
@@ -81,7 +82,7 @@ class AnimeController extends Controller
         $request->validate([
             'titre' => 'required',
             'description' => 'required',
-            'posterLink' => 'required',
+            // 'posterLink' => 'required',
             'traillerLink' => 'required',
             'imbdLink' => 'required',
             'releaseYear' => 'required',
@@ -90,14 +91,17 @@ class AnimeController extends Controller
             'studio' => 'required',
             'source_id' => 'required'
         ]);
-
+        if ($request->hasFile('posterLink')) {
         $path = $request->file('posterLink')->store('posters ', 's3');
+        }
 
         $anime = Anime::find($request->id);
         $anime->titre = $request->titre;
         $anime->description = $request->description;
+        if ($request->hasFile('posterLink')) {
         $anime->posterLink = Storage::disk('s3')->url($path);
-        $anime->traillerLink = $request->traillerLink;
+        }
+        $anime->trailerLink = $request->traillerLink;
         $anime->imbdLink = $request->imbdLink;
         $anime->releaseYear = $request->releaseYear;
         $anime->endYear = $request->endYear;
@@ -112,7 +116,7 @@ class AnimeController extends Controller
         
         $anime->update();
 
-        $oldCategories = anime_categorie::where('anime_id' , $request->id)->get();
+        $oldCategories = anime_categorie::where('anime_id' , $request->anime_id)->get();
 
         foreach($oldCategories as $oldCategorie){
             $oldCategorie->delete();
