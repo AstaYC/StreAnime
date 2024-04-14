@@ -178,8 +178,8 @@
                                 <td><img src="{{$anime->posterLink}}" width="100px"></img></td>
                                 <td>{{$anime->titre}}</td>
                                 <td>{{$anime->description}}</td>
-                                <td><iframe width="100" height="100" src="{{ $anime->trailerLink }}" frameborder="0" allowfullscreen></iframe></td>
-                                <td><a href="{{ $anime->imbdLink }}"><img src="{{ asset('img/MAL.png') }}" width="50px"></img></a></td>
+                                <td><iframe width="140" height="100" src="https://www.youtube.com/embed/{{ $anime->trailerLink }}" frameborder="0" allowfullscreen></iframe></td>
+                                <td><a href="{{ $anime->imbdLink }}" target="_blank"><img src="{{ asset('img/MAL.png') }}" width="50px"></img></a></td>
                                 <td>{{$anime->releaseYear}}</td>
                                 <td>{{$anime->endYear}}</td>
                                 <td>{{$anime->mangaka}}</td>
@@ -202,6 +202,7 @@
             </div>
         </div>  
     </main>
+
     @foreach($animes as $anime)
 
        <!-- modal de update -->
@@ -221,7 +222,6 @@
 
                             <input type="hidden" name="action" value="update">
                             <input type="hidden" name="id" value="{{$anime->id}}">
-                            <input type="hidden" name="anime_id" value="{{$anime->id}}">
 
                             <!-- Input fields for updated medicine details -->
                             
@@ -300,6 +300,7 @@
                     <form method="POST" action="/anime/hidden">
                     @csrf
                         <input type="hidden" name="action" value="delete">
+                        {{-- {{ dd($anime) }} --}}
                         <input type="hidden" name="id" value="{{$anime->id}}">
                         <p>Are you sure you want to Hidde this Animes "{{$anime->titre}}"?</p>
                         <div class="modal-footer">

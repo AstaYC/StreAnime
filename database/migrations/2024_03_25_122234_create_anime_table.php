@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('trailerLink');
             $table->string('imbdLink');
             $table->date('releaseYear');
-            $table->date('endYear');
-            $table->string('description');
+            $table->date('endYear')->nullable();
+            $table->text('description');
             $table->string('mangaka');
             $table->string('studio');
             $table->unsignedBigInteger('source_id');

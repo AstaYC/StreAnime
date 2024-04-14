@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\Storage;
 class AnimeController extends Controller
 {
     public function displayAnime(){
-        $animes = Anime::select("*")->join('sources' ,  'animes.source_id' ,'=' , 'sources.id')->where('status' ,  '=' , 'showing')->with('categories')->get();
+        $animes = Anime::select('animes.*', 'sources.id as source_id', 'sources.nom')
+        ->join('sources', 'animes.source_id', '=', 'sources.id')
+        ->where('status', '=', 'showing')
+        ->with('categories')
+        ->get();
         $categories = Categorie::All();
         $sources = Source::All();
 
@@ -75,7 +79,7 @@ class AnimeController extends Controller
             }
         }
 
-        return redirect('/anime')->with('status' , "L'ajoutage est Bien Faite!!");
+        return redirect('/anime')->with('status' , 'Lajoutage est Bien Faite!!');
     }   
 
     public function updateAnime(Request $request){
@@ -86,7 +90,7 @@ class AnimeController extends Controller
             'traillerLink' => 'required',
             'imbdLink' => 'required',
             'releaseYear' => 'required',
-            'endYear' => 'required',
+            // 'endYear' => 'required',
             'mangaka' => 'required',
             'studio' => 'required',
             'source_id' => 'required'
@@ -115,12 +119,13 @@ class AnimeController extends Controller
         }
         
         $anime->update();
+        $anime_id = $request->id;
 
-        $oldCategories = anime_categorie::where('anime_id' , $request->anime_id)->get();
+        $oldCategories = anime_categorie::where('anime_id' , $anime_id)->delete();
 
-        foreach($oldCategories as $oldCategorie){
-            $oldCategorie->delete();
-        }
+        // foreach($oldCategories as $oldCategorie){
+        //     $oldCategorie->delete();
+        // }
 
         $categories = [] ;
         
@@ -149,11 +154,13 @@ class AnimeController extends Controller
         $request->validate([
             'id' => 'required',
         ]);
+
+        // dd($request->id);
         $animes = Anime::find($request->id);
         $animes->status = 'hidden';
-        $animes->update();
+        $animes->update();  
 
-        return redirect('/anime')->with('status' , 'L"Anime Est Bien caché!!');
+        return redirect('/anime')->with('status' , 'LAnime Est Bien caché!!');
 
     }
 }

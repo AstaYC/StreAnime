@@ -1,9 +1,8 @@
-import Swal from 'sweetalert2';
 const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 
 allSideMenu.forEach(item=> {
 	const li = item.parentElement;
-
+	
 	item.addEventListener('click', function () {
 		allSideMenu.forEach(i=> {
 			i.parentElement.classList.remove('active');
@@ -75,5 +74,3 @@ switchMode.addEventListener('change', function () {
 		document.body.classList.remove('dark');
 	}
 })
-
-window.Swal = require('sweetalert2');
