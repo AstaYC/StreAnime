@@ -14,15 +14,13 @@ return new class extends Migration
         Schema::create('anime_films', function (Blueprint $table) {
             $table->id();   
             $table->string('titre');
-            $table->string('poster');
+            $table->string('posterLink');
             $table->time('duration');
             $table->string('trailerLink');
             $table->string('imbdLink');
-            $table->string('media');
+            $table->string('mediaLink');
             $table->date('releaseYear');
-            $table->string('description');
-            $table->string('mangaka');
-            $table->string('studio');
+            $table->text('description');
             $table->enum('status' , ['showing' , 'hidden'])->default('showing');
             $table->unsignedBigInteger('anime_id');
             $table->foreign('anime_id')->references('id')->on('animes')->onDelete('cascade')->onUpdate('cascade');

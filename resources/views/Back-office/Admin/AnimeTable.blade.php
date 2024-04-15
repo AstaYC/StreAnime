@@ -217,7 +217,7 @@
                     <!-- Modal Body -->
                     <div class="modal-body">
                         <!-- Update medicine form -->
-                        <form method="POST" action="/anime/update">
+                        <form method="POST" action="/anime/update" enctype="multipart/form-data">
                             @csrf
 
                             <input type="hidden" name="action" value="update">
@@ -233,7 +233,7 @@
                                 <textarea class="form-control" id="CategorieName" name="description" required>{{ $anime->description }}</textarea>
                                 
                                 <label for="CategorieName">Anime Poster:</label>
-                                <input type="file" class="form-control" id="CategorieName" name="poster" >  
+                                <input type="file" class="form-control" id="CategorieName" name="posterLink" >  
                                 
                                 <label for="CategorieName">Anime Trailler:</label>
                                 <input type="text" class="form-control" id="CategorieName" value="{{ $anime->trailerLink }}" name="traillerLink" >

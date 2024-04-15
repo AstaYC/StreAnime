@@ -40,8 +40,10 @@ class AnimeController extends Controller
         ]);
 
         // dd($request->file('posterLink'));
-        $path = $request->file('posterLink')->store('posters ', 's3');
-
+        if ($request->hasFile('posterLink')) {
+        $path = $request->file('posterLink')->store('postersAnime ', 's3');
+        }
+        
         $categories = [] ;
         
         if(is_array($request->categories)){

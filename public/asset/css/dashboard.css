@@ -12,6 +12,7 @@
     margin: 30px 0;
 }
 .table-wrapper {
+	overflow-x: scroll;
     min-width: 1000px;
     background: #fff;
     padding: 20px 25px;

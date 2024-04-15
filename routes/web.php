@@ -102,7 +102,7 @@ Route::post('/hiddenAnime/delete' , [HiddenContentController::class , 'deleteAni
 Route::get('/animeFilm' , [AnimeFilmController::class , 'displayAnimeFilm']);
 Route::post('/animeFilm/add' , [AnimeFilmController::class , 'addAnimeFilm']);
 Route::post('/animeFilm/update' , [AnimeFilmController::class , 'updateAnimeFilm']);
-Route::post('/animeFilm/delete' , [AnimeFilmController::class , 'deleteAnimeFilm']);
+Route::post('/animeFilm/hidden' , [AnimeFilmController::class , 'hiddenAnimeFilm']);
 
 // Hidden film Route //
 

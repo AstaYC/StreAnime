@@ -69,7 +69,7 @@
 
         <div class="head-title">
             <div class="left">
-                <h1>My Hidden Anime</h1>
+                <h1>My AnimeFilm</h1>
             </div>
             
         </div>
@@ -80,7 +80,7 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-5">
-                                <h2>Hidden Anime <b>Management</b></h2>
+                                <h2>Hidden AnimeFilm <b>Management</b></h2>
                             </div>
 
                         </div>
@@ -94,15 +94,15 @@
                             </tr>
                         </thead>
                         <tbody>	
-                        @foreach($animes as $anime)
+                        @foreach($Films as $Film)
                             <tr>
-                                <td><img src="{{$anime->posterLink}}" width="100px"></img></td>
-                                <td>{{$anime->titre}}</td>
+                                <td><img src="{{$Film->posterLink}}" width="100px"></img></td>
+                                <td>{{$Film->titre}}</td>
                                 <td>
-                                        <a href="#" class="settings" title="Settings" data-toggle="modal" data-target="#updateCategoryModal{{$anime->id}}">
+                                        <a href="#" class="settings" title="Settings" data-toggle="modal" data-target="#updateCategoryModal{{$Film->id}}">
                                             <i class="material-icons">&#xE5CA;</i>
                                         </a>
-                                        <a href="#" class="delete" title="Delete" data-toggle="modal" data-target="#deleteCategoryModal{{$anime->id}}">
+                                        <a href="#" class="delete" title="Delete" data-toggle="modal" data-target="#deleteCategoryModal{{$Film->id}}">
                                             <i class="material-icons">&#xE5C9;</i>
                                         </a>
                                 </td>
@@ -115,29 +115,29 @@
         </div>  
     </main>
 
-    @foreach($animes as $anime)
+    @foreach($Films as $Film)
 
        <!-- modal de recuperation -->
       
-       <div class="modal" id="updateCategoryModal{{$anime->id}}">										
+       <div class="modal" id="updateCategoryModal{{$Film->id}}">										
           <div class="modal-dialog" style="max-width: 700px;">
                     <div class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Recuperation Anime</h4>
+                            <h4 class="modal-title">Recuperation AnimeFilms</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal Body -->
                         <div class="modal-body">
                             <!-- Delete medicine form -->
-                            <form method="POST" action="/hiddenAnime/recuperate">
+                            <form method="POST" action="/hiddenAnimeFilm/recuperate">
                             @csrf
                                 <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="id" value="{{$anime->id}}">
-                                <p>Are you sure you want to Recuperer this Anime "{{$anime->titre}}"?</p>
+                                <input type="hidden" name="id" value="{{$Film->id}}">
+                                <p>Are you sure you want to Recuperer this AnimeFilms "{{$Film->titre}}"?</p>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Recuperer Anime</button>
+                                    <button type="submit" class="btn btn-primary">Recuperer AnimeFilm</button>
                                 </div>
                             </form>
                         </div>
@@ -147,25 +147,25 @@
 
 
   <!-- Delete Medicine Modal -->
-<div class="modal" id="deleteCategoryModal{{$anime->id}}">										
+<div class="modal" id="deleteCategoryModal{{$Film->id}}">										
    <div class="modal-dialog" style="max-width: 700px;">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">delete Anime</h4>
+                    <h4 class="modal-title">delete AnimeFilms</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <!-- Delete medicine form -->
-                    <form method="POST" action="/hiddenAnime/delete">
+                    <form method="POST" action="/hiddenAnimeFilm/delete">
                     @csrf
                         <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="id" value="{{$anime->id}}">
-                        <p>Are you sure you want to delete this Anime "{{$anime->titre}}"?</p>
+                        <input type="hidden" name="id" value="{{$Film->id}}">
+                        <p>Are you sure you want to delete this AnimeFilms "{{$Film->titre}}"?</p>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete Anime</button>
+                            <button type="submit" class="btn btn-danger">Delete AnimeFilm</button>
                         </div>
                     </form>
                 </div>
