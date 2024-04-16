@@ -33,7 +33,7 @@ class Anime extends Model
     }
 
     public function rating_animes()
-{
+   {
     return $this->hasMany(RatingAnime::class);
-}
+   }
 }

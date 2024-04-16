@@ -7,13 +7,13 @@ use App\Http\Controllers\Admin\SeasonController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SourceController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\User\AnimeController;
-use App\Http\Controllers\Admin\AnimeController as AdminAnimeController;
+use App\Http\Controllers\Admin\AnimeController;
 use App\Http\Controllers\Admin\EpisodeController;
 use App\Http\Controllers\Admin\HiddenContentController;
 use App\Http\Controllers\SuperAdmin\RoleController;
 use App\Http\Controllers\SuperAdmin\UserController;
 use App\Http\Controllers\User\AnimeDetailController;
+use App\Http\Controllers\User\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,9 +33,9 @@ Route::get('/register' , [AuthController::class , 'displayRegister']);
 
 
 
-Route::get('/' , [AnimeController::class , 'displayAnime']);
-Route::get('/home' , [AnimeController::class , 'displayAnime']);
-Route::get('/animeListe' , [AnimeController::class , 'displayAnimeListe']);
+Route::get('/' , [HomeController::class , 'displayContent']);
+Route::get('/home' , [HomeController::class , 'displayContent']);
+Route::get('/animeListe' , [HomeController::class , 'displayAnimeListe']);
 Route::get('/animeDetails' , [AnimeDetailController::class , 'displayAnimeDetails']);
 
 //  Categorie Route//
@@ -84,10 +84,10 @@ Route::post('/slider/delete' , [SliderController::class , 'deleteSlider']);
 
 // Anime Route //
 
-Route::get('/anime' , [AdminAnimeController::class , 'displayAnime']);
-Route::post('/anime/add' , [AdminAnimeController::class , 'addAnime']);
-Route::post('/anime/update' , [AdminAnimeController::class , 'updateAnime']);
-Route::post('/anime/hidden' , [AdminAnimeController::class , 'hiddenAnime']);
+Route::get('/anime' , [AnimeController::class , 'displayAnime']);
+Route::post('/anime/add' , [AnimeController::class , 'addAnime']);
+Route::post('/anime/update' , [AnimeController::class , 'updateAnime']);
+Route::post('/anime/hidden' , [AnimeController::class , 'hiddenAnime']);
 
 // Hidden Anime Route //
 

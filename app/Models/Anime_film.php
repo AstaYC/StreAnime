@@ -24,5 +24,10 @@ class Anime_film extends Model
         'anime_id'
    ];
 
+   public function rating_animes()
+   {
+       return $this->hasMany(RatingAnimeFilm::class);
+   }
+
 
 }

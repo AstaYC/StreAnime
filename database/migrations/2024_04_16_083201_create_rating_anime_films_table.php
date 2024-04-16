@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sliders', function (Blueprint $table) {
+        Schema::create('rating_anime_films', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('anime_id')->nullable();
-            $table->unsignedBigInteger('anime_film_id')->nullable();
-            $table->foreign('anime_id')->references('id')->on('animes')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('anime_film_id');
+            $table->unsignedBigInteger('user_id');
+            $table->enum('rating', [1,2,3,4,5,6,7,8,9,10]);             
             $table->foreign('anime_film_id')->references('id')->on('anime_films')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('slider_models');
+        Schema::dropIfExists('rating_anime_films');
     }
 };
