@@ -16,13 +16,12 @@ return new class extends Migration
             $table->string('titre');
             $table->string('posterLink');
             $table->date('releaseYear');
-            $table->string('imbdLink');
             $table->string('mediaLink');
             $table->string('duration');
             $table->unsignedBigInteger('episodeNumber');
             $table->unsignedBigInteger('season_id');
             $table->foreign('season_id')->references('id')->on('seasons')->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('status' , ['showing' , 'hidding'])->default('showing');
+            $table->enum('status' , ['showing' , 'hidden'])->default('showing');
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@ class Character extends Model
         'anime_id'
     ];
 
-    public function anime_film()
+    public function anime_films()
     {
         return $this->belongsToMany(Anime_film::class);
     }

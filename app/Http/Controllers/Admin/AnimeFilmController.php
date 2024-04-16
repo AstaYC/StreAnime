@@ -79,7 +79,7 @@ class AnimeFilmController extends Controller
             'trailerLink' => 'required',
             'imbdLink' => 'required',
             'releaseYear' => 'required',
-            'anime_id' => 'required',
+            // 'anime_id' => 'required',
         ]);
 
         if ($request->hasFile('posterLink')) {
@@ -102,11 +102,16 @@ class AnimeFilmController extends Controller
         $animeFilm->imbdLink = $request->imbdLink;
         $animeFilm->releaseYear = $request->releaseYear;
         $animeFilm->trailerLink = $request->trailerLink;
+
         if ($request->hasFile('mediaLink')) {
         $animeFilm->mediaLink = Storage::disk('s3')->url($pathMedia);
         }
         $animeFilm->duration = $request->duration;
-        $animeFilm->anime_id = $request->anime_id;
+
+        if($request->filled('anime_id')) {
+          $animeFilm->anime_id = $request->anime_id;
+        }
+
         if($request->status == 's'){
             $animeFilm->status = 'showing';
         }else{

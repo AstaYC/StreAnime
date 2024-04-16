@@ -119,7 +119,7 @@
                                                         <input type="date" class="form-control" id="CategorieName" name="releaseYear" >
                                                         
                                                         <label for="CategorieName">Duration</label>
-                                                        <input type="text" class="form-control" id="CategorieName" name="duration"  pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" value="HH:MM">
+                                                        <input type="text" class="form-control" id="CategorieName" name="duration"  pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]" value="HH:MM">
                                                 
                                                         
                                                         <label for="CategorieName">Anime Associate</label>
@@ -237,7 +237,7 @@
                                 <input type="date" class="form-control" id="CategorieName" value="{{ $animeFilm->releaseYear }}" name="releaseYear" >
                                 
                                 <label for="CategorieName">Duration</label>
-                                <input type="text" class="form-control" id="CategorieName" value="{{ $animeFilm->duration }}" name="duration" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" > 
+                                <input type="text" class="form-control" id="CategorieName" value="{{ $animeFilm->duration }}" name="duration" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"" > 
                         
                                 
                                 <label for="CategorieName">Anime Associate</label>

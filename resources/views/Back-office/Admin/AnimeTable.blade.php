@@ -166,7 +166,7 @@
                                 <th>Release Year</th>											
                                 <th>End Year</th>											
                                 <th>Mangaka</th>											
-                                <th>Studio</th>											
+                                <th>Studio</th>					    						
                                 <th>Source</th>											
                                 <th>Categories</th>											
                                 <th>Action</th>

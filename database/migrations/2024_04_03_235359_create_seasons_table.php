@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('seasons', function (Blueprint $table) {
             $table->id(); 
             $table->string('titre');
-            $table->string('description');
-            $table->date('releaseYear');
+            $table->text('description');
             $table->string('posterLink');
             $table->string('trailerLink');
             $table->string('imbdLink');
+            $table->date('releaseYear');
+            $table->date('EndYear');
             $table->unsignedBigInteger('seasonNumber');
             $table->unsignedBigInteger('anime_id');
             $table->foreign('anime_id')->references('id')->on('animes')->onDelete('cascade')->onUpdate('cascade');

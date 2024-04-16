@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
     public function addRating(Request $request){
          
         $request->validate([
-            'id' => 'id',
+            'id' => 'required',
             'starts' => 'required',
          ]);
 
@@ -25,6 +25,7 @@ use Illuminate\Http\Request;
          $rating = new RatingAnime();
          $rating->anime_id = $request->id;
          $rating->user_id = $request->session('user_id');
+         $rating->starts = $request->starts;
          $rating->save();
 
          return back()->with('status', 'Rating has been added');

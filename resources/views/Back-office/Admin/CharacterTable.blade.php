@@ -62,18 +62,11 @@
 
     <!-- MAIN -->
     <main>
+        {{ $errorsString = '' }}
         @if($errors->any())
-        <ul>
-          <li>
-           {{$errors}}
-          </li>
-        </ul>
-     @endif
-     @if(session('status'))
-       <div class="alert alert-success">
-         {{session('status')}}
-       </div>
-     @endif
+           {{ $erreurString =  implode('&' , $errors->all()) }}
+        @endif
+
         <div class="head-title">
             <div class="left">
                 <h1>My Character</h1>
@@ -90,7 +83,7 @@
                                 <h2>Character <b>Management</b></h2>
                             </div>
                                 <div class="modal" id="addCategorieModal">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog" style="max-width: 700px;">
                                         <div class="modal-content">
                                             <!-- Modal Header -->
                                             <div class="modal-header">
@@ -100,7 +93,7 @@
                                             <!-- Modal Body -->
                                             <div class="modal-body">
                                                 <!-- Add medicine form -->
-                                                <form method="POST" action="/character/add">
+                                                <form method="POST" action="/character/add" enctype="multipart/form-data">
                                                     @csrf
                                                     <!-- Input fields for medicine details -->
                                                     <div class="form-group">
@@ -108,14 +101,13 @@
                                                         <input type="text" class="form-control" id="CategorieName" name="nom" required>
                                                         
                                                         <label for="CategorieName">Character glance:</label>
-                                                        <input type="text" class="form-control" id="CategorieName" name="glance" required>
+                                                        <textarea type="text" class="form-control" id="CategorieName" name="glance" required></textarea>
                                                         
                                                         <label for="CategorieName">Character image:</label>
-                                                        <input type="file" class="form-control" id="CategorieName" name="images" >
+                                                        <input type="file" class="form-control" id="CategorieName" name="picture" >
                                                       
                                                         <label for="CategorieName">In Anime ?</label>
                                                         <select class="form-control" id="CategorieName" name="anime_id" >
-                                                            <option value="">Choose an anime</option>  
                                                             @foreach ($animes as $anime)
                                                             <option value="{{$anime->id}}">{{$anime->titre}}</option>  
                                                             @endforeach
@@ -124,14 +116,14 @@
                                                         <label for="films_id">In Film(s) ?</label>
                                                         <select name="films_id[]" id="films_id" multiple>
                                                             @foreach ($animeFilms as $animeFilm)
-                                                            <option value="{{$animeFilm->id}}">{{$animeFilm->titre}}</option>  
+                                                            <option value="{{$animeFilm->id}}">{{$animeFilm->titre}}:Anime({{ $animeFilm->anime_titre }})</option>  
                                                             @endforeach
                                                         </select>
                                                     
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="submit" name="add" class="btn btn-primary">Add character</button>
+                                                        <button type="submit" name="add" class="btn btn-primary">Add Character</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -147,7 +139,7 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Picture</th>
                                 <th>Nom de character</th>											
                                 <th>Glance</th>											
                                 <th>Anime Associé</th>											
@@ -158,10 +150,10 @@
                         <tbody>	
                         @foreach($characters as $character)
                             <tr>
-                                <td>{{$character->id}}</td>
+                                <td><img src="{{$character->picture}}" width="100px"></td>
                                 <td>{{$character->nom}}</td>
                                 <td>{{$character->glance}}</td>
-                                <td>{{$character->titre}}</td>
+                                <td>{{$character->anime_titre}}</td>
                                 <td>@foreach($characterWithFilms->find($character->id)->anime_films as $film){{$film->titre}} & @endforeach</td>
                                 <td>
                                         <a href="#" class="settings" title="Settings" data-toggle="modal" data-target="#updateCategoryModal{{$character->id}}">
@@ -184,7 +176,7 @@
 
        <!-- modal de update -->
     <div class="modal" id="updateCategoryModal{{$character->id}}">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="max-width: 700px;">
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
@@ -194,7 +186,7 @@
                     <!-- Modal Body -->
                     <div class="modal-body">
                         <!-- Update medicine form -->
-                        <form method="POST" action="/character/update">
+                        <form method="POST" action="/character/update" enctype="multipart/form-data">
                             @csrf
 
                             <input type="hidden" name="action" value="update">
@@ -203,26 +195,26 @@
                             <!-- Input fields for updated medicine details -->
                             <div class="form-group">
                                 <label for="CategorieName">Character Name:</label>
-                                <input type="text" class="form-control" id="CategorieName" name="nom" value="{{$character->nom}} required>
+                                <input type="text" class="form-control" id="CategorieName" name="nom" value="{{$character->nom}}" required>
                                 
                                 <label for="CategorieName">Character glance:</label>
-                                <input type="text" class="form-control" id="CategorieName" name="glance" value="{{$character->glance}} required>
+                                <textarea type="text" class="form-control" id="CategorieName" name="glance" required>{{$character->glance}}</textarea>
                                 
                                 <label for="CategorieName">Character image:</label>
-                                <input type="file" class="form-control" id="CategorieName" name="images" >
+                                <input type="file" class="form-control" id="CategorieName" name="picture" >
                               
                                 <label for="CategorieName">In Anime ?</label>
                                 <select class="form-control" id="CategorieName" name="anime_id" >
                                     <option value="">Choose an anime</option>  
                                     @foreach ($animes as $anime)
-                                    <option value="{{$anime->id}}">{{$anime->nom}}</option>  
+                                    <option value="{{$anime->id}}">{{$anime->titre}}</option>  
                                     @endforeach
                                 </select>
                                 <br>
                                 <label for="films_id">In Film(s) ?</label>
-                                <select name="films_id[]" id="films_id" multiple>
+                                <select name="films_id[]" id="films_id2" multiple>
                                     @foreach ($animeFilms as $animeFilm)
-                                    <option value="{{$animeFilm->id}}">{{$animeFilm->nom}}</option>  
+                                    <option value="{{$animeFilm->id}}">{{$animeFilm->titre}}:Anime({{ $animeFilm->anime_titre }})</option>  
                                     @endforeach
                                 </select>
                             </div>
@@ -287,5 +279,48 @@ new MultiSelectTag('films_id', {
         console.log(values)
     }
 })
+</script>
+<script>
+    new MultiSelectTag('films_id2', {
+        rounded: true,    // default true
+        shadow: true,      // default false
+        placeholder: 'Search',  // default Search...
+        tagColor: {
+            textColor: 'black',
+            borderColor: 'black',
+            bgColor: 'white',
+        },
+        onChange: function(values) {
+            console.log(values)
+        }
+    })
+    </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var status = '{{ session("status") }}';
+
+        if (status) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès !',
+                text: status,
+            });
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var errors = '{{ $errorsString }}';
+
+        if (errors) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: errors,
+            });
+        }
+    });
 </script>
 @endsection('scripts')

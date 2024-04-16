@@ -18,28 +18,49 @@ class SliderController extends Controller
 //     ->get();
 // }
   public function displaySlider(){
-    $sliders = Slider::select('sliders.*', 'animes.titre as aTitre', 'animes.poster as aPoster', 'anime_films.titre', 'anime_films.poster')
-    ->join('animes', 'sliders.media_id', '=', 'animes.id')
-    ->join('anime_films', 'sliders.media_id', '=', 'anime_films.id')
+    $animeSliders = Slider::select('sliders.*', 'animes.titre', 'animes.posterLink')
+    ->join('animes', 'sliders.anime_id', '=', 'animes.id')
+    ->whereNotNull('sliders.anime_id')
+    ->get();
+
+    $filmSliders = Slider::select('sliders.*', 'anime_films.titre', 'anime_films.posterLink')
+    ->join('anime_films', 'sliders.anime_film_id', '=', 'anime_films.id')
+    ->whereNotNull('sliders.anime_film_id')
     ->get();
 
     $animes = Anime::select('animes.id as anime_id' , 'animes.titre as anime_titre')->get();
-    $films = Anime_film::select('anime_films.id as film_id' , 'anime_films.titre as film_titre')->get();
+    $films = Anime_film::select('anime_films.id as film_id' , 'anime_films.titre as film_titre' , 'animes.titre as anime_titre')
+    ->join('animes' , 'anime_films.anime_id' , '=' , 'animes.id')
+    ->get();
 
-    $otakus = $animes->merge($films);
+    /////// delete the null sliders
+  
+    $sliders = Slider::all();
     
-    return view('Back-office.Admin.SliderTable' , compact('sliders' , 'otakus' ,'animes' , 'films'));
+    foreach ($sliders as $slider){
+      if ($slider->anime_id === null && $slider->anime_film_id === null){
+        $slider->delete();
+      }
+    }
+    
+    // $otakus = $animes->merge($films);
+    
+    return view('Back-office.Admin.SliderTable' , compact('animeSliders' ,'filmSliders' ,'animes' , 'films'));
   }
 
   public function addSlider (Request $request){
     $request->validate([
-        'media_id' => 'required',
-        'type' => 'required',
     ]);
 
     $slider = new Slider();
-    $slider->media_id = $request->media_id;
-    $slider->type = $request->type;
+    if($request->filled('anime_id')){   
+      $slider->anime_id = $request->anime_id;
+    }
+
+    if($request->filled('anime_film_id')){   
+      $slider->anime_film_id = $request->anime_film_id;
+    }
+
     $slider->save();
 
     return redirect('/slider')->with('status' , 'Ajoutage Bien Faite !!');
@@ -47,27 +68,44 @@ class SliderController extends Controller
 
   public function updateSlider (Request $request){
     $request->validate([
-        'media_id' => 'required',
-        'type' => 'required',
+
     ]);
-
-    $slider = slider::find($request->media_id);
-    $slider->media_id = $request->media_id;
-    $slider->type = $request->type;
-    $slider->update();
-
-    return redirect('/slider')->with('status' , 'La Modidication est  Bien Faite !!');
+    
+    if($request->filled('anime_id')){
+         
+      $slider = slider::find($request->id);
+      $slider->anime_id = $request->anime_id;
+      $slider->update();
+      return redirect('/slider')->with('status' , 'La AnimeSlider est Bien Modifié !!');
+    
+    }else if ($request->filled('anime_film_id')){
+      
+      $slider = slider::find($request->id);
+      $slider->anime_film_id = $request->anime_film_id;
+      $slider->update();
+      return redirect('/slider')->with('status' , 'La AnimeFilm Slider est Bien Modifié !!');
+    }
 
   }
 
   public function deleteSlider (Request $request){
     $request->validate([
-        'media_id' => 'required',
     ]);
-    $slider = slider::find($request->media_id);
-    $slider->delete();
-
-    return redirect('/slider')->with('status' , 'La Suppression est Bien Faite !!');
+    
+    if($request->filled('anime_id')){
+         
+      $slider = slider::find($request->anime_id);
+      $slider->anime_id = null;
+      $slider->update();
+      return redirect('/slider')->with('status' , 'La AnimeSlider est Bien Supprimé !!');
+    
+    }else if ($request->filled('anime_film_id')){
+      
+      $slider = slider::find($request->anime_film_id);
+      $slider->anime_film_id = null;
+      $slider->update();
+      return redirect('/slider')->with('status' , 'La AnimeFilm Slider est Bien Supprimé !!');
+    }
 
   }
 

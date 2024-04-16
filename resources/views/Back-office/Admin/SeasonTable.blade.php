@@ -62,18 +62,11 @@
 
     <!-- MAIN -->
     <main>
+        {{$errorsString = ''}}
         @if($errors->any())
-        <ul>
-          <li>
-           {{$errors}}
-          </li>
-        </ul>
-     @endif
-     @if(session('status'))
-       <div class="alert alert-success">
-         {{session('status')}}
-       </div>
-     @endif
+        {{ $errorsString = implode(' & ', $errors->all()); }}
+        @endif  
+
         <div class="head-title">
             <div class="left">
                 <h1>My Seasons</h1>
@@ -90,7 +83,7 @@
                                 <h2>Seasons <b>Management</b></h2>
                             </div>
                                 <div class="modal" id="addCategorieModal">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog" style="max-width: 700px;">
                                         <div class="modal-content">
                                             <!-- Modal Header -->
                                             <div class="modal-header">
@@ -100,7 +93,7 @@
                                             <!-- Modal Body -->
                                             <div class="modal-body">
                                                 <!-- Add medicine form -->
-                                                <form method="POST" action="/season/add">
+                                                <form method="POST" action="/season/add" enctype="multipart/form-data">
                                                     @csrf
                                                     <!-- Input fields for medicine details -->
                                                    <div class="form-group">
@@ -111,13 +104,16 @@
                                                         <input type="text" class="form-control" id="CategorieName" name="titre" required>
                                                         
                                                         <label for="CategorieName">Season Description:</label>
-                                                        <input type="text" class="form-control" id="CategorieName" name="description" >
+                                                        <textarea type="text" class="form-control" id="CategorieName" name="description" ></textarea>
                                                         
                                                         <label for="CategorieName">Release Year:</label>
                                                         <input type="date" class="form-control" id="CategorieName" name="releaseYear" >
+                                                       
+                                                        <label for="CategorieName">End Year:</label>
+                                                        <input type="date" class="form-control" id="CategorieName" name="endYear" >
                                                         
                                                         <label for="CategorieName">Season trailler:</label>
-                                                        <input type="text" class="form-control" id="CategorieName" name="traillerLink" >
+                                                        <input type="text" class="form-control" id="CategorieName" name="trailerLink" >
 
                                                         <label for="CategorieName">Imdb Season Rating:</label>
                                                         <input type="text" class="form-control" id="CategorieName" name="imbdLink" >
@@ -156,25 +152,28 @@
                                 <th>TiTre de season</th>											
                                 <th>Description</th>											
                                 <th>Release Year</th>											
+                                <th>End Year</th>											
                                 <th>Trailler</th>											
                                 <th>Imbd Link</th>											
                                 <th>Season Ranking</th>											
-                                <th>Anime Ranking</th>											
                                 <th>Anime Associate</th>											
-                                <th>Action</th>
+                                <th>Categories</th>											
+                                <th>Action</th> 
                             </tr>
                         </thead>
                         <tbody>	
                         @foreach($seasons as $season)
                             <tr>
-                                <td>{{$season->poster}}</td>
-                                <td>{{$season->Titre}}</td>
+                                <td><img src="{{$season->posterLink}}" width="100px"></img></td>
+                                <td>{{$season->titre}}</td>
                                 <td>{{$season->description}}</td>
                                 <td>{{$season->releaseYear}}</td>
-                                <td>{{$season->traillerLink}}</td>
-                                <td>{{$season->imbdLink}}</td>
+                                <td>{{$season->endYear}}</td>
+                                <td><iframe width="140" height="100" src="https://www.youtube.com/embed/{{ $season->trailerLink }}" frameborder="0" allowfullscreen></iframe></td>
+                                <td><a href="{{ $season->imbdLink }}" target="_blank"><img src="{{ asset('img/MAL.png') }}" width="50px"></img></a></td>
                                 <td>{{$season->seasonNumber}}</td>
-                                <td>{{$season->animeTitre}}</td>
+                                <td>{{$season->anime_titre}}</td>
+                                <td>@foreach($animes->find($season->anime_id)->categories as $categorie){{$categorie->nom}} & @endforeach</td>
                                 <td>
                                         <a href="#" class="settings" title="Settings" data-toggle="modal" data-target="#updateCategoryModal{{$season->id}}">
                                             <i class="material-icons">&#xE8B8;</i>
@@ -196,7 +195,7 @@
 
        <!-- modal de update -->
     <div class="modal" id="updateCategoryModal{{$season->id}}">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="max-width: 700px;">
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
@@ -206,7 +205,7 @@
                     <!-- Modal Body -->
                     <div class="modal-body">
                         <!-- Update medicine form -->
-                        <form method="POST" action="/season/update">
+                        <form method="POST" action="/season/update" enctype="multipart/form-data">
                             @csrf
 
                             <input type="hidden" name="action" value="update">
@@ -216,25 +215,28 @@
                             <div class="form-group">
                                 
                                 <label for="CategorieName">Season Poster:</label>
-                                <input type="file" class="form-control" id="CategorieName" name="posterLink"  required>
+                                <input type="file" class="form-control" id="CategorieName" name="posterLink">
                                 
                                 <label for="CategorieName">Season Titre:</label>
-                                <input type="text" class="form-control" id="CategorieName" name="titre" required>
+                                <input type="text" class="form-control" id="CategorieName" name="titre" value="{{ $season->titre }}" required>
                                 
                                 <label for="CategorieName">Season Description:</label>
-                                <input type="text" class="form-control" id="CategorieName" name="description" >
+                                <textarea type="text" class="form-control" id="CategorieName" name="description">{{ $season->description }}</textarea>
                                 
                                 <label for="CategorieName">Release Year:</label>
-                                <input type="date" class="form-control" id="CategorieName" name="releaseYear" >
+                                <input type="date" class="form-control" id="CategorieName" name="releaseYear" value="{{ $season->releaseYear }}">
+                                
+                                <label for="CategorieName">End Year:</label>
+                                <input type="date" class="form-control" id="CategorieName" name="endYear" value="{{ $season->endYear }}">
                                 
                                 <label for="CategorieName">Season trailler:</label>
-                                <input type="text" class="form-control" id="CategorieName" name="traillerLink" >
+                                <input type="text" class="form-control" id="CategorieName" name="trailerLink" value="{{ $season->trailerLink }}">
 
                                 <label for="CategorieName">Imdb Season Rating:</label>
-                                <input type="text" class="form-control" id="CategorieName" name="imbdLink" >
+                                <input type="text" class="form-control" id="CategorieName" name="imbdLink" value="{{ $season->imbdLink }}">
                                 
                                 <label for="CategorieName">Season Ranking:</label>
-                                <input type="number" class="form-control" id="CategorieName" name="seasonNumber" >
+                                <input type="number" class="form-control" id="CategorieName" name="seasonNumber" value="{{ $season->seasonNumber }}">
                               
                                 <label for="CategorieName">Anime Associate:</label>
                                 <select class="form-control search" id="CategorieName" name="anime_id" data-live-search="true">
@@ -256,24 +258,24 @@
         </div>
   <!-- Delete Medicine Modal -->
 <div class="modal" id="deleteCategoryModal{{$season->id}}">										
-<div class="modal-dialog">
+<div class="modal-dialog" style="max-width: 700px;">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete seasons</h4>
+                    <h4 class="modal-title">Hidden seasons</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <!-- Delete medicine form -->
-                    <form method="POST" action="/season/delete">
+                    <!-- Delete medicine form -->   
+                    <form method="POST" action="/season/hidden">
                     @csrf
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="{{$season->id}}">
-                        <p>Are you sure you want to delete this seasons "{{$season->nom}}"?</p>
+                        <p>Are you sure you want to Hidden this seasons "{{$season->titre}}"?</p>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete season</button>
+                            <button type="submit" class="btn btn-danger">Hidden season</button>
                         </div>
                     </form>
                 </div>
@@ -295,6 +297,35 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var status = '{{ session("status") }}';
+
+        if (status) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès !',
+                text: status,
+            });
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var errors = '{{ $errorsString }}';
+
+        if (errors) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: errors,
+            });
+        }
+    });
+</script>
+
 <script>
     $(document).ready(function(){
         $('.search').selectpicker();

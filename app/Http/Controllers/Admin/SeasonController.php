@@ -6,15 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Anime;
 use App\Models\Season;
+use Illuminate\Support\Facades\Storage;
 
 class SeasonController extends Controller
 {
     public function displaySeason(){
-        $seasons = Season::select('seasons.*', 'animes.titre as animeTitre')
+        $seasons = Season::select('seasons.*', 'animes.titre as anime_titre' , 'animes.id as anime_id')
         ->join('animes', 'seasons.anime_id', '=', 'animes.id')
+        ->where('seasons.status', '=', 'showing')
         ->get();    
        
-        $animes = Anime::all();
+        $animes = Anime::with('categories')->get();
 
         return view('Back-office.Admin.SeasonTable' , compact('seasons', 'animes'));
     }
@@ -24,12 +26,16 @@ class SeasonController extends Controller
             'titre' => 'required',
             'description' => 'required',
             'releaseYear' => 'required',
-            'posterLink' => 'required',
+            // 'posterLink' => 'required',
             'imbdLink' => 'required',
-            'traillerLink' => 'required',
+            'trailerLink' => 'required',
             'seasonNumber' => 'required',
             'anime_id' => 'required',
         ]);
+
+        if ($request->hasFile('posterLink')) {
+            $pathPoster = $request->file('posterLink')->store('postersSeason ', 's3');
+        }
 
         $seasons = new Season();
         // $seasons->fill($request->all());    
@@ -37,7 +43,11 @@ class SeasonController extends Controller
         $seasons->titre = $request->titre;
         $seasons->description = $request->description;
         $seasons->releaseYear = $request->releaseYear;
-        $seasons->traillerLink = $request->traillerLink;
+        $seasons->endYear = $request->endYear;
+        if ($request->hasFile('posterLink')) {
+        $seasons->posterLink = Storage::disk('s3')->url($pathPoster);
+        }
+        $seasons->trailerLink = $request->trailerLink;
         $seasons->imbdLink = $request->imbdLink;
         $seasons->seasonNumber = $request->seasonNumber;
         $seasons->anime_id = $request->anime_id;
@@ -52,10 +62,16 @@ class SeasonController extends Controller
             'titre' => 'required',
             'description' => 'required',
             'releaseYear' => 'required',
-            'traillerLink' => 'required',
+            // 'posterLink' => 'required',
+            'imbdLink' => 'required',
+            'trailerLink' => 'required',
             'seasonNumber' => 'required',
             'anime_id' => 'required',
         ]);
+
+        if ($request->hasFile('posterLink')) {
+            $pathPoster = $request->file('posterLink')->store('postersSeason ', 's3');
+        }
 
         $seasons = Season::find($request->id);
         // $seasons->fill($request->all());    
@@ -63,20 +79,37 @@ class SeasonController extends Controller
         $seasons->titre = $request->titre;
         $seasons->description = $request->description;
         $seasons->releaseYear = $request->releaseYear;
-        $seasons->traillerLink = $request->traillerLink;
+
+        if($request->filled('endYear')){
+        $seasons->endYear = $request->endYear;
+        }
+
+        if ($request->hasFile('posterLink')) {
+        $seasons->posterLink = Storage::disk('s3')->url($pathPoster);
+        }
+        $seasons->trailerLink = $request->trailerLink;
+        $seasons->imbdLink = $request->imbdLink;
         $seasons->seasonNumber = $request->seasonNumber;
-        $seasons->anime_id = $request->anime_id;
+        
+        if($request->filled('anime_id')){
+            $seasons->anime_id = $request->anime_id;
+        }
 
         $seasons->update();
         return redirect('/season')->with('status' , 'La Modidication est  Bien Faite !!');
     }
 
-    public function deleteSeason(Request $request){
+    public function hiddenSeason(Request $request){
         $request->validate([
             'id' => 'required',
         ]);
 
-        $seasons = Season::find($request->id);
-        $seasons->delete();
+        // dd($request->id);
+        $season = Season::find($request->id);
+        $season->status = 'hidden';
+        $season->update();  
+
+        return redirect('/season')->with('status' , 'Season Est Bien caché!!');
+
     }
 }

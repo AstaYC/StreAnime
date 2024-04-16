@@ -74,14 +74,12 @@ Route::post('/role/delete' , [RoleController::class , 'deleteRole']);
 Route::get('/user' , [UserController::class , 'displayUser']);
 Route::post('/user/delete' , [UserController::class , 'deleteUser']);
 
-
 // Slider Route //
 
 Route::get('/slider' , [SliderController::class , 'displaySlider']);
 Route::post('/slider/add' , [SliderController::class , 'addSlider']);
 Route::post('/slider/update' , [SliderController::class , 'updateSlider']);
 Route::post('/slider/delete' , [SliderController::class , 'deleteSlider']);
-
 
 
 // Anime Route //
@@ -115,11 +113,26 @@ Route::post('/hiddenAnimeFilm/delete' , [HiddenContentController::class , 'delet
 Route::get('/season' , [SeasonController::class , 'displaySeason']);
 Route::post('/season/add' , [SeasonController::class , 'addSeason']);
 Route::post('/season/update' , [SeasonController::class , 'updateSeason']);
-Route::post('/season/delete' , [SeasonController::class , 'deleteSeason']);
+Route::post('/season/hidden' , [SeasonController::class , 'hiddenSeason']);
+
+// Hidden Season Route //
+
+Route::get('/hiddenSeason' , [HiddenContentController::class , 'displayHiddenSeason']);
+Route::post('/hiddenSeason/recuperate' , [HiddenContentController::class , 'recuperateSeason']);
+Route::post('/hiddenSeason/delete' , [HiddenContentController::class , 'deleteSeason']);
+
 
 // Episodes //
 
 Route::get('/episode' , [EpisodeController::class , 'displayEpisode']);
 Route::post('/episode/add' , [EpisodeController::class , 'addEpisode']);
 Route::post('/episode/update' , [EpisodeController::class , 'updateEpisode']);
-Route::post('/episode/delete' , [EpisodeController::class , 'deleteEpisode']);
+Route::post('/episode/hidden' , [EpisodeController::class , 'hiddenEpisode']);
+
+// Hidden Episode Route //
+
+Route::get('/hiddenEpisode' , [HiddenContentController::class , 'displayHiddenEpisode']);
+Route::post('/hiddenEpisode/recuperate' , [HiddenContentController::class , 'recuperateEpisode']);
+Route::post('/hiddenEpisode/delete' , [HiddenContentController::class , 'deleteEpisode']);
+
+

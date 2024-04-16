@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Anime;
 use App\Models\Episode;
 use App\Models\Season;
+use Illuminate\Support\Facades\Storage;
 
 class EpisodeController extends Controller
 {
@@ -14,6 +15,7 @@ class EpisodeController extends Controller
         $episodes = Episode::select('episodes.*' , 'seasons.titre as season_titre' , 'animes.titre as anime_titre')
         ->join('seasons' , 'episodes.season_id' , '=' , 'seasons.id')
         ->join('animes', 'seasons.anime_id', '=', 'animes.id')
+        ->where('episodes.status' , '=' , 'showing')
         ->get();    
        
         $seasons = Season::select('seasons.*' , 'animes.titre as anime_titre')
@@ -28,22 +30,32 @@ class EpisodeController extends Controller
             'titre' => 'required',
             'releaseYear' => 'required',
             'mediaLink' => 'required',
-            'posterLink' => 'required',
-            'imbdLink' => 'required',
+            // 'posterLink' => 'required',
             'duration' => 'required',
             'episodeNumber' => 'required',
             'season_id' => 'required',
         ]);
 
+        if ($request->hasFile('posterLink')) {
+            $pathPoster = $request->file('posterLink')->store('postersEpisode ', 's3');
+         }
+
+         if ($request->hasFile('mediaLink')) {
+            $pathMedia = $request->file('mediaLink')->store('mediasEpisode ', 's3');
+         }
+
         $episodes = new Episode();
         // $episodes->fill($request->all());    
 
         $episodes->titre = $request->titre;
-        $episodes->description = $request->description;
         $episodes->releaseYear = $request->releaseYear;
-        $episodes->posterLink = $request->posterLink;
-        $episodes->mediaLink = $request->mediaLink;
-        $episodes->imbdLink = $request->imbdLink;
+        if ($request->hasFile('posterLink')) {
+          $episodes->posterLink = Storage::disk('s3')->url($pathPoster);
+        }
+
+        if ($request->hasFile('mediaLink')) {
+            $episodes->mediaLink = Storage::disk('s3')->url($pathMedia);
+        }
         $episodes->duration = $request->duration;
         $episodes->episodeNumber = $request->episodeNumber;
         $episodes->season_id = $request->season_id;
@@ -56,37 +68,54 @@ class EpisodeController extends Controller
         $request->validate([
             'titre' => 'required',
             'releaseYear' => 'required',
-            'mediaLink' => 'required',
-            'posterLink' => 'required',
-            'imbdLink' => 'required',
+            // 'mediaLink' => 'required',
+            // 'posterLink' => 'required',
             'duration' => 'required',
             'episodeNumber' => 'required',
-            'season_id' => 'required',
+            // 'season_id' => 'required',
         ]);
+
+        if ($request->hasFile('posterLink')) {
+            $pathPoster = $request->file('posterLink')->store('postersEpisode ', 's3');
+         }
+
+         if ($request->hasFile('mediaLink')) {
+            $pathMedia = $request->file('mediaLink')->store('mediasEpisode ', 's3');
+         }
 
         $episodes = Episode::find($request->id);
         // $episodes->fill($request->all());    
 
         $episodes->titre = $request->titre;
-        $episodes->description = $request->description;
         $episodes->releaseYear = $request->releaseYear;
-        $episodes->posterLink = $request->posterLink;
-        $episodes->mediaLink = $request->mediaLink;
-        $episodes->imbdLink = $request->imbdLink;
+        if ($request->hasFile('posterLink')) {
+          $episodes->posterLink = Storage::disk('s3')->url($pathPoster);
+        }
+
+        if ($request->hasFile('mediaLink')) {
+            $episodes->mediaLink = Storage::disk('s3')->url($pathMedia);
+        }
         $episodes->duration = $request->duration;
         $episodes->episodeNumber = $request->episodeNumber;
-        $episodes->season_id = $request->season_id;
+        
+        if($request->filled('season_id')){
+            $episodes->season_id = $request->season_id;
+        }
 
         $episodes->update();
         return redirect('/episode')->with('status' , 'La Modidication est  Bien Faite !!');
     }
 
-    public function deleteEpisode(Request $request){
+    public function hiddenEpisode(Request $request){
         $request->validate([
             'id' => 'required',
         ]);
 
         $episodes = Episode::find($request->id);
-        $episodes->delete();
+        $episodes->status = 'hidden';
+        $episodes->update();
+
+        return redirect('/episode')->with('status' , 'LEpisode est  Bien Caché !!');
+
     }
 }

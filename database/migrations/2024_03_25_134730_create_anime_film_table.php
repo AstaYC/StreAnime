@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();   
             $table->string('titre');
             $table->string('posterLink');
-            $table->time('duration');
+            $table->string('duration');
             $table->string('trailerLink');
             $table->string('imbdLink');
             $table->string('mediaLink');

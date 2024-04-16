@@ -9,7 +9,7 @@ class Slider extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'media_id',
-        'type',
+        'anime_id',
+        'anime_film_id',
     ];
 }

@@ -12,10 +12,10 @@ class Episode extends Model
         'titre',
         'posterLink',
         'releaseYear',
-        'imbdLink',
         'mediaLink',
         'episodeNumber',
         'duration',
         'season_id',
+        'status'
     ];
 }

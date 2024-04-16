@@ -58,7 +58,9 @@ class AnimeController extends Controller
 
         $animes->titre = $request->titre;
         $animes->description = $request->description;
+        if ($request->hasFile('posterLink')) {
         $animes->posterLink = Storage::disk('s3')->url($path);
+        }
         $animes->trailerLink = $request->trailerLink;
         $animes->imbdLink = $request->imbdLink;
         $animes->releaseYear = $request->releaseYear;
@@ -95,10 +97,10 @@ class AnimeController extends Controller
             // 'endYear' => 'required',
             'mangaka' => 'required',
             'studio' => 'required',
-            'source_id' => 'required'
+            // 'source_id' => 'required'
         ]);
         if ($request->hasFile('posterLink')) {
-        $path = $request->file('posterLink')->store('posters ', 's3');
+        $path = $request->file('posterLink')->store('postersAnime ', 's3');
         }
 
         $anime = Anime::find($request->id);
@@ -113,7 +115,11 @@ class AnimeController extends Controller
         $anime->endYear = $request->endYear;
         $anime->mangaka = $request->mangaka;
         $anime->studio = $request->studio;
-        $anime->source_id = $request->source_id;
+
+        if($request->filled('source_id')){
+            $anime->source_id = $request->source_id;
+        }
+       
         if($request->status == 's'){
             $anime->status = 'showing';
         }else{
@@ -121,35 +127,43 @@ class AnimeController extends Controller
         }
         
         $anime->update();
-        $anime_id = $request->id;
-
-        $oldCategories = anime_categorie::where('anime_id' , $anime_id)->delete();
-
-        // foreach($oldCategories as $oldCategorie){
-        //     $oldCategorie->delete();
-        // }
-
-        $categories = [] ;
         
-        if(is_array($request->categories)){
+        if(!$request->filled('categories')){
+            return redirect('/anime')->with('status' , 'La Modification Est Bien Faite !!');
             
-            foreach($request->categories as $categorie){
-                $categories[]= $categorie;
+        }else{
+            
+            $anime_id = $request->id;
+
+            $oldCategories = anime_categorie::where('anime_id' , $anime_id)->delete();
+    
+            // foreach($oldCategories as $oldCategorie){
+            //     $oldCategorie->delete();
+            // }
+    
+            $categories = [] ;
+            
+            if(is_array($request->categories)){
+                
+                foreach($request->categories as $categorie){
+                    $categories[]= $categorie;
+                }
             }
-        }
-
-        if (count($categories) > 0) {
-            foreach($categories as $categorie ){
-                $anime_categorie = new anime_categorie();
-                $anime_categorie->anime_id = $request->id;
-                $anime_categorie->categorie_id = $categorie;
-
-                $anime_categorie->save();
+    
+            if (count($categories) > 0) {
+                foreach($categories as $categorie ){
+                    $anime_categorie = new anime_categorie();
+                    $anime_categorie->anime_id = $request->id;
+                    $anime_categorie->categorie_id = $categorie;
+    
+                    $anime_categorie->save();
+                }
             }
+    
+            return redirect('/anime')->with('status' , 'La Modification Est Bien Faite !!');
+    
         }
-
-        return redirect('/anime')->with('status' , 'La Modification Est Bien Faite !!');
-
+        
     }
 
     public function hiddenAnime(Request $request){

@@ -8,17 +8,20 @@ use App\Models\Anime;
 use App\Models\Anime_film;
 use App\Models\Anime_film_character;
 use App\Models\Character;
+use Illuminate\Support\Facades\Storage;
 
 class CharacterController extends Controller
 {
     public function displayCharacter (){
-        $characters = Character::select('characters.*', 'animes.titre')
+        $characters = Character::select('characters.*', 'animes.titre as anime_titre')
                       ->join('animes', 'characters.anime_id', '=', 'animes.id')
                       ->get();
         $characterWithFilms = Character::with('anime_films')->get();
         $animes = Anime::all();
-        $animeFilms = Anime_film::all();
-        return view('Back-office.Admin.CharacterTable' , compact('characters' , 'animes' , 'animeFilms'));
+        $animeFilms = Anime_film::select('anime_films.*' , 'animes.titre as anime_titre')
+                     ->join('animes' , 'anime_films.anime_id', '=', 'animes.id')
+                     ->get();
+        return view('Back-office.Admin.CharacterTable' , compact('characters' , 'animes' , 'animeFilms' , 'characterWithFilms'));
     }
 
     public function addCharacter(Request $request){
@@ -26,19 +29,25 @@ class CharacterController extends Controller
        $request->validate([
            'nom' => 'required',
            'glance' => 'required',
+           'picture' => 'required',
        ]);
-
-       if ($request->hasFile('images')) {
-        $imageName = $request->file('images')->getClientOriginalName();
-        $request->file('images')->move(public_path('img'), $imageName);
-        $data['images'] =  $imageName;
-      }
+      
+       if ($request->hasFile('picture')) {
+         $path = $request->file('picture')->store('postersCharacter ', 's3');
+        }
 
        $character = new Character();
        $character->nom = $request->nom;
        $character->glance = $request->glance;
-       $character->image = $data['images'];
-       $character->anime_id = $request->anime_id;
+
+       if ($request->hasFile('picture')) {
+        $character->picture = Storage::disk('s3')->url($path);
+       }
+
+       if ($request->filled('anime_id')) {
+         $character->anime_id = $request->anime_id;
+       }
+       
        $character->save();
 
        $films = [];
@@ -69,25 +78,27 @@ class CharacterController extends Controller
             'nom' => 'required',
             'glance' => 'required',
         ]);
-
-        if ($request->hasFile('images')) {
-            $imageName = $request->file('images')->getClientOriginalName();
-            $request->file('images')->move(public_path('img'), $imageName);
-            $data['images'] =  $imageName;
-          }
+        
+        if ($request->hasFile('picture')) {
+            $path = $request->file('picture')->store('postersCharacter ', 's3');
+        }
 
         $character = Character::find($request->id);
         $character->nom = $request->nom;
         $character->glance = $request->glance;
-        if($request->hasFile('images')){
-            $character->image = $data['images'];
+ 
+        if ($request->hasFile('picture')) {
+         $character->picture = Storage::disk('s3')->url($path);
         }
-        $character->anime_id = $request->anime_id;
+ 
+        if ($request->filled('anime_id')) {
+          $character->anime_id = $request->anime_id;
+        }
+
         $character->update();
 
-        $film_characters = Anime_film_character::where('character_id', $request->id)->get();
-        foreach($film_characters as $film_character){
-            $film_character->delete();
+        if($request->filled('films_id')){
+            $film_characters = Anime_film_character::where('character_id', $request->id)->delete();
         }
 
         $films = [];
@@ -108,7 +119,6 @@ class CharacterController extends Controller
             $film_character->save();
         }
        }
-
 
         return redirect('/character')->with('status' , 'La Modification Est Bien Faite !!');
     }

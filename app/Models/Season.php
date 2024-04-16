@@ -11,11 +11,13 @@ class Season extends Model
     protected $fillable = [
         'titre',
         'description',
-        'releaseYear',
+        'releaseYear', 
+        'EndYear', 
         'posterLink',
         'traillerLink',
         'imbdLink',
         'seasonNumber',
         'anime_id',
+        'status'
     ];
 }
