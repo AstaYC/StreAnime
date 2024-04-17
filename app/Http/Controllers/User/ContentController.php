@@ -41,7 +41,9 @@ class ContentController extends Controller
 
      public function displayAnimeList(){
        
-        $animes = Anime::with('categories')->get();
+        $animes = Anime::with('categories')
+                  ->where('animes.status' , '=' , 'showing')
+                  ->get();
         return view('Front-office.AnimeList', compact('animes'));
 
      }
@@ -50,10 +52,12 @@ class ContentController extends Controller
        
         $animeFilms = Anime_film::select('anime_films.*' , 'animes.id as anime_id' , 'animes.titre as anime_titre')
                                   ->join('animes' , 'anime_films.anime_id' , '=' , 'animes.id')
+                                  ->where('anime_films.status' , '=' , 'showing')
                                   ->get();
         $animes = Anime::with('categories')->get();
         return view('Front-office.AnimeFilmList', compact('animeFilms' , 'animes'));
 
      }
+
      
 }

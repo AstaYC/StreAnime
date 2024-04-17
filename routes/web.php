@@ -41,9 +41,14 @@ Route::get('/home' , [ContentController::class , 'displayContent']);
 Route::get('/animeList' , [ContentController::class , 'displayAnimeList']);
 Route::get('/animeFilmList' , [ContentController::class , 'displayAnimeFilmList']);
 
-// Anime (Film) Details //
+// Anime (Season) (Film) Details //
 
 Route::get('/animeDetails/{id}' , [ContentDetailController::class , 'displayAnimeDetails']);
+Route::get('/seasonDetails/{id}' , [ContentDetailController::class , 'displaySeasonDetails']);
+
+// Content Watching //
+
+Route::get('/episodeWatching/{id}' , [ContentDetailController::class , 'dispalyEpisodeWatching']);
 
 //  Categorie Route//
 
