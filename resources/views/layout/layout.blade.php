@@ -46,8 +46,9 @@
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li class="active"><a href="/">Homepage</a></li>
-                                <li><a href="/animeListe">Anime Liste<span class="arrow_carrot-down"></span></a></li>
+                                <li <?php if(url()->current() === url('/home') || url()->current() === url('/') ) echo 'class="active"'; ?>><a href="/">Homepage</a></li>
+                                <li <?php if(url()->current() == url('/animeList')) echo 'class="active"'?>><a href="/animeList">Anime List<span class="arrow_carrot-down"></span></a></li>
+                                <li <?php if(url()->current() == url('/animeFilmList')) echo 'class="active"'?>><a href="/animeFilmList">Anime Film List<span class="arrow_carrot-down"></span></a></li>
                                 <li><a href="./blog.html">Our Blog</a></li>
                                 <li><a href="#">Contacts</a></li>
                             </ul>
@@ -64,6 +65,7 @@
             <div id="mobile-menu-wrap"></div>
         </div>
     </header>
+    
     @yield('content')
     
     <footer class="footer">

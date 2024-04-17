@@ -12,8 +12,8 @@ use App\Http\Controllers\Admin\EpisodeController;
 use App\Http\Controllers\Admin\HiddenContentController;
 use App\Http\Controllers\SuperAdmin\RoleController;
 use App\Http\Controllers\SuperAdmin\UserController;
-use App\Http\Controllers\User\AnimeDetailController;
-use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\ContentDetailController;
+use App\Http\Controllers\User\ContentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,12 +31,19 @@ Route::get('/login' , [AuthController::class , 'displayLogin']);
 Route::get('/register' , [AuthController::class , 'displayRegister']);
 
 
+// Home Route // 
 
+Route::get('/' , [ContentController::class , 'displayContent']);
+Route::get('/home' , [ContentController::class , 'displayContent']);
 
-Route::get('/' , [HomeController::class , 'displayContent']);
-Route::get('/home' , [HomeController::class , 'displayContent']);
-Route::get('/animeListe' , [HomeController::class , 'displayAnimeListe']);
-Route::get('/animeDetails' , [AnimeDetailController::class , 'displayAnimeDetails']);
+// Anime (Film) List //
+
+Route::get('/animeList' , [ContentController::class , 'displayAnimeList']);
+Route::get('/animeFilmList' , [ContentController::class , 'displayAnimeFilmList']);
+
+// Anime (Film) Details //
+
+Route::get('/animeDetails/{id}' , [ContentDetailController::class , 'displayAnimeDetails']);
 
 //  Categorie Route//
 

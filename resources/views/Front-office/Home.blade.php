@@ -9,7 +9,7 @@
         <div class="container">
             <div class="hero__slider owl-carousel">
             @foreach($animeSliders as $animeSlider)
-                <div class="hero__items set-bg" data-setbg="{{ $animeSlider->posterLink }}" style="height: 650px ; background-position: center ;">
+                <div class="hero__items set-bg" data-setbg="{{ $animeSlider->posterLink }}" style="height: 600px ; background-position: center ;">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="hero__text">
@@ -25,7 +25,7 @@
                 </div>
             @endforeach
             @foreach($animeFilmsSliders as $animeFilmsSlider)
-              <div class="hero__items set-bg" data-setbg="{{ $animeFilmsSlider->posterLink }}" style="height: 650px ; background-position: center;">
+              <div class="hero__items set-bg" data-setbg="{{ $animeFilmsSlider->posterLink }}" style="height: 600px ; background-position: center;">
                   <div class="row">
                       <div class="col-lg-6">
                           <div class="hero__text">
@@ -99,22 +99,25 @@
                             </div>
                         </div>
                         <div class="row">
+                          @foreach ($trendanimeFilms as $trendanimeFilm)  
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{{asset('img/popular/popular')}}-1.jpg">
+                                    <div class="product__item__pic set-bg" data-setbg="{{ $trendanimeFilm->posterLink }}">
                                         <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
+                                        <div class="comment"><i class="fa fa-calendar"></i> {{ $trendanimeFilm->releaseYear }}</div>
                                         <div class="view"><i class="fa fa-eye"></i> 9141</div>
                                     </div>
                                     <div class="product__item__text">
                                         <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
+                                           @foreach ($animes->find($trendanimeFilm->anime_id)->categories as $categorie)
+                                             <li>{{ $categorie->nom }}</li>
+                                           @endforeach 
                                         </ul>
-                                        <h5><a href="#">Sen to Chihiro no Kamikakushi</a></h5>
+                                        <h5><a href="#">{{ $trendanimeFilm->titre }} ({{ $trendanimeFilm->anime_titre }})</a></h5>
                                     </div>
                                 </div>
                             </div>
+                          @endforeach    
                         </div>
                     </div>
                 </div>
