@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Anime;
 use App\Models\Anime_film;
+use App\Models\Character;
 use App\Models\Episode;
 use App\Models\Season;
 use Illuminate\Http\Request;
@@ -23,7 +24,10 @@ class ContentDetailController extends Controller
                          ->orderBy('seasonNumber', 'ASC')
                          ->get();
 
-        return view('Front-office.AnimeDetails' , compact('anime' , 'seasons'));
+        $characters = Character::where('anime_id' , $id)
+                                 ->get();
+
+        return view('Front-office.AnimeDetails' , compact('anime' , 'seasons' , 'characters'));
     }
 
 
@@ -45,12 +49,47 @@ class ContentDetailController extends Controller
     }
 
     public function dispalyEpisodeWatching($id){
-        $episode = Episode::select('episodes.*' , 'animes.titre as anime_titre' , 'seasons.titre as season_titre' , 'seasons.seasonNumber')
+        $episode = Episode::select('episodes.*' , 'animes.titre as anime_titre' , 'seasons.titre as season_titre' , 'seasons.seasonNumber' , 'animes.id as anime_id')
                             ->join('seasons' , 'seasons.id' , 'episodes.season_id')
                             ->join('animes' , 'seasons.anime_id' , 'animes.id')
                             ->where('episodes.id' , $id)
                             ->first(); 
 
         return view('Front-office.EpisodeWatching' , compact('episode'));
+    }
+
+
+    //////// Film /////////
+
+    public function displayAnimeFilmDetails($id){
+        $animeFilm = Anime_film::select('anime_films.*' , 'animes.titre as anime_titre' , 'sources.nom as source_nom' , 'animes.mangaka' , 'animes.studio')
+                                 ->join('animes' , 'animes.id' ,  '=' , 'anime_films.anime_id')
+                                 ->join('sources' , 'sources.id' , '=' , 'animes.source_id')
+                                 ->where('anime_films.id' , $id)
+                                 ->first();
+
+        $anime_id = $animeFilm->anime_id;
+
+        $animes = Anime::with('categories');
+
+        $animeFilmSimilars = Anime_film::select('anime_films.*' , 'animes.titre as anime_titre')
+                                        ->join('animes' , 'animes.id' ,  '=' , 'anime_films.anime_id')
+                                        ->where('anime_films.status', 'showing')
+                                        ->where('anime_films.anime_id' , $anime_id)
+                                        ->where('anime_films.id' , '!='  , $id)
+                                        ->get();    
+        
+        return view('Front-office.AnimeFilmDetail' , compact('animeFilm' , 'animes' , 'animeFilmSimilars'));
+    }   
+
+    public function displayAnimeFilmWatching($id){
+        
+        $animeFilm = Anime_film::select('anime_films.*' , 'animes.titre as anime_titre')
+                                 ->join('animes' , 'animes.id' ,  '=' , 'anime_films.anime_id')
+                                 ->where('anime_films.id' , $id)
+                                 ->first();
+
+        return view('Front-office.AnimeFilmWatching' , compact('animeFilm'));
+
     }
 }

@@ -9,7 +9,7 @@
         <div class="container">
             <div class="hero__slider owl-carousel">
             @foreach($animeSliders as $animeSlider)
-                <div class="hero__items set-bg" data-setbg="{{ $animeSlider->posterLink }}" style="height: 600px ; background-position: center ;">
+                <div class="hero__items set-bg" data-setbg="{{ $animeSlider->posterLink }}" style="height: 650px ; background-position: center ;">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="hero__text">
@@ -18,14 +18,14 @@
                                 @endforeach
                                 <h2>{{ $animeSlider->anime_titre }}</h2>
                                 <p>{{ $animeSlider->anime_description }}</p>
-                                <a href="#"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
+                                <a href="<?php echo url('/animeDetails/' . $animeSlider->anime_id) ?>"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             @endforeach
             @foreach($animeFilmsSliders as $animeFilmsSlider)
-              <div class="hero__items set-bg" data-setbg="{{ $animeFilmsSlider->posterLink }}" style="height: 600px ; background-position: center;">
+              <div class="hero__items set-bg" data-setbg="{{ $animeFilmsSlider->posterLink }}" style="height: 650px ; background-position: center;">
                   <div class="row">
                       <div class="col-lg-6">
                           <div class="hero__text">
@@ -34,7 +34,7 @@
                               @endforeach
                               <h2>{{ $animeFilmsSlider->animeFilm_titre }}</h2>
                               <p>{{ $animeFilmsSlider->animeFilm_description }}</p>
-                              <a href="#"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
+                              <a href="<?php echo url('/animeFilmDetails/' . $animeFilmsSlider->anime_film_id)?>"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
                           </div>
                       </div>
                   </div>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4">
                                 <div class="btn__all">
-                                    <a href="#" class="primary-btn">View All <span class="arrow_right"></span></a>
+                                    <a href="/animeList" class="primary-btn">View All <span class="arrow_right"></span></a>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                            @foreach ($trendanimes as $trendanime)                               
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                  <a href="<?php echo url('/animeDetails/' . $anime->id)?>">
+                                  <a href="<?php echo url('/animeDetails/' . $trendanime->id)?>">
                                     <div class="product__item__pic set-bg" data-setbg="{{ $trendanime->posterLink }}">
                                         <div class="ep">18 / 18</div>
                                         <div class="comment"><i class="fa fa-calendar"></i> {{ $trendanime->releaseYear }}</div>
@@ -85,7 +85,9 @@
                                 </div>
                             </div>
                             @endforeach 
+                            
                         </div>
+                        
                     </div>
                     <div class="popular__product">
                         <div class="row">
@@ -96,7 +98,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4">
                                 <div class="btn__all">
-                                    <a href="#" class="primary-btn">View All <span class="arrow_right"></span></a>
+                                    <a href="/animeFilmList" class="primary-btn">View All <span class="arrow_right"></span></a>
                                 </div>
                             </div>
                         </div>
@@ -104,11 +106,13 @@
                           @foreach ($trendanimeFilms as $trendanimeFilm)  
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
+                                  <a href="<?php echo url('/animeFilmDetails/' . $trendanimeFilm->id)?>">
                                     <div class="product__item__pic set-bg" data-setbg="{{ $trendanimeFilm->posterLink }}">
                                         <div class="ep">18 / 18</div>
                                         <div class="comment"><i class="fa fa-calendar"></i> {{ $trendanimeFilm->releaseYear }}</div>
                                         <div class="view"><i class="fa fa-eye"></i> 9141</div>
                                     </div>
+                                  </a>
                                     <div class="product__item__text">
                                         <ul>
                                            @foreach ($animes->find($trendanimeFilm->anime_id)->categories as $categorie)

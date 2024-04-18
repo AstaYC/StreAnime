@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
-                        <a href="/home"><i class="fa fa-home"></i> Home</a>
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
                         <span>Anime Film List</span>
                     </div>
                 </div>
@@ -45,11 +45,13 @@
                            @foreach ( $animeFilms as $animeFilm)
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
+                                  <a href="<?php echo url('/animeFilmDetails/' . $animeFilm->id)?>">
                                     <div class="product__item__pic set-bg" data-setbg="{{ $animeFilm->posterLink }}">
                                         <div class="ep">18 / 18</div>
                                         <div class="comment"><i class="fa fa-calendar"></i> {{ $animeFilm->releaseYear }}</div>
                                         <div class="view"><i class="fa fa-eye"></i> 9141</div>
                                     </div>
+                                  </a>
                                     <div class="product__item__text">
                                         <ul>
                                            @foreach ($animes->find($animeFilm->anime_id)->categories as $categorie)

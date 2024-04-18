@@ -9,8 +9,8 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <a href="/"><i class="fa fa-home"></i> Home</a>
-                        <a href="/animeList">Anime List</a>
-                        <span>Anime Details</span>
+                        <a href="/animeFilmList">Anime Film List</a>
+                        <span>Anime film Details</span>
                     </div>
                 </div>
             </div>
@@ -24,15 +24,15 @@
             <div class="anime__details__content">
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="anime__details__pic set-bg" data-setbg="{{ $anime->posterLink }}">
-                            <div class="comment"><i class="fa fa-calendar"></i> {{ $anime->releaseYear }}</div>
+                        <div class="anime__details__pic set-bg" data-setbg="{{ $animeFilm->posterLink }}">
+                            <div class="comment"><i class="fa fa-calendar"></i> {{ $animeFilm->releaseYear }}</div>
                             <div class="view"><i class="fa fa-eye"></i> 9141</div>
                         </div>
                     </div>
                     <div class="col-lg-9">
                         <div class="anime__details__text">
                             <div class="anime__details__title">
-                                <h3>{{ $anime->titre }}</h3>
+                                <h3>{{ $animeFilm->titre }} ( {{ $animeFilm->anime_titre }} )</h3>
                             </div>
                             <div class="anime__details__rating">
                                 <div class="rating">
@@ -44,36 +44,35 @@
                                 </div>
                                 <span>1.029 Votes</span>
                             </div>
-                            <p>{{ $anime->description }}</p>
+                            <p>{{ $animeFilm->description }}</p>
                             <div class="anime__details__widget">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
-                                            <li><span>Source:</span> {{ $anime->source_nom }}</li>
-                                            <li><span>Studio:</span> {{ $anime->studio }}</li>
-                                            <li><span>Release Year:</span>{{ $anime->releaseYear }}</li>
-                                            <li><span>Genre:</span> Animation</li>
-                                            <li><span>Categories:</span>@foreach($anime->find($anime->id)->categories as $categorie){{$categorie->nom}} , @endforeach</li>
+                                            <li><span>Anime:</span> {{ $animeFilm->anime_titre }}</li>
+                                            <li><span>Source:</span> {{ $animeFilm->source_nom }}</li>
+                                            <li><span>Studio:</span> {{ $animeFilm->studio }}</li>
+                                            <li><span>Release Year:</span>{{ $animeFilm->releaseYear }}</li>
+                                            <li><span>Categories:</span>@foreach($animes->find($animeFilm->anime_id)->categories as $categorie){{$categorie->nom}} , @endforeach</li>
                                         </ul>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
-                                            <li><span>Mangaka:</span>{{ $anime->mangaka }}</li>
+                                            <li><span>Mangaka:</span>{{ $animeFilm->mangaka }}</li>
                                             <li><span>Rating:</span> 8.5 / 161 times</li>
-                                            <li><span>End Year:</span><?php if($anime->endYear){ echo $anime->endYear; } else { echo 'Not yet Ended'; } ?></li>
-                                            <li><span>Quality:</span> HD</li>
+                                            <li><span>Duration:</span> <?php echo $animeFilm->duration . ' H'?></li>
+                                            <li><span>Genre:</span> Animation</li>
                                             <li><span>Views:</span> 131,541</li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="anime__details__btn">
-                                <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
-                                <a href="#" class="follow-btn" data-toggle="modal" data-target="#charcterModel"  ><i class="fa fa-user"></i> Character</a>
+                                <a href="<?php echo url('/animeFilmWatching/' . $animeFilm->id) ?>" class="follow-btn"><i class="fa fa-heart-o"></i> Watch Now</a>
                                 <a  data-toggle="modal" data-target="#youtubeModal" class="watch-btn"><span>Trailer</span> <i
                                     class="fa fa-angle-right"></i>
                                 </a>
-                                <a href="{{ $anime->imbdLink }}" target="_blank" style="margin-left : 20px;"><img src="{{ asset('img/MAL.png') }}" style="width:50px;  border-radius: 10px;"></a>
+                                <a href="{{ $animeFilm->imbdLink }}" target="_blank" style="margin-left : 20px;"><img src="{{ asset('img/MAL.png') }}" style="width:50px;  border-radius: 10px;"></a>
                             </div>
                         </div>
                     </div>
@@ -84,48 +83,19 @@
                             <div class="modal-dialog" style="max-width: 700px;">
                               <div class="modal-content bg-dark">
                                 <div class="modal-header">
-                                  <h5 class="modal-title text-white" id="youtubeModalLabel">Trailer For {{ $anime->titre }}</h5>
+                                  <h5 class="modal-title text-white" id="youtubeModalLabel">Trailer pour {{ $animeFilm->titre }}</h5>
                                   <button type="button" class="close text-white" data-dismiss="modal" aria-label="Fermer">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
                                 <div class="modal-body">
                                   <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe width="140" height="100" src="https://www.youtube.com/embed/{{ $anime->trailerLink }}" frameborder="0" allowfullscreen></iframe>  
+                                    <iframe width="140" height="100" src="https://www.youtube.com/embed/{{ $animeFilm->trailerLink }}" frameborder="0" allowfullscreen></iframe>  
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          {{--  --}}
-
-                          {{-- Chararcter Model --}}
-                          <div class="modal fade" id="charcterModel" tabindex="-1" role="dialog" aria-labelledby="charcterModel" aria-hidden="true">
-                            <div class="modal-dialog" style="max-width: 1000px;">
-                              <div class="modal-content bg-dark">
-                                <div class="modal-header">
-                                  <h5 class="modal-title text-white" id="youtubeModalLabel">Trailer pour {{ $anime->titre }}</h5>
-                                  <button type="button" class="close text-white" data-dismiss="modal" aria-label="Fermer">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row"> 
-                                        @foreach ($characters as $character )
-                                           <div class="col-lg-2 col-md-6 col-sm-6">
-                                               <div class="product__item">
-                                                      <div style="height: 150px" class="product__item__pic set-bg" data-setbg="{{ $character->picture }}">
-                                                          <div class="comment"><i class="fa fa-user"></i> {{ $character->nom }}</div>
-                                                      </div>
-                                               </div>
-                                           </div>   
-                                        @endforeach
-                                    </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
+                          </div>     
                           {{--  --}}
                           
                 <div class="row">
@@ -133,35 +103,36 @@
                       {{--  --}}
                         <div class="anime__details__review">
                             <div class="section-title">
-                                <h5>Seasons for {{ $anime->titre }}</h5>
+                                <h5>Films Has the Similar Anime ({{ $animeFilm->anime_titre }})</h5>
                             </div>
-                        
-                            <div class="row">
-
-                                @foreach ($seasons as $season)
-      
-                                  <div class="col-lg-4 col-md-6 col-sm-6">
-                                      <div class="product__item">
-                                        <a href="<?php echo url('/seasonDetails/' . $season->id)?>">
-                                          <div class="product__item__pic set-bg" data-setbg="{{ $season->posterLink }}">
-                                              <div class="comment"><i class="fa fa-calendar"></i> {{ $season->releaseYear }}</div>
-                                              <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                          </div>
-                                        </a>
-                                          <div class="product__item__text">
-                                              <ul>
-                                                  @foreach ( $anime->find($anime->id)->categories as $categorie )
-                                                  <li>{{ $categorie->nom }}</li>
-                                                  @endforeach
-                                              </ul>
-                                              <h5><a href="#">Se <?php echo $season->seasonNumber . ' : '?>{{ $season->titre }}</a></h5>
-                                          </div>
-                                      </div>
-                                  </div>
-      
-                                @endforeach()
-                            
-                            </div>
+                         @if (count($animeFilmSimilars) == 0)
+                            <div style="color: white"><i class="fa fa-exclamation-circle"></i> There Is No Film has the same Anime ! </div>
+                         @endif
+                          <div class="row">
+                              @foreach ($animeFilmSimilars as $animeFilmSimilar)
+    
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                      <a href="<?php echo url('/animeFilmDetails/' . $animeFilmSimilar->id)?>">
+                                        <div class="product__item__pic set-bg" data-setbg="{{ $animeFilmSimilar->posterLink }}">
+                                            <div class="ep">18 / 18</div>
+                                            <div class="comment"><i class="fa fa-calendar"></i> {{ $animeFilmSimilar->releaseYear }}</div>
+                                            <div class="view"><i class="fa fa-tag"></i> {{ $animeFilmSimilar->anime_titre }}</div>
+                                        </div>
+                                      </a>
+                                        <div class="product__item__text">
+                                            <ul>
+                                                @foreach ( $animes->find($animeFilmSimilar->anime_id)->categories as $categorie )
+                                                <li>{{ $categorie->nom }}</li>
+                                                @endforeach
+                                            </ul>
+                                            <h5><a href="#">{{ $animeFilmSimilar->titre }}</a></h5>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                              @endforeach()
+                          </div>
                         </div>
                         <div class="anime__details__review">
                             <div class="section-title">

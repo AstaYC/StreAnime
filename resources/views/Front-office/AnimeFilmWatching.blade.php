@@ -7,10 +7,9 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <a href="/"><i class="fa fa-home"></i> Home</a>
-                        <a href="/animeList">Anime List</a>
-                        <a href="<?php echo url('/animeDetails/' . $episode->anime_id)?>">Anime Detail</a>
-                        <a href="<?php echo url('/seasonDetails/' . $episode->season_id)?>">Season Detail</a>
-                        <span>Episode Watching</span>
+                        <a href="/animeFilmList">Anime Film List</a>
+                        <a href="<?php echo url('/animeFilmDetails/' . $animeFilm->id)?>">Anime Film Detail</a>
+                        <span>Anime Film Watching</span>
                     </div>
                 </div>
             </div>
@@ -24,8 +23,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="anime__video__player">
-                        <video id="player" playsinline controls data-poster="{{ $episode->posterLink }}">
-                            <source src="{{ $episode->mediaLink }}" type="video/mp4" />
+                        <video id="player" playsinline controls data-poster="{{ $animeFilm->posterLink }}">
+                            <source src="{{ $animeFilm->mediaLink }}" type="video/mp4" />
                             <!-- Captions are optional -->
                             <track kind="captions" label="English captions" src="#" srclang="en" default />
                         </video>
@@ -35,22 +34,20 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="anime__details__title">
-                         <h3>Ep {{ $episode->episodeNumber . ' : ' }}{{ $episode->titre .' ' }} ({{ $episode->anime_titre }})</h3>
+                         <h3>{{ $animeFilm->anime_titre . ' Film : ' }}{{ $animeFilm->titre .' ' }}</h3>
                     </div>
                     <div class="anime__details__widget">    
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <ul>
-                                    <li><span>Anime:</span>{{ $episode->anime_titre }}</li>
-                                    <li><span>Season:</span>Se{{ $episode->seasonNumber . ' : ' }}{{ $episode->season_titre }}</li>
+                                    <li><span>Anime:</span>{{ $animeFilm->anime_titre }}</li>
 
                                 </ul>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <ul>
-                                    <li><span>Ep Number:</span> {{ $episode->episodeNumber }}</li>
-                                    <li><span>Release Year:</span>{{ $episode->releaseYear }}</li>
-                                    <li><span>Duration :</span>{{ $episode->duration }} H</li>
+                                    <li><span>Release Year:</span>{{ $animeFilm->releaseYear }}</li>
+                                    <li><span>Duration :</span>{{ $animeFilm->duration }} H</li>
                                 </ul>
                             </div>
                         </div>

@@ -8,9 +8,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <a href="./categories.html">Anime List</a>
-                        <a href="./categories.html">Anime Detail</a>
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <a href="/animeList">Anime List</a>
+                        <a href="<?php echo url('/animeDetails/' . $season->anime_id)?>">Anime Detail</a>
                         <span>Season Details</span>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                     <div class="col-lg-9">
                         <div class="anime__details__text">
                             <div class="anime__details__title">
-                                <h3>{{ $season->titre }} ({{ $season->anime_titre }})</h3>
+                                <h3>Se <?php echo $season->seasonNumber . ' : '?>{{ $season->titre }} ({{ $season->anime_titre }})</h3>
                             </div>
                             <p>{{ $season->description }}</p>
                             <div class="anime__details__widget">
@@ -51,7 +51,7 @@
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
                                             <li><span>Mangaka:</span>{{ $season->mangaka }}</li>
-                                            <li><span>Rating:</span> 8.5 / 161 times</li>
+                                            <li><span>SE Number:</span>{{ $season->seasonNumber }}</li>
                                             <li><span>End Year:</span><?php if($season->endYear){ echo $season->endYear; } else { echo 'Not yet Ended'; } ?></li>
                                             <li><span>Quality:</span> HD</li>
                                             <li><span>Genre:</span> Animation</li>
@@ -95,31 +95,38 @@
                       {{--  --}}
                         <div class="anime__details__review">
                             <div class="section-title">
-                                <h5>Episodes for {{ $season->titre }}</h5>
+                                <h5>Episodes for Se {{ $season->seasonNumber . ' : ' }} {{ $season->titre }}</h5>
                             </div>
-                          @foreach ( $episodes as $episode)
-
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                  <a href="<?php echo url('/episodeWatching/' . $season->id)?>">
-                                    <div class="product__item__pic set-bg" data-setbg="{{ $episode->posterLink }}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-calendar"></i> {{ $episode->releaseYear }}</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                  </a>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            @foreach ( $anime->find($season->anime_id)->categories as $categorie )
-                                            <li>{{ $categorie->nom }}</li>
-                                            @endforeach
-                                        </ul>
-                                        <h5 style="color: white">Ep {{ $episode->episodeNumber . ' : ' }}<a href="#">{{ $episode->titre }}</a></h5>
-                                    </div>
-                                </div>
+                            @if (count($episodes) == 0)
+                               <div style="color: white"><i class="fa fa-exclamation-circle"></i>  There Is No Episodes For this Season ! </div>
+                            @endif
+                            <div class="row">
+                                
+                                @foreach ( $episodes as $episode)
+      
+                                  <div class="col-lg-4 col-md-6 col-sm-6">
+                                      <div class="product__item">
+                                        <a href="<?php echo url('/episodeWatching/' . $season->id)?>">
+                                          <div class="product__item__pic set-bg" data-setbg="{{ $episode->posterLink }}">
+                                              <div class="ep">18 / 18</div>
+                                              <div class="comment"><i class="fa fa-calendar"></i> {{ $episode->releaseYear }}</div>
+                                              <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                          </div>
+                                        </a>
+                                          <div class="product__item__text">
+                                              <ul>
+                                                  @foreach ( $anime->find($season->anime_id)->categories as $categorie )
+                                                  <li>{{ $categorie->nom }}</li>
+                                                  @endforeach
+                                              </ul>
+                                              <h5 style="color: white">Ep {{ $episode->episodeNumber . ' : ' }}<a href="#">{{ $episode->titre }}</a></h5>
+                                          </div>
+                                      </div>
+                                  </div>
+      
+                                @endforeach()
+                                
                             </div>
-
-                          @endforeach()
                         </div>
                         <div class="anime__details__review">
                             <div class="section-title">
