@@ -15,6 +15,7 @@ class Episode extends Model
         'mediaLink',
         'episodeNumber',
         'duration',
+        'views',
         'season_id',
         'status'
     ];

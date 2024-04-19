@@ -61,7 +61,7 @@
                             </div>
                             <div class="anime__details__btn">
                                 <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
-                                <a  data-toggle="modal" data-target="#youtubeModal" class="watch-btn"><span>Trailer</span> <i
+                                <a href="" data-toggle="modal" data-target="#youtubeModal" class="watch-btn"><span>Trailer</span> <i
                                     class="fa fa-angle-right"></i>
                                 </a>
                                 <a href="{{ $season->imbdLink }}" target="_blank" style="margin-left : 20px;"><img src="{{ asset('img/MAL.png') }}" style="width:50px;  border-radius: 10px;"></a>

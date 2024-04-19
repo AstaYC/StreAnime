@@ -77,9 +77,10 @@ class ContentDetailController extends Controller
                                         ->where('anime_films.status', 'showing')
                                         ->where('anime_films.anime_id' , $anime_id)
                                         ->where('anime_films.id' , '!='  , $id)
-                                        ->get();    
-        
-        return view('Front-office.AnimeFilmDetail' , compact('animeFilm' , 'animes' , 'animeFilmSimilars'));
+                                        ->get();
+                                
+        $characters = $animeFilm->characters;       
+        return view('Front-office.AnimeFilmDetail' , compact('animeFilm' , 'animes' , 'animeFilmSimilars' , 'characters'));
     }   
 
     public function displayAnimeFilmWatching($id){
@@ -90,6 +91,19 @@ class ContentDetailController extends Controller
                                  ->first();
 
         return view('Front-office.AnimeFilmWatching' , compact('animeFilm'));
+    }
 
+    public function viewsIncriment($episodeId){
+
+        $episode = Episode::find($episodeId);
+
+        if($episode->status == 'hidden'){
+            return response()->json(['error' => 'This Episode is hidden'], 200);
+        }
+
+        $episode->views = $episode->views + 1 ;
+        $episode->update();
+
+        return response()->json(['message' => 'Views count incremented successfully'], 200);
     }
 }

@@ -69,7 +69,8 @@
                             </div>
                             <div class="anime__details__btn">
                                 <a href="<?php echo url('/animeFilmWatching/' . $animeFilm->id) ?>" class="follow-btn"><i class="fa fa-heart-o"></i> Watch Now</a>
-                                <a  data-toggle="modal" data-target="#youtubeModal" class="watch-btn"><span>Trailer</span> <i
+                                <a href="" data-toggle="modal" data-target="#charcterModel" class="follow-btn"><i class="fa fa-user"></i> Characters</a>
+                                <a href="" data-toggle="modal" data-target="#youtubeModal" class="watch-btn"><span>Trailer</span> <i
                                     class="fa fa-angle-right"></i>
                                 </a>
                                 <a href="{{ $animeFilm->imbdLink }}" target="_blank" style="margin-left : 20px;"><img src="{{ asset('img/MAL.png') }}" style="width:50px;  border-radius: 10px;"></a>
@@ -96,6 +97,38 @@
                               </div>
                             </div>
                           </div>     
+                          {{--  --}}
+
+                          {{-- Chararcter Model --}}
+
+                          <div class="modal fade" id="charcterModel" tabindex="-1" role="dialog" aria-labelledby="charcterModel" aria-hidden="true">
+                            <div class="modal-dialog" style="max-width: 1000px;">
+                              <div class="modal-content bg-dark">
+                                <div class="modal-header">
+                                  <h5 class="modal-title text-white" id="youtubeModalLabel">The Characters in  {{ $animeFilm->titre }}</h5>
+                                  <button type="button" class="close text-white" data-dismiss="modal" aria-label="Fermer">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row"> 
+                                        @foreach ($characters as $character )
+                                           <div class="col-lg-2 col-md-6 col-sm-6">
+                                            <a href="<?php echo url('/')?>">
+                                                <div class="product__item">
+                                                       <div style="height: 150px" class="product__item__pic set-bg" data-setbg="{{ $character->picture }}">
+                                                           <div class="comment"><i class="fa fa-user"></i> {{ $character->nom }}</div>
+                                                       </div>
+                                                </div>
+                                            </a>
+                                           </div>   
+                                        @endforeach
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                           {{--  --}}
                           
                 <div class="row">

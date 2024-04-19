@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="anime__video__player">
-                        <video id="player" playsinline controls data-poster="{{ $episode->posterLink }}">
+                        <video id="player" playsinline controls data-poster="{{ $episode->posterLink }}" onplay="viewsIncr({{ $episode->id }})" >
                             <source src="{{ $episode->mediaLink }}" type="video/mp4" />
                             <!-- Captions are optional -->
                             <track kind="captions" label="English captions" src="#" srclang="en" default />
@@ -70,4 +70,28 @@
         </div>
     </section>
     <!-- Anime Section End -->
+      <meta name="csrf" content="{{ csrf_token() }}">
+
 @endsection('content')
+
+@section('scripts')
+<script>
+    var csrf = document.querySelector('meta[name="csrf"]').getAttribute('content');
+    function viewsIncr(id) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", `/episodeWatching/${id}/viewsIncr`, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.setRequestHeader("X-CSRF-TOKEN", csrf); 
+      xhr.onreadystatechange = function () {
+        // console.log(xhr.readyState);
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText)
+        }else{
+            console.error(error.message);
+        }
+    };
+     xhr.send();
+    }
+
+</script>
+@endsection('scripts')

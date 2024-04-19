@@ -52,6 +52,11 @@ Route::get('/animeFilmDetails/{id}' , [ContentDetailController::class , 'display
 Route::get('/episodeWatching/{id}' , [ContentDetailController::class , 'dispalyEpisodeWatching']);
 Route::get('/animeFilmWatching/{id}' , [ContentDetailController::class , 'displayAnimeFilmWatching']);
 
+// Incriment View //
+
+Route::post('/episodeWatching/{episodeId}/viewsIncr' , [ContentDetailController::class , 'viewsIncriment']);
+
+
 //  Categorie Route//
 
 Route::get('/categorie' , [CategorieController::class , 'displayCategorie']);

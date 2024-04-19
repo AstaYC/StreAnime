@@ -118,5 +118,7 @@
     <script src="{{ asset('asset/js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('asset/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('asset/js/main.js') }}"></script>
+
+    @yield('scripts')
  </body>
 </html>
