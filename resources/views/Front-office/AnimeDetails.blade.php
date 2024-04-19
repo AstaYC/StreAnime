@@ -142,13 +142,12 @@
                             <div class="row">
 
                                 @foreach ($seasons as $season)
-      
                                   <div class="col-lg-4 col-md-6 col-sm-6">
                                       <div class="product__item">
                                         <a href="<?php echo url('/seasonDetails/' . $season->id)?>">
                                           <div class="product__item__pic set-bg" data-setbg="{{ $season->posterLink }}">
                                               <div class="comment"><i class="fa fa-calendar"></i> {{ $season->releaseYear }}</div>
-                                              <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                              <div class="view"><i class="fa fa-eye"></i> {{ $season->seasonViews }}</div>
                                           </div>
                                         </a>
                                           <div class="product__item__text">

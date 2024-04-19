@@ -43,6 +43,7 @@
                                 <ul>
                                     <li><span>Anime:</span>{{ $episode->anime_titre }}</li>
                                     <li><span>Season:</span>Se{{ $episode->seasonNumber . ' : ' }}{{ $episode->season_titre }}</li>
+                                    <li><span>Views:</span>{{ $episode->views }} views</li>
 
                                 </ul>
                             </div>
@@ -77,6 +78,7 @@
 @section('scripts')
 <script>
     var csrf = document.querySelector('meta[name="csrf"]').getAttribute('content');
+    
     function viewsIncr(id) {
       var xhr = new XMLHttpRequest();
       xhr.open("POST", `/episodeWatching/${id}/viewsIncr`, true);

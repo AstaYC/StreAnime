@@ -27,7 +27,7 @@
                     <div class="col-lg-3">
                         <div class="anime__details__pic set-bg" data-setbg="{{ $season->posterLink }}">
                             <div class="comment"><i class="fa fa-calendar"></i> {{ $season->releaseYear }}</div>
-                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                            <div class="view"><i class="fa fa-eye"></i> {{ $views }} </div>
                         </div>
                     </div>
                     <div class="col-lg-9">
@@ -53,7 +53,7 @@
                                             <li><span>Mangaka:</span>{{ $season->mangaka }}</li>
                                             <li><span>SE Number:</span>{{ $season->seasonNumber }}</li>
                                             <li><span>End Year:</span><?php if($season->endYear){ echo $season->endYear; } else { echo 'Not yet Ended'; } ?></li>
-                                            <li><span>Quality:</span> HD</li>
+                                            <li><span>Views:</span> {{ $views }} views</li>
                                             <li><span>Genre:</span> Animation</li>
                                         </ul>
                                     </div>
@@ -110,7 +110,7 @@
                                           <div class="product__item__pic set-bg" data-setbg="{{ $episode->posterLink }}">
                                               <div class="ep">18 / 18</div>
                                               <div class="comment"><i class="fa fa-calendar"></i> {{ $episode->releaseYear }}</div>
-                                              <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                              <div class="view"><i class="fa fa-eye"></i> {{ $episode->views }} </div>
                                           </div>
                                         </a>
                                           <div class="product__item__text">

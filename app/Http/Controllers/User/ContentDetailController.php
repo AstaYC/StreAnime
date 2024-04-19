@@ -19,13 +19,29 @@ class ContentDetailController extends Controller
                  ->where('animes.id' , $id)
                  ->first();
 
+        $seasonsForAnimes = Season::where('anime_id' , $id)
+                         ->get();
+        $animeViews = 0 ;     
+       
+        foreach($seasonsForAnimes as $seasonsForAnime){
+            $SeasonViews = Episode::where('episodes.season_id', $seasonsForAnime->id)
+                          ->sum('views');
+            $animeViews = $animeViews + $SeasonViews ;
+        }
+
         $seasons = Season::where('anime_id' , $id)
                          ->where('status', 'showing')
                          ->orderBy('seasonNumber', 'ASC')
                          ->get();
 
+        foreach ($seasons as $season) {
+            $season->seasonViews = Episode::where('episodes.season_id', $season->id)
+                                    ->sum('views');
+        }
+
         $characters = Character::where('anime_id' , $id)
                                  ->get();
+
 
         return view('Front-office.AnimeDetails' , compact('anime' , 'seasons' , 'characters'));
     }
@@ -44,8 +60,10 @@ class ContentDetailController extends Controller
                             ->orderBy('episodeNumber' , 'ASC')
                             ->get();
 
+        $views = Episode::where('episodes.season_id' , $season->id)
+                          ->sum('views');
 
-        return view('Front-office.SeasonDetails' , compact('season' , 'anime' , 'episodes'));
+        return view('Front-office.SeasonDetails' , compact('season' , 'anime' , 'episodes' , 'views'));
     }
 
     public function dispalyEpisodeWatching($id){
