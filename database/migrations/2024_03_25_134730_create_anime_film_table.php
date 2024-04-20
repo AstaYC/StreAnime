@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('mediaLink');
             $table->date('releaseYear');
             $table->text('description');
+            $table->unsignedBigInteger('views');
             $table->enum('status' , ['showing' , 'hidden'])->default('showing');
             $table->unsignedBigInteger('anime_id');
             $table->foreign('anime_id')->references('id')->on('animes')->onDelete('cascade')->onUpdate('cascade');

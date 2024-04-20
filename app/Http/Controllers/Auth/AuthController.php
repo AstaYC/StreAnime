@@ -4,16 +4,22 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Facades\JWTFactory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use Illuminate\Support\Str;   
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+
+
+
+    public function displayLogin(){
+        return view('Auth/Login');
+    }
+
+    public function displayRegister(){
+        return view('Auth/Register');
+    }
       /**
      * Create a new AuthController instance.
      *

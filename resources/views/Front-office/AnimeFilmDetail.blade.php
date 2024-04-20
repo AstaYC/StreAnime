@@ -26,7 +26,7 @@
                     <div class="col-lg-3">
                         <div class="anime__details__pic set-bg" data-setbg="{{ $animeFilm->posterLink }}">
                             <div class="comment"><i class="fa fa-calendar"></i> {{ $animeFilm->releaseYear }}</div>
-                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                            <div class="view"><i class="fa fa-eye"></i> {{ $animeFilm->views }}</div>
                         </div>
                     </div>
                     <div class="col-lg-9">
@@ -62,7 +62,7 @@
                                             <li><span>Rating:</span> 8.5 / 161 times</li>
                                             <li><span>Duration:</span> <?php echo $animeFilm->duration . ' H'?></li>
                                             <li><span>Genre:</span> Animation</li>
-                                            <li><span>Views:</span> 131,541</li>
+                                            <li><span>Views:</span> {{ $animeFilm->views }} views</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@
                                         <div class="product__item__pic set-bg" data-setbg="{{ $animeFilmSimilar->posterLink }}">
                                             <div class="ep">18 / 18</div>
                                             <div class="comment"><i class="fa fa-calendar"></i> {{ $animeFilmSimilar->releaseYear }}</div>
-                                            <div class="view"><i class="fa fa-tag"></i> {{ $animeFilmSimilar->anime_titre }}</div>
+                                            <div class="view"><i class="fa fa-eye"></i> {{ $animeFilmSimilar->views }}</div>
                                         </div>
                                       </a>
                                         <div class="product__item__text">

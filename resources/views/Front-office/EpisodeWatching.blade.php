@@ -24,7 +24,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="anime__video__player">
-                        <video id="player" playsinline controls data-poster="{{ $episode->posterLink }}" onplay="viewsIncr({{ $episode->id }})" >
+                        <video id="player" playsinline controls data-poster="{{ $episode->posterLink }}" onplay="viewsIncr({{ $episode->id }})
+                            " >
                             <source src="{{ $episode->mediaLink }}" type="video/mp4" />
                             <!-- Captions are optional -->
                             <track kind="captions" label="English captions" src="#" srclang="en" default />
@@ -78,8 +79,16 @@
 @section('scripts')
 <script>
     var csrf = document.querySelector('meta[name="csrf"]').getAttribute('content');
+    let isVideoPlaying = true;
+    let video = document.getElementById('player');
+    video.addEventListener('pause', function() {
+         isVideoPlaying = false;
+    });
     
+    console.log(isVideoPlaying);
+
     function viewsIncr(id) {
+     if (isVideoPlaying) { 
       var xhr = new XMLHttpRequest();
       xhr.open("POST", `/episodeWatching/${id}/viewsIncr`, true);
       xhr.setRequestHeader("Content-Type", "application/json");
@@ -92,8 +101,11 @@
             console.error(error.message);
         }
     };
-     xhr.send();
+      xhr.send();
     }
+    
+    }
+
 
 </script>
 @endsection('scripts')

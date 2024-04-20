@@ -26,7 +26,7 @@
                     <div class="col-lg-3">
                         <div class="anime__details__pic set-bg" data-setbg="{{ $anime->posterLink }}">
                             <div class="comment"><i class="fa fa-calendar"></i> {{ $anime->releaseYear }}</div>
-                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                            <div class="view"><i class="fa fa-eye"></i> {{ $animeViews }}</div>
                         </div>
                     </div>
                     <div class="col-lg-9">
@@ -62,7 +62,7 @@
                                             <li><span>Rating:</span> 8.5 / 161 times</li>
                                             <li><span>End Year:</span><?php if($anime->endYear){ echo $anime->endYear; } else { echo 'Not yet Ended'; } ?></li>
                                             <li><span>Quality:</span> HD</li>
-                                            <li><span>Views:</span> 131,541</li>
+                                            <li><span>Views:</span> {{ $animeViews }}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -114,7 +114,7 @@
                                     <div class="row"> 
                                         @foreach ($characters as $character )
                                            <div class="col-lg-2 col-md-6 col-sm-6">
-                                            <a href="<?php echo url('/')?>">
+                                            <a href="" data-toggle="modal" data-target="#charcterDetailModel{{ $character->id }}">
                                                 <div class="product__item">
                                                        <div style="height: 150px" class="product__item__pic set-bg" data-setbg="{{ $character->picture }}">
                                                            <div class="comment"><i class="fa fa-user"></i> {{ $character->nom }}</div>
@@ -125,12 +125,82 @@
                                         @endforeach
                                     </div>
                                 </div>
+
+                                <div class="modal-footer">
+                                </div>
+
                               </div>
                             </div>
                           </div>
 
                           {{--  --}}
+
+                          {{-- Character Detail Model --}}
+                                @foreach ( $characters as $character)
+                                    <div class="modal fade" id="charcterDetailModel{{ $character->id }}" tabindex="-1" role="dialog" aria-labelledby="charcterModel" aria-hidden="true">
+                                        <div class="modal-dialog" style="max-width: 600px;">
+                                          <div class="modal-content bg-dark">
+                                            <div class="modal-header">
+                                              <h5 style="font:bolder" class="modal-title text-white" id="youtubeModalLabel">Who Is {{ $character->nom }} ?</h5>
+                                              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Fermer">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row" style="padding-left: 20px"> 
+                                                    <div class="anime__details__content">
+                                                        <div class="row">
+                                                            <div class="col-lg-5">
+                                                                <div style="width:220px;" class="anime__details__pic set-bg" data-setbg="{{ $character->picture }}">
+                                                                    <div class="comment"><i class="fa fa-calendar"></i> {{ $character->birthday }}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-7">
+                                                                <div class="anime__details__text">
+                                                                    <div class="anime__details__title">
+                                                                        <h3>{{ $character->nom }}</h3>
+                                                                    </div>
+                                                                    <p>{{ $character->glance }}</p>
+                                                                    <div class="anime__details__widget">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-6 col-md-6">
+                                                                                <ul>
+                                                                                    <li><span>Anime:</span> {{ $character->anime_titre }}</li>
+                                                                                    <li><span>AnimeFilms:</span>
+                                                                                        @foreach ($filmAssociés->find($character->id)->anime_films as $animeFilm)
+                                                                                          {{ $animeFilm->titre }} &
+                                                                                        @endforeach
+                                                                                      </li>                                                   
+                                                                                </ul>
+                                                                            </div>
+                                                                            <div class="col-lg-6 col-md-6">
+                                                                                <ul>
+                                                                                    <li><span>Birthday:</span>{{ $character->birthday }}</li>
+                                                                                    <li><span>Age:</span>{{ $character->age }} years</li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="anime__details__btn">
+                                                                        <ul>
+                                                                            <li><span style="color: white">More Details In : </span><a href="{{ $character->malLink }}" target="_blank" style="margin-left : 20px;"><img src="{{ asset('img/MAL.png') }}" style="width:50px;  border-radius: 10px;"></a>
+                                                                            </li>
+                                                                                                                            
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                             </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                             @endforeach
                           
+                          {{--  --}}
+
                 <div class="row">
                     <div class="col-lg-8 col-md-8">
                       {{--  --}}

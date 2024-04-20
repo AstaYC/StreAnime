@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('mediaLink');
             $table->string('duration');
             $table->unsignedBigInteger('episodeNumber');
+            $table->unsignedBigInteger('views');
             $table->unsignedBigInteger('season_id');
             $table->foreign('season_id')->references('id')->on('seasons')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('status' , ['showing' , 'hidden'])->default('showing');

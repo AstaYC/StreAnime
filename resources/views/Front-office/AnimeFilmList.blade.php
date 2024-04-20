@@ -49,7 +49,7 @@
                                     <div class="product__item__pic set-bg" data-setbg="{{ $animeFilm->posterLink }}">
                                         <div class="ep">18 / 18</div>
                                         <div class="comment"><i class="fa fa-calendar"></i> {{ $animeFilm->releaseYear }}</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                        <div class="view"><i class="fa fa-eye"></i> {{ $animeFilm->views }}</div>
                                     </div>
                                   </a>
                                     <div class="product__item__text">
@@ -78,108 +78,52 @@
                     <div class="product__sidebar">
                         <div class="product__sidebar__view">
                             <div class="section-title">
-                                <h5>Top Views</h5>
+                                <h5>Top Anime Views</h5>
                             </div>
-                            <ul class="filter__controls">
-                                <li class="active" data-filter="*">Day</li>
-                                <li data-filter=".week">Week</li>
-                                <li data-filter=".month">Month</li>
-                                <li data-filter=".years">Years</li>
-                            </ul>
+
                             <div class="filter__gallery">
-                                <div class="product__sidebar__view__item set-bg mix day years"
-                                data-setbg="img/sidebar/tv-1.jpg">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">Boruto: Naruto next generations</a></h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg mix month week"
-                            data-setbg="img/sidebar/tv-2.jpg">
-                            <div class="ep">18 / ?</div>
-                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                            <h5><a href="#">The Seven Deadly Sins: Wrath of the Gods</a></h5>
+                                @foreach ($topAnimeFilmViewers as $topAnimeFilmViewer)
+                                    <a href="<?php echo url('/animeFilmDetails/' . $topAnimeFilmViewer->id)?>">
+                                        <div class="product__sidebar__view__item set-bg" data-setbg="{{ $topAnimeFilmViewer->posterLink }}" style="position: relative ; background-position: center">
+                                            <div class="ep">18 / ?</div>
+                                            <div class="view"><i class="fa fa-eye"></i> {{ $topAnimeFilmViewer->views}}</div>
+                                            <h5 style="color: white ; font-weight:900 ; position:absolute ; bottom:0 ; width:100%; padding:10px ; background-color: rgba(0, 0, 0, 0.5);">{{ $topAnimeFilmViewer->titre }} ({{ $topAnimeFilmViewer->anime_titre }})</h5>
+                                        </div>
+                                    </a>
+                                @endforeach 
+                           </div>
                         </div>
-                        <div class="product__sidebar__view__item set-bg mix week years"
-                        data-setbg="img/sidebar/tv-3.jpg">
-                        <div class="ep">18 / ?</div>
-                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                        <h5><a href="#">Sword art online alicization war of underworld</a></h5>
+                        <div class="product__sidebar__comment">
+                            <div class="section-title">
+                                <h5>Last Anime Film</h5>
+                            </div>
+                            @foreach ( $lastAnimeFilms as $lastAnimeFilm)
+                                <a href="<?php echo url('/animeFilmWatching/' . $lastAnimeFilm->id)?>">
+    
+                                    <div class="product__sidebar__comment__item">
+                                             
+                                             <div class="product__sidebar__comment__item__pic">
+                                                 <img style="width:110px ; height:150px" src="{{ $lastAnimeFilm->posterLink }}" alt="">
+                                             </div>
+                                             <div class="product__sidebar__comment__item__text">
+                                                 <ul>
+                                                    @foreach ( $animes->find($lastAnimeFilm->anime_id)->categories as $categorie)
+                                                       <li>{{ $categorie->nom }}</li>
+                                                    @endforeach
+                                                 </ul>
+                                                 <h5 style="color:white"> {{ $lastAnimeFilm->titre }}</h5>
+                                                 <h5 style="color:white">Anime : {{ $lastAnimeFilm->anime_titre }}</h5>
+                                                 <span><i class="fa fa-eye"></i> {{ $lastAnimeFilm->views }} Viewes</span>
+                                             </div>
+                                    </div>
+    
+                                </a>     
+                            @endforeach
+                        </div>
                     </div>
-                    <div class="product__sidebar__view__item set-bg mix years month"
-                    data-setbg="img/sidebar/tv-4.jpg">
-                    <div class="ep">18 / ?</div>
-                    <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                    <h5><a href="#">Fate/stay night: Heaven's Feel I. presage flower</a></h5>
                 </div>
-                <div class="product__sidebar__view__item set-bg mix day"
-                data-setbg="img/sidebar/tv-5.jpg">
-                <div class="ep">18 / ?</div>
-                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                <h5><a href="#">Fate stay night unlimited blade works</a></h5>
             </div>
         </div>
-    </div>
-    <div class="product__sidebar__comment">
-        <div class="section-title">
-            <h5>New Comment</h5>
-        </div>
-        <div class="product__sidebar__comment__item">
-            <div class="product__sidebar__comment__item__pic">
-                <img src="img/sidebar/comment-1.jpg" alt="">
-            </div>
-            <div class="product__sidebar__comment__item__text">
-                <ul>
-                    <li>Active</li>
-                    <li>Movie</li>
-                </ul>
-                <h5><a href="#">The Seven Deadly Sins: Wrath of the Gods</a></h5>
-                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-            </div>
-        </div>
-        <div class="product__sidebar__comment__item">
-            <div class="product__sidebar__comment__item__pic">
-                <img src="img/sidebar/comment-2.jpg" alt="">
-            </div>
-            <div class="product__sidebar__comment__item__text">
-                <ul>
-                    <li>Active</li>
-                    <li>Movie</li>
-                </ul>
-                <h5><a href="#">Shirogane Tamashii hen Kouhan sen</a></h5>
-                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-            </div>
-        </div>
-        <div class="product__sidebar__comment__item">
-            <div class="product__sidebar__comment__item__pic">
-                <img src="img/sidebar/comment-3.jpg" alt="">
-            </div>
-            <div class="product__sidebar__comment__item__text">
-                <ul>
-                    <li>Active</li>
-                    <li>Movie</li>
-                </ul>
-                <h5><a href="#">Kizumonogatari III: Reiket su-hen</a></h5>
-                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-            </div>
-        </div>
-        <div class="product__sidebar__comment__item">
-            <div class="product__sidebar__comment__item__pic">
-                <img src="img/sidebar/comment-4.jpg" alt="">
-            </div>
-            <div class="product__sidebar__comment__item__text">
-                <ul>
-                    <li>Active</li>
-                    <li>Movie</li>
-                </ul>
-                <h5><a href="#">Monogatari Series: Second Season</a></h5>
-                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
-</div>
-</section>
+    </section>
 <!-- Product Section End -->
 @endsection

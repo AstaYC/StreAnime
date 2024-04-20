@@ -18,7 +18,7 @@ class ContentDetailController extends Controller
                  ->with('categories')
                  ->where('animes.id' , $id)
                  ->first();
-
+        // anime View //
         $seasonsForAnimes = Season::where('anime_id' , $id)
                          ->get();
         $animeViews = 0 ;     
@@ -28,7 +28,7 @@ class ContentDetailController extends Controller
                           ->sum('views');
             $animeViews = $animeViews + $SeasonViews ;
         }
-
+  
         $seasons = Season::where('anime_id' , $id)
                          ->where('status', 'showing')
                          ->orderBy('seasonNumber', 'ASC')
@@ -36,14 +36,16 @@ class ContentDetailController extends Controller
 
         foreach ($seasons as $season) {
             $season->seasonViews = Episode::where('episodes.season_id', $season->id)
-                                    ->sum('views');
+                                          ->sum('views');
         }
 
         $characters = Character::where('anime_id' , $id)
                                  ->get();
+    
+        $filmAssociés = Character::with('anime_films');
 
 
-        return view('Front-office.AnimeDetails' , compact('anime' , 'seasons' , 'characters'));
+        return view('Front-office.AnimeDetails' , compact('anime' , 'seasons' , 'characters' , 'animeViews' , 'filmAssociés'));
     }
 
 
@@ -111,6 +113,8 @@ class ContentDetailController extends Controller
         return view('Front-office.AnimeFilmWatching' , compact('animeFilm'));
     }
 
+ /////  Incriment Episode View ////////
+
     public function viewsIncriment($episodeId){
 
         $episode = Episode::find($episodeId);
@@ -124,4 +128,20 @@ class ContentDetailController extends Controller
 
         return response()->json(['message' => 'Views count incremented successfully'], 200);
     }
+
+/////  Incriment AnimeFilm View ////////
+
+public function viewsFilmsIncriment($filmId){
+
+    $film = Anime_film::find($filmId);
+
+    if($film->status == 'hidden'){
+        return response()->json(['error' => 'This film is hidden'], 200);
+    }
+
+    $film->views = $film->views + 1 ;
+    $film->update();
+
+    return response()->json(['message' => 'Views count incremented successfully'], 200);
+}
 }

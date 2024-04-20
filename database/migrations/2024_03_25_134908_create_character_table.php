@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('nom');
             $table->string('glance');
             $table->string('picture');
+            $table->integer('age')->nullable();
+            $table->string('birthday')->nullable();
+            $table->string('malLink')->nullable();
             $table->unsignedBigInteger('anime_id');
             $table->foreign('anime_id')->references('id')->on('animes')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

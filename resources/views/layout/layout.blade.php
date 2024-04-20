@@ -8,7 +8,7 @@
     <meta name="keywords" content="Anime, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Anime | Template</title>
+    <title>StreAnime</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.html">
+                        <a href="/">
                             <img src="img/logo.png" alt="">
                         </a>
                     </div>
@@ -49,7 +49,7 @@
                                 <li <?php if(url()->current() === url('/home') || url()->current() === url('/') ) echo 'class="active"'; ?>><a href="/">Homepage</a></li>
                                 <li <?php if(url()->current() == url('/animeList')) echo 'class="active"'?>><a href="/animeList">Anime List<span class="arrow_carrot-down"></span></a></li>
                                 <li <?php if(url()->current() == url('/animeFilmList')) echo 'class="active"'?>><a href="/animeFilmList">Anime Film List<span class="arrow_carrot-down"></span></a></li>
-                                <li><a href="./blog.html">Our Blog</a></li>
+                                <li <?php if(url()->current() == url('/characterList')) echo 'class="active"'?> ><a href="/characterList">Characters List</a></li>
                                 <li><a href="#">Contacts</a></li>
                             </ul>
                         </nav>

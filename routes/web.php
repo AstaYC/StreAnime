@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login' , [AuthController::class , 'displayLogin']);
+Route::get('/login' , [AuthController::class , 'displayLogin'])->name('login');
 Route::get('/register' , [AuthController::class , 'displayRegister']);
 
 
@@ -40,6 +40,7 @@ Route::get('/home' , [ContentController::class , 'displayContent']);
 
 Route::get('/animeList' , [ContentController::class , 'displayAnimeList']);
 Route::get('/animeFilmList' , [ContentController::class , 'displayAnimeFilmList']);
+Route::get('/characterList' , [ContentController::class , 'displayCharacterList']);
 
 // Anime (Season) (Film) Details //
 
@@ -52,9 +53,10 @@ Route::get('/animeFilmDetails/{id}' , [ContentDetailController::class , 'display
 Route::get('/episodeWatching/{id}' , [ContentDetailController::class , 'dispalyEpisodeWatching']);
 Route::get('/animeFilmWatching/{id}' , [ContentDetailController::class , 'displayAnimeFilmWatching']);
 
-// Incriment View //
+// Incriment View  Episode (FIlm) //
 
 Route::post('/episodeWatching/{episodeId}/viewsIncr' , [ContentDetailController::class , 'viewsIncriment']);
+Route::post('/animeFilmWatching/{filmId}/viewsIncr' , [ContentDetailController::class , 'viewsFilmsIncriment']);
 
 
 //  Categorie Route//
