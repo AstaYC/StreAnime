@@ -11,16 +11,31 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public function displayUser(Request $request){
-        $users = DB::table('users')->join('roles','users.role_id','=','roles.id')
-                 ->select('users.*','users.id as user_id' , 'users.nom as user_nom', 'roles.nom as role_nom');
-                 
+        $users = User::select('users.*' , 'roles.nom')
+                       ->join('roles' , 'users.role_id' , '=' , 'roles.id')
+                       ->get();
         $roles = Role::all();
-        foreach($users as $user){
-           $user->password = str_repeat('*', strlen($user->password));
-        }
-    
-        return view('user', compact('users','roles'));
+
+        return view('Back-office.SuperAdmin.UserTable', compact('users' , 'roles'));
       } 
+
+
+    public function updateUser(Request $request){
+        $request->validate([
+            'id' => 'required',
+            'role' => 'required',
+        ]);
+
+        $user = User::find($request->id);
+        $user->role_id = $request->role;
+        $user->update();
+
+        if($user->id == session('user_id')){
+            session(['user_role' => $user->role_id]);
+        } 
+
+        return redirect('/user')->with('status' , 'The User Role has been updated');
+    }
 
     public function deleteUser(Request $request){
         $request->validate([

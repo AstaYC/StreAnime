@@ -49,7 +49,7 @@
                                     <a href="" data-toggle="modal" data-target="#charcterDetailModel{{ $character->id }}">
                                        <div style="height:200px" class="product__item__pic set-bg" data-setbg="{{ $character->picture }}">
                                            <div class="ep">{{ $character->anime_titre }}</div>
-                                           <div class="comment"><i class="fa fa-calendar"></i> {{ $character->birthday }}</div>
+                                           <div class="comment"><i class="fa fa-birthday-cake"></i> {{ $character->birthday }}</div>
                                        </div>
                                     </a>
                                     <div class="product__item__text">
@@ -88,7 +88,7 @@
                             <div class="row">
                                 <div class="col-lg-5">
                                     <div style="width:220px;" class="anime__details__pic set-bg" data-setbg="{{ $character->picture }}">
-                                        <div class="comment"><i class="fa fa-calendar"></i> {{ $character->birthday }}</div>
+                                        <div class="comment"><i class="fa fa-birthday-cake"></i> {{ $character->birthday }}</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-7">

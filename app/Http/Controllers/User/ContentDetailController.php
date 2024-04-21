@@ -8,7 +8,9 @@ use App\Models\Anime_film;
 use App\Models\Character;
 use App\Models\Episode;
 use App\Models\Season;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ContentDetailController extends Controller
 {
@@ -39,8 +41,10 @@ class ContentDetailController extends Controller
                                           ->sum('views');
         }
 
-        $characters = Character::where('anime_id' , $id)
-                                 ->get();
+        $characters = Character::select('characters.*' , 'animes.titre as anime_titre')
+                                ->join ('animes' , 'animes.id' , '=' , 'characters.anime_id')
+                                ->where('anime_id' , $id)
+                                ->get();
     
         $filmAssociés = Character::with('anime_films');
 
@@ -144,4 +148,25 @@ public function viewsFilmsIncriment($filmId){
 
     return response()->json(['message' => 'Views count incremented successfully'], 200);
 }
+
+public function editUserProfil(Request $request){
+    $request->validate([
+     'email' => 'email|required',
+     'user' => 'required|max:55'
+    ]);
+    $user_id = session('user_id');
+    $user = User::find($user_id);
+    // dd($user);
+    $user->name = $request->user;
+    $user->email = $request->email;
+    if($request->filled('oldPassword')){
+       if (Hash::check($request->oldPassword , $user->password)){
+          $user->password = $request->newPassword;
+     }
+   }
+    $user->update();
+
+    return redirect('/userProfil')->with('status' , 'Profil has been updated !');
+
+  }
 }

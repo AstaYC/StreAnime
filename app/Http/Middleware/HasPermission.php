@@ -6,7 +6,7 @@ use App\Models\Role;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Models\Role_route;
+use App\Models\role_route;
 use Illuminate\Support\Facades\DB;
 
 class HasPermission
@@ -21,9 +21,9 @@ class HasPermission
     public function handle(Request $request, Closure $next): Response
     {
         $uri = '/'.$request->route()->uri;
-        $role_id = session('role_id') ?? '';
+        $role_id = session('user_role') ?? '';
         if ($role_id) {
-            $allowedRoutes = Role_route::where('role_id', $role_id)->get();
+            $allowedRoutes = role_route::where('role_id', $role_id)->get();
             foreach ($allowedRoutes as $route) {
                 $allowedUri = $route->route->nom;
                 if (count(explode('/', $uri)) > 2) {

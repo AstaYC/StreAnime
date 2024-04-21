@@ -62,7 +62,7 @@
                                             <li><span>Rating:</span> 8.5 / 161 times</li>
                                             <li><span>End Year:</span><?php if($anime->endYear){ echo $anime->endYear; } else { echo 'Not yet Ended'; } ?></li>
                                             <li><span>Quality:</span> HD</li>
-                                            <li><span>Views:</span> {{ $animeViews }}</li>
+                                            <li><span>Views:</span> {{ $animeViews }} views</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-5">
                                                                 <div style="width:220px;" class="anime__details__pic set-bg" data-setbg="{{ $character->picture }}">
-                                                                    <div class="comment"><i class="fa fa-calendar"></i> {{ $character->birthday }}</div>
+                                                                    <div class="comment"><i class="fa fa-birthday-cake"></i> {{ $character->birthday }}</div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-7">

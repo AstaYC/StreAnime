@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="{{ asset('/asset/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/asset/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/asset/css/style.css') }}" type="text/css">
+
+    @yield('styles')
     
 </head>
 <body>
@@ -58,7 +60,12 @@
                 <div class="col-lg-2">
                     <div class="header__right">
                         <a href="#" class="search-switch"><span class="icon_search"></span></a>
+                        @if(session('picture')== false)
                         <a href="/login"><span class="icon_profile"></span></a>
+                        @endif
+                        @if (session('picture'))
+                        <a href=""><img style="width: 40px; height:40px; border-radius: 40px;" src="https://streanime.s3.amazonaws.com/postersCharacter%20/wGcVaEfd0iE01jwjise2DeXhDWpJGytWI4BOWQTK.jpg" alt=""></a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -118,7 +125,9 @@
     <script src="{{ asset('asset/js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('asset/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('asset/js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @yield('scripts')
+
  </body>
 </html>

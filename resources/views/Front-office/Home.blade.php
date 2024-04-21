@@ -200,8 +200,39 @@
 <!-- Product Section End -->
 
 <!-- Footer Section Begin -->
+   
+ @endsection
+ @section('scripts')
+   <script>
+       document.addEventListener('DOMContentLoaded', function () {
+           var status = '{{ session("status") }}';
+   
+           if (status) {
+              let timerInterval;
+              Swal.fire({
+                   icon: 'success',
+                   title: "WELCOME TO YOUR WORLD !",
+                   html: "I will Ready in <b></b> milliseconds.",
+                   timer: 2000,
+                   timerProgressBar: true,
+                   didOpen: () => {
+                    Swal.showLoading();
+                    const timer = Swal.getPopup().querySelector("b");
+                    timerInterval = setInterval(() => {
+                        timer.textContent = `${Swal.getTimerLeft()}`;
+                    }, 100);
+                },
+                willClose: () => {  
+                 clearInterval(timerInterval);
+                }
+               }).then((result) => {
+                /* Read more about handling dismissals below */
+               if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log("I was closed by the timer");
+                 }
+                 });
+               }
+             });
+   </script>
 
-@endsection
-<!-- Search model end -->
-
-<!-- Js Plugins -->
+@endsection('scripts')

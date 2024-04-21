@@ -61,18 +61,14 @@
 
     <!-- MAIN -->
     <main>
+        {{ $errorsString = ''}}
+        
         @if($errors->any())
-        <ul>
-          <li>
-           {{$errors}}
-          </li>
-        </ul>
-     @endif
-     @if(session('status'))
-       <div class="alert alert-success">
-         {{session('status')}}
-       </div>
-     @endif
+           
+           {{ $errorsString = implode('&', $errors->all()) }}
+
+        @endif
+
 
         <div class="head-title">
             <div class="left">
@@ -98,7 +94,6 @@
                             <th>ID</th>
                             <th>Nom de User</th>											
                             <th>Email de User</th>											
-                            <th>Password User</th>											
                             <th>Role d'User</th>											
                             <th>Action</th>
                           </tr>
@@ -106,16 +101,20 @@
                         <tbody>	
                           @foreach($users as $user)
                           <tr>
-                            <td>{{$user->user_id}}</td>
-                            <td>{{$user->user_nom}}</td>
+                            <td>{{$user->id}}</td>
+                            <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
-                            <td>{{$user->password}}</td>
-                            <td>{{$user->role_nom}}</td>
+                            <td>{{$user->nom}}</td>
+                            @if($user->nom != 'Super_Admin')
                             <td>
-                                <a href="#" class="delete" title="Delete" data-toggle="modal" data-target="#deleteCategoryModal{{$user->user_id}}">
+                                <a href="#" class="settings" title="Settings" data-toggle="modal" data-target="#updateCategoryModal{{$user->id}}">
+                                    <i class="material-icons">&#xE8B8;</i>
+                                </a>
+                                <a href="#" class="delete" title="Delete" data-toggle="modal" data-target="#deleteCategoryModal{{$user->id}}">
                                   <i class="material-icons">&#xE5C9;</i>
                                 </a>
                               </td>
+                              @endif
                           </tr>  
                         @endforeach
                      </tbody>
@@ -127,13 +126,53 @@
 </section>
 @foreach($users as $user)
 
+
+{{-- update Model --}}
+<div class="modal" id="updateCategoryModal{{$user->id}}">
+    <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Update Role User</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <!-- Update medicine form -->
+                        <form method="POST" action="/user/update">
+                            @csrf
+
+                            <input type="hidden" name="action" value="update">
+                            <input type="hidden" name="id" value="{{$user->id}}">
+
+                            <!-- Input fields for updated medicine details -->
+                            <div class="form-group">
+                                <label for="updateMedicineName">User Role:</label>
+                                <select  class="form-control" id="updateCategoryName" name="role" required>
+                                    @foreach ($roles as $role)
+                                         <option value="{{ $role->id }}">{{ $role->nom }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Update Users Role</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+    </div>
+</div>
+
+
+{{--  --}}
   <!-- Delete Medicine Modal -->
 <div class="modal" id="deleteCategoryModal{{$user->id}}">										
 <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Categorie</h4>
+                    <h4 class="modal-title">Delete Users '{{ $user->name }}'</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal Body -->
@@ -155,3 +194,33 @@
     </div>
 @endforeach
 @endsection
+
+@section('scripts')
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          var status = '{{ session("status") }}';
+    
+          if (status) {
+              Swal.fire({
+                  icon: 'success',
+                  title: 'Succès !',
+                  text: status,
+              });
+          }
+      });
+    </script>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          var errors = '{{ $errorsString }}';
+    
+          if (errors) {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  html: errors,
+              });
+          }
+      });
+    </script>
+@endsection('scripts')

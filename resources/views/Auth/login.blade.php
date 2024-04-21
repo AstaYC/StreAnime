@@ -1,5 +1,11 @@
 @extends('layout.layout')
 @section('content')
+
+     {{$errorsString = ''}}
+     @if($errors->any())
+         {{ $errorsString = implode(' & ', $errors->all()); }}
+     @endif
+     
     <!-- Normal Breadcrumb Begin -->
     <section class="normal-breadcrumb set-bg" data-setbg="img/normal-breadcrumb.jpg">
         <div class="container">
@@ -22,13 +28,14 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>Login</h3>
-                        <form action="#">
+                        <form method="POST"  action="/login">
+                            @csrf
                             <div class="input__item">
-                                <input type="text" placeholder="Email address">
+                                <input style="color: black" type="email" name="email" placeholder="Email address">
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="Password">
+                                <input style="color: black" type="password" name="password" placeholder="Password">
                                 <span class="icon_lock"></span>
                             </div>
                             <button type="submit" class="site-btn">Login Now</button>
@@ -63,3 +70,35 @@
     </section>
     <!-- Login Section End -->
     @endsection
+
+    @section('scripts')
+   
+   <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var status = '{{ session("status") }}';
+    
+            if (status) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Succès !',  
+                    text: status,
+                });
+            }
+        });
+    </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var errors = '{{ $errorsString }}';
+    
+            if (errors) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    html: errors,
+                });
+            }
+        });
+    </script>
+
+    @endsection('scripts')

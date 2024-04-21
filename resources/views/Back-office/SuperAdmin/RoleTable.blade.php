@@ -58,24 +58,19 @@
 
 <!-- CONTENT -->
 
+   
 
+   {{$errorsString = '' }}
+   @if($errors->any())
+   {{ $errorsString = implode(' & ', $errors->all()); }}
+   @endif
     <!-- MAIN -->
     <main>
-        @if($errors->any())
-        <ul>
-          <li>
-           {{$errors}}
-          </li>
-        </ul>
-     @endif
-     @if(session('status'))
-       <div class="alert alert-success">
-         {{session('status')}}
-       </div>
-     @endif
+
+
         <div class="head-title">
             <div class="left">
-                <h1>My Categories</h1>
+                <h1>My Roles</h1>
             </div>
             
         </div>
@@ -225,3 +220,33 @@
     </div>
 @endforeach
 @endsection
+
+@section('scripts')
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          var status = '{{ session("status") }}';
+    
+          if (status) {
+              Swal.fire({
+                  icon: 'success',
+                  title: 'Succès !',
+                  text: status,
+              });
+          }
+      });
+    </script>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          var errors = '{{ $errorsString }}';
+    
+          if (errors) {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  html: errors,
+              });
+          }
+      });
+    </script>
+@endsection('scripts')

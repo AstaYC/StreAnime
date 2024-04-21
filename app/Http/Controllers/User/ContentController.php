@@ -9,7 +9,12 @@ use App\Models\Anime_film;
 use App\Models\Character;
 use App\Models\Episode;
 use App\Models\Season;
+use App\Models\User;
+use AWS\CRT\HTTP\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Hash;
+
 
 class ContentController extends Controller
 {
@@ -159,5 +164,14 @@ class ContentController extends Controller
 
      }
 
-     
+
+     public function displayUserProfil(){
+      $id = session('user_id');
+      $user = User::select('users.*' , 'roles.nom as role_name')
+                   ->join('roles' , 'roles.id' , '=' , 'users.role_id')
+                   ->where('users.id' , $id)
+                   ->first();
+
+      return view('Front-office.UserProfil', compact('user'));
+   }
 }

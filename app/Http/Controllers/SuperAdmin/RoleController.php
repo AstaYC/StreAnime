@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class RoleController extends Controller
 {
       public function displayRole(){
-        $rolesWithRoutes = Role::with('routes')->where('nom' , '!=' , 'superadmin')->get();
+        $rolesWithRoutes = Role::with('routes')->where('nom' , '!=' , 'Super_Admin')->get();
         $routes = Route::all();
         return view('Back-office.SuperAdmin.RoleTable',compact('rolesWithRoutes','routes'));
       }
@@ -63,11 +63,8 @@ class RoleController extends Controller
         $role = Role::find($request->role_id);
         $role->nom = $request->nom;
         $role->update();
-        $permissions = Role_route::where('role_id' , $request->role_id)->get();
-        foreach($permissions as $permission){
-            $permission->delete();
-        }
-       
+        $permissions = Role_route::where('role_id' , $request->role_id)->delete();
+
         if(count($ids) > 0){
         foreach($ids as $id){
             $permission =new Role_route();
