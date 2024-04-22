@@ -25,13 +25,20 @@
                         <div class="card card-style1 border-0">
                             <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
                                 <div class="row align-items-center">
-                                    <div class="col-lg-6 mb-4 mb-lg-0">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="...">
+                                    <div class="col-lg-6 mb-4 mb-lg-0 d-flex flex-column" style="align-items: center">
+                                        <img class="picProfile" src="{{ session('picture') }}" alt="...">
+                                        <div class="input-div">
+                                            <form id="picForm" method="POST" action="/editPicProfil" enctype="multipart/form-data">
+                                                @csrf
+                                                <input id="fileChange" class="input" name="picture" type="file">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em  " height="1em" stroke-linejoin="round" stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" class="icon"><polyline points="16 16 12 12 8 16"></polyline><line y2="21" x2="12" y1="12" x1="12"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path><polyline points="16 16 12 12 8 16"></polyline></svg>
+                                            </form>
+                                        </div>                                    
                                     </div>
                                     <div class="col-lg-6 px-xl-10">
                                         <div class="bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
                                             <h3 class="h2 text-white mb-0">Name : {{ $user->name }}</h3>
-                                            <span class="text-primary">{{ $user->role_name }}</span>
+                                            <span class="text-primary">Role : {{ $user->role_name }}</span>
                                         </div>
                                         <ul class="list-unstyled mb-1-9">
                                             <form method="POST" action="/editUserProfil">
@@ -105,6 +112,14 @@
                 html: errors,
             });
         }
+    });
+</script>
+
+<script>
+    var fileChange = document.querySelector('#fileChange');
+    var picForm = document.querySelector('#picForm');
+    fileChange.addEventListener('change' , function(){
+        picForm.submit();
     });
 </script>
 @endsection('scripts')

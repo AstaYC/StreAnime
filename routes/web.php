@@ -34,6 +34,11 @@ Route::get('/register' , [AuthController::class , 'displayRegister']);
 Route::post('/login' , [AuthController::class , 'login']);
 Route::post('/register' , [AuthController::class , 'register']);
 
+
+Route::get('/logout' , [AuthController::class , 'logout']);
+
+
+
 // Home Route // 
 
 Route::get('/' , [ContentController::class , 'displayContent']);
@@ -46,6 +51,7 @@ Route::get('/animeFilmList' , [ContentController::class , 'displayAnimeFilmList'
 Route::get('/characterList' , [ContentController::class , 'displayCharacterList']);
 Route::get('/userProfil' , [ContentController::class , 'displayUserProfil']);
 Route::post('/editUserProfil' , [ContentDetailController::class , 'editUserProfil']);
+Route::post('/editPicProfil' , [ContentDetailController::class , 'editPicProfil']);
 
 // Anime (Season) (Film) Details //
 

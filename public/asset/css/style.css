@@ -419,7 +419,9 @@ ol {
 
 .header__right {
 	text-align: right;
-	padding: 20px 0 15px;
+	padding: 5px 0 15px;
+	display: flex;
+	align-items: center;
 }
 
 .header__right a {
@@ -2339,4 +2341,11 @@ ol {
 	.anime__review__item__text {
 		padding: 18px 20px 20px;
 	}
+}
+
+#dropdown_content{
+    display: none;
+}
+.letGo {
+    display: block!important;
 }

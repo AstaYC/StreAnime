@@ -11,6 +11,7 @@ use App\Models\Season;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ContentDetailController extends Controller
 {
@@ -168,5 +169,24 @@ public function editUserProfil(Request $request){
 
     return redirect('/userProfil')->with('status' , 'Profil has been updated !');
 
+  }
+
+  public function editPicProfil(Request $request){
+     $request->validate([
+        'picture' => 'required',
+     ]);
+
+     if ($request->hasFile('picture')) {
+        $path = $request->file('picture')->store('postersUser ', 's3');
+        }
+
+     $user = User::find(session('user_id'));
+     if ($request->hasFile('picture')) {
+        $user->picture  = Storage::disk('s3')->url($path);
+        }
+        $user->update();
+        session(['picture' =>  $user->picture ]);
+
+     return redirect('/userProfil')->with('status' , 'The picture has been updated');
   }
 }

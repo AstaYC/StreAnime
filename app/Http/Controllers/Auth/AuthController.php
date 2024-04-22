@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Facades\JWTFactory;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -101,6 +102,11 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => JWTFactory::getTTL() * 60
         ]);
+    }
+
+    public function logout(){
+        Session::flush();
+        return redirect('/')->with('status' , 'GoodBye! Return whene ur ready for new adventures!');
     }
  
  }

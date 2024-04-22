@@ -115,9 +115,44 @@ section {
 .form-control{
     color: white!important;
 }
-#displayDetail{
+#displayDetail , #dropdown_content{
     display: none;
 }
-.letGo{
+.letGo {
     display: block!important;
 }
+
+.picProfile{
+    width: 90%;
+    height:400px ;
+    border-radius: 100%;
+    padding-bottom: 10px;
+}
+.input-div {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid rgb(1, 235, 252);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 0px 0px 100px rgb(1, 235, 252) , inset 0px 0px 10px rgb(1, 235, 252),0px 0px 5px rgb(255, 255, 255);
+    animation: flicker 2s linear infinite;
+  }
+  
+  .icon {
+    color: rgb(1, 235, 252);
+    font-size: 2rem;
+    cursor: pointer;
+    animation: iconflicker 2s linear infinite;
+  }
+  
+  .input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer !important;
+  }

@@ -211,9 +211,8 @@
               let timerInterval;
               Swal.fire({
                    icon: 'success',
-                   title: "WELCOME TO YOUR WORLD !",
-                   html: "I will Ready in <b></b> milliseconds.",
-                   timer: 2000,
+                   title: status,
+                   timer: 4000,
                    timerProgressBar: true,
                    didOpen: () => {
                     Swal.showLoading();

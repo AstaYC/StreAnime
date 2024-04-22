@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('/asset/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/asset/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/asset/css/style.css') }}" type="text/css">
+    
 
     @yield('styles')
     
@@ -58,14 +59,25 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
-                    <div class="header__right">
+                    @if(session('picture') == false)
+                      <div style="padding: 20px 0 15px;" class="header__right">
                         <a href="#" class="search-switch"><span class="icon_search"></span></a>
-                        @if(session('picture')== false)
                         <a href="/login"><span class="icon_profile"></span></a>
+                      </div>
+                    @endif
+                    @if (session('picture'))
+                        <div class="header__right">
+                            <a href="#" class="search-switch"><span class="icon_search"></span></a>
+                            <a class="btn" id="dropdown_change"><img style="width: 40px; height:40px; border-radius: 40px;" src="{{session('picture')}}" alt=""></a>
+                        </div>
+                     @endif
+                    <div id="dropdown_content" class="dropdown-menu dropdown-menu-model show" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 60px; left: 80px;">
+                        <a class="dropdown-item" href="/userProfil"><i class="fa fa-user"></i>  - Profile</a>
+                        @if(session('user_role') == '1')
+                        <a class="dropdown-item" href="/user"><i class="fa fa-bookmark"></i>  - Dashboard</a>
                         @endif
-                        @if (session('picture'))
-                        <a href=""><img style="width: 40px; height:40px; border-radius: 40px;" src="https://streanime.s3.amazonaws.com/postersCharacter%20/wGcVaEfd0iE01jwjise2DeXhDWpJGytWI4BOWQTK.jpg" alt=""></a>
-                        @endif
+                        <a class="dropdown-item" href="/user/reading-list"><i class="fa fa-heart"></i>  - WhatchList</a>
+                        <a class="dropdown-item di-bottom" style="background-color: #e53637; color:white" href="/logout">  Logout  <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -126,6 +138,14 @@
     <script src="{{ asset('asset/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('asset/js/main.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        let dropdown_change = document.querySelector('#dropdown_change');
+        let dropdown_content = document.querySelector('#dropdown_content');
+        dropdown_change.addEventListener('click' , () => {
+            console.log('hana kanclicki')
+            dropdown_content.classList.toggle ("letGo");
+         })
+    </script>
 
     @yield('scripts')
 

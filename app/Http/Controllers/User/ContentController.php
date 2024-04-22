@@ -166,12 +166,17 @@ class ContentController extends Controller
 
 
      public function displayUserProfil(){
-      $id = session('user_id');
-      $user = User::select('users.*' , 'roles.nom as role_name')
-                   ->join('roles' , 'roles.id' , '=' , 'users.role_id')
-                   ->where('users.id' , $id)
-                   ->first();
-
-      return view('Front-office.UserProfil', compact('user'));
+      if(session('user_id')){
+         $id = session('user_id');
+         $user = User::select('users.*' , 'roles.nom as role_name')
+                      ->join('roles' , 'roles.id' , '=' , 'users.role_id')
+                      ->where('users.id' , $id)
+                      ->first();
+   
+         return view('Front-office.UserProfil', compact('user'));
+      }
+      else{
+         return redirect('/');
+      }
    }
 }
