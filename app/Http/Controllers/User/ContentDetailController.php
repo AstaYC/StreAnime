@@ -7,6 +7,8 @@ use App\Models\Anime;
 use App\Models\Anime_film;
 use App\Models\Character;
 use App\Models\Episode;
+use App\Models\RatingAnime;
+use App\Models\RatingAnimeFilm;
 use App\Models\Season;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -47,10 +49,15 @@ class ContentDetailController extends Controller
                                 ->where('anime_id' , $id)
                                 ->get();
     
-        $filmAssociés = Character::with('anime_films');
+        $filmAssociés = Character::with('anime_films'); 
 
+        $getAvgRating = RatingAnime::where('anime_id', $id)
+                                     ->avg('stars');
+        $getAvgRating = number_format($getAvgRating,1);  
 
-        return view('Front-office.AnimeDetails' , compact('anime' , 'seasons' , 'characters' , 'animeViews' , 'filmAssociés'));
+        $getCount = RatingAnime::where('anime_id', $id)
+                                 ->count();
+        return view('Front-office.AnimeDetails' , compact('anime' , 'seasons' , 'characters' , 'animeViews' , 'filmAssociés' , 'getAvgRating' , 'getCount'));
     }
 
 
@@ -103,9 +110,16 @@ class ContentDetailController extends Controller
                                         ->where('anime_films.anime_id' , $anime_id)
                                         ->where('anime_films.id' , '!='  , $id)
                                         ->get();
+
+        $getAvgRating = RatingAnimeFilm::where('anime_film_id', $id)
+                                     ->avg('stars');
+        $getAvgRating = number_format($getAvgRating,1);  
+   
+        $getCount = RatingAnimeFilm::where('anime_film_id', $id)
+                                 ->count();
                                 
         $characters = $animeFilm->characters;       
-        return view('Front-office.AnimeFilmDetail' , compact('animeFilm' , 'animes' , 'animeFilmSimilars' , 'characters'));
+        return view('Front-office.AnimeFilmDetail' , compact('animeFilm' , 'animes' , 'animeFilmSimilars' , 'characters' , 'getAvgRating' , 'getCount'));
     }   
 
     public function displayAnimeFilmWatching($id){

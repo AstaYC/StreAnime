@@ -11,7 +11,7 @@ class RatingAnime extends Model
     protected $fillable = [
         'anime_id',
         'user_id',
-        'starts',
+        'stars',
     ];
 
     public function users()

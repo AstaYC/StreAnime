@@ -86,6 +86,20 @@
             }
         });
     </script>
+
+   <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var error = '{{ session("error") }}';
+    
+            if (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',  
+                    text: error,
+                });
+            }
+        });
+    </script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function () {

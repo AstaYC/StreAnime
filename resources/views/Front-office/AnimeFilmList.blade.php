@@ -47,7 +47,7 @@
                                 <div class="product__item">
                                   <a href="<?php echo url('/animeFilmDetails/' . $animeFilm->id)?>">
                                     <div class="product__item__pic set-bg" data-setbg="{{ $animeFilm->posterLink }}">
-                                        <div class="ep">18 / 18</div>
+                                        <div class="ep">{{ $animeFilm->rate }} / 10</div>
                                         <div class="comment"><i class="fa fa-calendar"></i> {{ $animeFilm->releaseYear }}</div>
                                         <div class="view"><i class="fa fa-eye"></i> {{ $animeFilm->views }}</div>
                                     </div>
@@ -78,14 +78,14 @@
                     <div class="product__sidebar">
                         <div class="product__sidebar__view">
                             <div class="section-title">
-                                <h5>Top Anime Views</h5>
+                                <h5>Top Anime Films Views</h5>
                             </div>
 
                             <div class="filter__gallery">
                                 @foreach ($topAnimeFilmViewers as $topAnimeFilmViewer)
                                     <a href="<?php echo url('/animeFilmDetails/' . $topAnimeFilmViewer->id)?>">
                                         <div class="product__sidebar__view__item set-bg" data-setbg="{{ $topAnimeFilmViewer->posterLink }}" style="position: relative ; background-position: center">
-                                            <div class="ep">18 / ?</div>
+                                            <div class="ep">{{ $topAnimeFilmViewer->rate }} / 10</div>
                                             <div class="view"><i class="fa fa-eye"></i> {{ $topAnimeFilmViewer->views}}</div>
                                             <h5 style="color: white ; font-weight:900 ; position:absolute ; bottom:0 ; width:100%; padding:10px ; background-color: rgba(0, 0, 0, 0.5);">{{ $topAnimeFilmViewer->titre }} ({{ $topAnimeFilmViewer->anime_titre }})</h5>
                                         </div>

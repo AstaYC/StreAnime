@@ -11,8 +11,10 @@ class RatingAnimeFilm extends Model
     protected $fillable = [
         'anime_film_id',
         'user_id',
-        'starts',
+        'stars',
     ];
+    protected $table = 'rating_anime_film';
+
 
     public function anime_film(){
         return $this->belongsTo(Anime_film::class);

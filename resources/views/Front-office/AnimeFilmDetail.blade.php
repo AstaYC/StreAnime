@@ -35,14 +35,24 @@
                                 <h3>{{ $animeFilm->titre }} ( {{ $animeFilm->anime_titre }} )</h3>
                             </div>
                             <div class="anime__details__rating">
-                                <div class="rating">
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star-half-o"></i></a>
-                                </div>
-                                <span>1.029 Votes</span>
+                                <?php $getIntRating = intval($getAvgRating) ?>
+                                 @if($getIntRating % 2 == 0)
+                                     <div class="rating">
+                                         @for ($i=0 ; $i<$getIntRating ;$i=$i+2)
+                                           <a href="#"><i class="fa fa-star"></i></a>   
+                                         @endfor
+                                     </div>
+                                 @endif
+     
+                                 @if($getIntRating % 2 != 0)
+                                     <div class="rating">
+                                         @for ($i=0 ; $i<$getIntRating - 1 ;$i=$i+2)
+                                            <a href="#"><i class="fa fa-star"></i></a>   
+                                         @endfor
+                                         <i class="fa fa-star-half-o"></i>
+                                    </div>
+                                 @endif
+                                <span>{{ $getAvgRating }} / 10 | ({{ $getCount }}) Votes</span>
                             </div>
                             <p>{{ $animeFilm->description }}</p>
                             <div class="anime__details__widget">
@@ -59,7 +69,7 @@
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
                                             <li><span>Mangaka:</span>{{ $animeFilm->mangaka }}</li>
-                                            <li><span>Rating:</span> 8.5 / 161 times</li>
+                                            <li><span>Rating:</span>{{ $getAvgRating }} / 10 Stars</li>
                                             <li><span>Duration:</span> <?php echo $animeFilm->duration . ' H'?></li>
                                             <li><span>Genre:</span> Animation</li>
                                             <li><span>Views:</span> {{ $animeFilm->views }} views</li>
@@ -68,12 +78,42 @@
                                 </div>
                             </div>
                             <div class="anime__details__btn">
-                                <a href="<?php echo url('/animeFilmWatching/' . $animeFilm->id) ?>" class="follow-btn"><i class="fa fa-heart-o"></i> Watch Now</a>
+                                <a href="<?php echo url('/animeFilmWatching/' . $animeFilm->id) ?>" class="follow-btn"><i class="fa fa-heart-o"></i> Watch</a>
                                 <a href="" data-toggle="modal" data-target="#charcterModel" class="follow-btn"><i class="fa fa-user"></i> Characters</a>
                                 <a href="" data-toggle="modal" data-target="#youtubeModal" class="watch-btn"><span>Trailer</span> <i
                                     class="fa fa-angle-right"></i>
                                 </a>
-                                <a href="{{ $animeFilm->imbdLink }}" target="_blank" style="margin-left : 20px;"><img src="{{ asset('img/MAL.png') }}" style="width:50px;  border-radius: 10px;"></a>
+                                <a href="{{ $animeFilm->imbdLink }}" target="_blank" style="margin-left : 20px; margin-right:50px"><img src="{{ asset('img/MAL.png') }}" style="width:50px;  border-radius: 10px;"></a>
+                                <div style="align-items:center" class="d-flex flex-column">
+                                    <p style="margin-bottom: -10px; font-size: 90%;" class="pRating">What do you think about this Anime Film?</p>
+                                    <form id="ratingForm" method="POST" action="/ratingAnimeFilm">
+                                        @csrf
+                                        <div class="rating radioClick">
+                                            <input type="hidden" name="id" value="{{ $animeFilm->id }}">
+
+                                                <input value="10" name="stars" id="star10" type="radio">
+                                                <label for="star10"></label>
+                                                <input value="9" name="stars" id="star9" type="radio">
+                                                <label for="star9"></label>
+                                                <input value="8" name="stars" id="star8" type="radio">
+                                                <label for="star8"></label>
+                                                <input value="7" name="stars" id="star7" type="radio">
+                                                <label for="star7"></label>
+                                                <input value="6" name="stars" id="star6" type="radio">
+                                                <label for="star6"></label>                                              
+                                                <input value="5" name="stars" id="star5" type="radio">
+                                                <label for="star5"></label>
+                                                <input value="4" name="stars" id="star4" type="radio">
+                                                <label for="star4"></label>
+                                                <input value="3" name="stars" id="star3" type="radio">
+                                                <label for="star3"></label>
+                                                <input value="2" name="stars" id="star2" type="radio">
+                                                <label for="star2"></label>
+                                                <input value="1" name="stars" id="star1" type="radio">
+                                                <label for="star1"></label>                                              
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -114,7 +154,7 @@
                                     <div class="row"> 
                                         @foreach ($characters as $character )
                                            <div class="col-lg-2 col-md-6 col-sm-6">
-                                            <a href="<?php echo url('/')?>">
+                                            <a href="" data-toggle="modal" data-target="#charcterDetailModel{{ $character->id }}">
                                                 <div class="product__item">
                                                        <div style="height: 150px" class="product__item__pic set-bg" data-setbg="{{ $character->picture }}">
                                                            <div class="comment"><i class="fa fa-user"></i> {{ $character->nom }}</div>
@@ -125,11 +165,81 @@
                                         @endforeach
                                     </div>
                                 </div>
+
+                                <div class="modal-footer">
+                                </div>
+
                               </div>
                             </div>
                           </div>
 
                           {{--  --}}
+
+                          {{-- Character Detail Model --}}
+                          @foreach ( $characters as $character)
+                            <div class="modal fade" id="charcterDetailModel{{ $character->id }}" tabindex="-1" role="dialog" aria-labelledby="charcterModel" aria-hidden="true">
+                              <div class="modal-dialog" style="max-width: 600px;">
+                                <div class="modal-content bg-dark">
+                                  <div class="modal-header">
+                                    <h5 style="font:bolder" class="modal-title text-white" id="youtubeModalLabel">Who Is {{ $character->nom }} ?</h5>
+                                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Fermer">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                      <div class="row" style="padding-left: 20px"> 
+                                          <div class="anime__details__content">
+                                              <div class="row">
+                                                  <div class="col-lg-5">
+                                                      <div style="width:220px;" class="anime__details__pic set-bg" data-setbg="{{ $character->picture }}">
+                                                          <div class="comment"><i class="fa fa-birthday-cake"></i> {{ $character->birthday }}</div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-lg-7">
+                                                      <div class="anime__details__text">
+                                                          <div class="anime__details__title">
+                                                              <h3>{{ $character->nom }}</h3>
+                                                          </div>
+                                                          <p>{{ $character->glance }}</p>
+                                                          <div class="anime__details__widget">
+                                                              <div class="row">
+                                                                  <div class="col-lg-6 col-md-6">
+                                                                      <ul>
+                                                                          <li><span>Anime:</span> {{ $animeFilm->anime_titre }}</li>
+                                                                          <li><span>AnimeFilms:</span>
+                                                                              @foreach ($character->find($character->id)->anime_films as $animeFilm)
+                                                                                {{ $animeFilm->titre }} &
+                                                                              @endforeach
+                                                                            </li>                                                   
+                                                                      </ul>
+                                                                  </div>
+                                                                  <div class="col-lg-6 col-md-6">
+                                                                      <ul>
+                                                                          <li><span>Birthday:</span>{{ $character->birthday }}</li>
+                                                                          <li><span>Age:</span>{{ $character->age }} years</li>
+                                                                      </ul>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="anime__details__btn">
+                                                              <ul>
+                                                                  <li><span style="color: white">More Details In : </span><a href="{{ $character->malLink }}" target="_blank" style="margin-left : 20px;"><img src="{{ asset('img/MAL.png') }}" style="width:50px;  border-radius: 10px;"></a>
+                                                                  </li>
+                                                                                                                  
+                                                              </ul>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                       </div>
+                                   </div>
+                                </div>
+                              </div>
+                            </div>
+                   @endforeach
+                
+                {{--  --}}
                           
                 <div class="row">
                     <div class="col-lg-8 col-md-8">
@@ -268,4 +378,57 @@
                 </div>
             </div>
         </section>
+        {{$errorsString = ''}}
+        @if($errors->any())
+            {{ $errorsString = implode(' & ', $errors->all()); }}
+        @endif
+
 @endsection
+
+@section('scripts')
+<script>
+    var radioClick = document.querySelector('.radioClick');
+    var ratingForm = document.querySelector('#ratingForm');
+    radioClick.addEventListener('change' , function(){
+        // alert('ha radio tclicka')
+        ratingForm.submit();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var errors = '{{ $errorsString }}';
+
+        if (errors) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: errors,
+            });
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var status = '{{ session("status") }}';
+
+        if (status) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès !',
+                text: status,
+            });
+        }
+    });
+</script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+    var radios = document.querySelectorAll('.rating input[type="radio"]');
+    
+    radios.forEach(function(radio) {
+        radio.checked = false;
+    });
+});
+</script>
+
+@endsection('scripts')

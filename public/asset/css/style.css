@@ -1062,6 +1062,9 @@ ol {
 	width: 115px;
 	display: inline-block;
 }
+.anime__details__btn{
+  display: flex;
+}
 
 .anime__details__btn .follow-btn {
 	font-size: 13px;
@@ -1074,6 +1077,7 @@ ol {
 	padding: 14px 20px;
 	border-radius: 4px;
 	margin-right: 11px;
+	height: 1%;
 }
 
 .anime__details__btn .watch-btn span {
@@ -2349,3 +2353,30 @@ ol {
 .letGo {
     display: block!important;
 }
+
+.rating {
+	display: inline-block;
+  }
+  
+  .rating input {
+	display: none;
+  }
+  
+  .rating label {
+	float: right;
+	cursor: pointer;
+	color: #ccc;
+	transition: color 0.3s;
+  }
+  
+  .rating label:before {
+	content: '\2605';
+	font-size: 30px;
+  }
+  
+  .rating input:checked ~ label,
+  .rating label:hover,
+  .rating label:hover ~ label {
+	color: yellow;
+	transition: color 0.3s;
+  }  

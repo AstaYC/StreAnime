@@ -48,7 +48,7 @@
 
                                     <a href="<?php echo url('/animeDetails/' . $anime->id)?>">
                                        <div class="product__item__pic set-bg" data-setbg="{{ $anime->posterLink }}">
-                                           <div class="ep">18 / 18</div>
+                                           <div class="ep">{{ $anime->rate }} / 10</div>
                                            <div class="comment"><i class="fa fa-calendar"></i> {{ $anime->releaseYear }}</div>
                                            <div class="view"><i class="fa fa-eye"></i> {{  $anime->Views }}</div>
                                        </div>
@@ -86,7 +86,7 @@
                                 @foreach ($topAnimeVieweds as $topAnimeViewed)
                                     <a href="<?php echo url('/animeDetails/' . $topAnimeViewed['anime']->id)?>">
                                         <div class="product__sidebar__view__item set-bg" data-setbg="{{ $topAnimeViewed['anime']->posterLink }}" style="position: relative ; background-position: center">
-                                            <div class="ep">18 / ?</div>
+                                            <div class="ep">{{ $topAnimeViewed['rate'] }} / 10</div>
                                             <div class="view"><i class="fa fa-eye"></i> {{ $topAnimeViewed['totalViews']}}</div>
                                             <h5 style="color: white ; font-weight:900 ; position:absolute ; bottom:0 ; width:100%; padding:10px ; background-color: rgba(0, 0, 0, 0.5);">{{ $topAnimeViewed['anime']->titre }}</h5>
                                         </div>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('anime_id');
             $table->unsignedBigInteger('user_id');
-            $table->enum('rating', [1,2,3,4,5,6,7,8,9,10])->nullable();             
+            $table->enum('stars', [1,2,3,4,5,6,7,8,9,10])->nullable();             
             $table->foreign('user_id')->references('id')
                 ->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('anime_id')->references('id')

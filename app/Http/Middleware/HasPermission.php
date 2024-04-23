@@ -33,6 +33,6 @@ class HasPermission
                 }
             }
             return abort(401);
-        } else return redirect('/login');
+        } else return redirect('/login')->with('error' , 'You Should Be Logged In');
     }
 }    

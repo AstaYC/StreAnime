@@ -35,14 +35,24 @@
                                 <h3>{{ $anime->titre }}</h3>
                             </div>
                             <div class="anime__details__rating">
+                                <?php $getIntRating = intval($getAvgRating) ?>
+                            @if($getIntRating % 2 == 0)
                                 <div class="rating">
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star-half-o"></i></a>
+                                    @for ($i=0 ; $i<$getIntRating ;$i=$i+2)
+                                      <a href="#"><i class="fa fa-star"></i></a>   
+                                    @endfor
                                 </div>
-                                <span>1.029 Votes</span>
+                            @endif
+
+                            @if($getIntRating % 2 != 0)
+                                <div class="rating">
+                                    @for ($i=0 ; $i<$getIntRating - 1 ;$i=$i+2)
+                                       <a href="#"><i class="fa fa-star"></i></a>   
+                                    @endfor
+                                    <i class="fa fa-star-half-o"></i>
+                               </div>
+                            @endif
+                                <span>{{ $getAvgRating }} / 10 | ({{ $getCount }}) Votes</span>
                             </div>
                             <p>{{ $anime->description }}</p>
                             <div class="anime__details__widget">
@@ -59,7 +69,7 @@
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
                                             <li><span>Mangaka:</span>{{ $anime->mangaka }}</li>
-                                            <li><span>Rating:</span> 8.5 / 161 times</li>
+                                            <li><span>Rating:</span> {{ $getAvgRating }} / 10 Stars</li>
                                             <li><span>End Year:</span><?php if($anime->endYear){ echo $anime->endYear; } else { echo 'Not yet Ended'; } ?></li>
                                             <li><span>Quality:</span> HD</li>
                                             <li><span>Views:</span> {{ $animeViews }} views</li>
@@ -68,12 +78,42 @@
                                 </div>
                             </div>
                             <div class="anime__details__btn">
-                                <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
-                                <a href="#" class="follow-btn" data-toggle="modal" data-target="#charcterModel"  ><i class="fa fa-user"></i> Characters</a>
+                                <a href="" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
+                                <a href="" class="follow-btn" data-toggle="modal" data-target="#charcterModel"  ><i class="fa fa-user"></i> Characters</a>
                                 <a href="" data-toggle="modal" data-target="#youtubeModal" class="watch-btn"><span>Trailer</span> <i
                                     class="fa fa-angle-right"></i>
                                 </a>
-                                <a href="{{ $anime->imbdLink }}" target="_blank" style="margin-left : 20px;"><img src="{{ asset('img/MAL.png') }}" style="width:50px;  border-radius: 10px;"></a>
+                                <a href="{{ $anime->imbdLink }}" target="_blank" style="margin-left : 20px; margin-right:50px"><img src="{{ asset('img/MAL.png') }}" style="width:50px;  border-radius: 10px;"></a>
+                                <div style="align-items:center" class="d-flex flex-column">
+                                    <p style="margin-bottom: -10px; font-size: 90%;" class="pRating">What do you think about this Anime?</p>
+                                    <form id="ratingForm" method="POST" action="/ratingAnime">
+                                        @csrf
+                                        <div class="rating radioClick">
+                                            <input type="hidden" name="id" value="{{ $anime->id }}">
+
+                                                <input value="10" name="stars" id="star10" type="radio">
+                                                <label for="star10"></label>
+                                                <input value="9" name="stars" id="star9" type="radio">
+                                                <label for="star9"></label>
+                                                <input value="8" name="stars" id="star8" type="radio">
+                                                <label for="star8"></label>
+                                                <input value="7" name="stars" id="star7" type="radio">
+                                                <label for="star7"></label>
+                                                <input value="6" name="stars" id="star6" type="radio">
+                                                <label for="star6"></label>                                              
+                                                <input value="5" name="stars" id="star5" type="radio">
+                                                <label for="star5"></label>
+                                                <input value="4" name="stars" id="star4" type="radio">
+                                                <label for="star4"></label>
+                                                <input value="3" name="stars" id="star3" type="radio">
+                                                <label for="star3"></label>
+                                                <input value="2" name="stars" id="star2" type="radio">
+                                                <label for="star2"></label>
+                                                <input value="1" name="stars" id="star1" type="radio">
+                                                <label for="star1"></label>                                              
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -336,4 +376,58 @@
                 </div>
             </div>
         </section>
+        {{$errorsString = ''}}
+        @if($errors->any())
+        {{ $errorsString = implode(' & ', $errors->all()); }}
+        @endif
+        
 @endsection
+
+@section('scripts')
+
+<script>
+    var radioClick = document.querySelector('.radioClick');
+    var ratingForm = document.querySelector('#ratingForm');
+    radioClick.addEventListener('change' , function(){
+        // alert('ha radio tclicka')
+        ratingForm.submit();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var errors = '{{ $errorsString }}';
+
+        if (errors) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: errors,
+            });
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var status = '{{ session("status") }}';
+
+        if (status) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès !',
+                text: status,
+            });
+        }
+    });
+</script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+    var radios = document.querySelectorAll('.rating input[type="radio"]');
+    
+    radios.forEach(function(radio) {
+        radio.checked = false;
+    });
+});
+</script>
+
+@endsection('scripts')

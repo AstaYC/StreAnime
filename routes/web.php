@@ -14,6 +14,7 @@ use App\Http\Controllers\SuperAdmin\RoleController;
 use App\Http\Controllers\SuperAdmin\UserController;
 use App\Http\Controllers\User\ContentDetailController;
 use App\Http\Controllers\User\ContentController;
+use App\Http\Controllers\User\RatingSystemController;
 use App\Http\Middleware\HasPermission;
 use Illuminate\Support\Facades\Route;
 
@@ -49,9 +50,6 @@ Route::get('/home' , [ContentController::class , 'displayContent']);
 Route::get('/animeList' , [ContentController::class , 'displayAnimeList']);
 Route::get('/animeFilmList' , [ContentController::class , 'displayAnimeFilmList']);
 Route::get('/characterList' , [ContentController::class , 'displayCharacterList']);
-Route::get('/userProfil' , [ContentController::class , 'displayUserProfil']);
-Route::post('/editUserProfil' , [ContentDetailController::class , 'editUserProfil']);
-Route::post('/editPicProfil' , [ContentDetailController::class , 'editPicProfil']);
 
 // Anime (Season) (Film) Details //
 
@@ -69,8 +67,18 @@ Route::get('/animeFilmWatching/{id}' , [ContentDetailController::class , 'displa
 Route::post('/episodeWatching/{episodeId}/viewsIncr' , [ContentDetailController::class , 'viewsIncriment']);
 Route::post('/animeFilmWatching/{filmId}/viewsIncr' , [ContentDetailController::class , 'viewsFilmsIncriment']);
 
-Route::middleware(HasPermission::class)->group(function () {
 
+
+
+
+Route::middleware(HasPermission::class)->group(function () {
+    
+        Route::get('/userProfil' , [ContentController::class , 'displayUserProfil']);
+        Route::post('/editUserProfil' , [ContentDetailController::class , 'editUserProfil']);
+        Route::post('/editPicProfil' , [ContentDetailController::class , 'editPicProfil']);
+        
+        Route::post('/ratingAnime' , [RatingSystemController::class , 'ratingAnime']);
+        Route::post('/ratingAnimeFilm' , [RatingSystemController::class , 'ratingAnimeFilm']);
         //  Categorie Route//
         
         Route::get('/categorie' , [CategorieController::class , 'displayCategorie']);

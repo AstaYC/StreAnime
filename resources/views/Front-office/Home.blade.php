@@ -69,7 +69,7 @@
                                 <div class="product__item">
                                   <a href="<?php echo url('/animeDetails/' . $trendanime->id)?>">
                                     <div class="product__item__pic set-bg" data-setbg="{{ $trendanime->posterLink }}">
-                                        <div class="ep">18 / 18</div>
+                                        <div class="ep">{{ $trendanime->rate }} / 10</div>
                                         <div class="comment"><i class="fa fa-calendar"></i> {{ $trendanime->releaseYear }}</div>
                                         <div class="view"><i class="fa fa-eye"></i> {{ $trendanime->Views }}</div>
                                     </div>
@@ -108,7 +108,7 @@
                                 <div class="product__item">
                                   <a href="<?php echo url('/animeFilmDetails/' . $trendanimeFilm->id)?>">
                                     <div class="product__item__pic set-bg" data-setbg="{{ $trendanimeFilm->posterLink }}">
-                                        <div class="ep">18 / 18</div>
+                                        <div class="ep">{{ $trendanimeFilm->rate }} / 10</div>
                                         <div class="comment"><i class="fa fa-calendar"></i> {{ $trendanimeFilm->releaseYear }}</div>
                                         <div class="view"><i class="fa fa-eye"></i> {{ $trendanimeFilm->views }} </div>
                                     </div>
@@ -138,7 +138,7 @@
                                 @foreach ( $topAnimes as $topAnime)
                                     <a href="<?php echo url('/animeDetails/' . $topAnime['anime']->id)?>">
                                         <div class="product__sidebar__view__item set-bg" data-setbg="{{ $topAnime['anime']->posterLink }}" style="position: relative; background-position: center">
-                                            <div class="ep">18 / ?</div>
+                                            <div class="ep">{{ $topAnime['rate'] }} / 10</div>
                                             <div class="view"><i class="fa fa-eye"></i> {{ $topAnime['totalViews'] }}</div>
                                             <h5 style="color: white; font-weight: 900; position: absolute; bottom: 0;  width: 100%; padding: 10px; background-color: rgba(0, 0, 0, 0.5); background-position: center">{{ $topAnime['anime']->titre }}</h5>
                                         </div>
@@ -157,7 +157,7 @@
                                @foreach ($mostViewedFilms as $mostViewedFilm)
                                <a href="<?php echo url('/animeFilmDetails/' . $mostViewedFilm->id)?>">
                                    <div class="product__sidebar__view__item set-bg" data-setbg="{{ $mostViewedFilm->posterLink }}" style="position: relative ; background-position: center">
-                                       <div class="ep">18 / ?</div>
+                                       <div class="ep">{{  $mostViewedFilm->rate }} / 10</div>
                                        <div class="view"><i class="fa fa-eye"></i> {{ $mostViewedFilm->views }}</div>
                                        <h5 style="color: white ; font-weight:900 ; position:absolute ; bottom:0 ; width:100%; padding:10px ; background-color: rgba(0, 0, 0, 0.5);">{{ $mostViewedFilm->titre }}</h5>
                                    </div>
