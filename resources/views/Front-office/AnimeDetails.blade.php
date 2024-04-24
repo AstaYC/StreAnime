@@ -288,69 +288,63 @@
                             <div class="section-title">
                                 <h5>Reviews</h5>
                             </div>
-                            <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-1.jpg" alt="">
+                            @if (count($anime   Comments) == 0)
+                               <div style="color: white"><i class="fa fa-exclamation-circle"></i> There Is No Comment for this Film ! </div>
+                            @endif
+                            @foreach ( $animeComments as $animeComment)
+                                <div class="anime__review__item">
+                                    <div class="anime__review__item__pic">
+                                        <img src="{{ $animeComment->picture }}" alt="">
+                                    </div>
+                                    <div class="anime__review__item__text">
+                                        <h6>{{ $animeComment->name }} 
+                                            <span><?php echo $animeComment->created_at . ' '?>
+                                               @if(session('user_id') === $animeComment->user_id)
+                                                <a style="color:red" href="" data-toggle="modal" data-target="#deleteComment{{$animeComment->id}}""><i class="fa fa-trash"></i></a>
+                                               @endif
+                                            </span>
+                                        </h6>
+                                        <p>{{ $animeComment->content }}</p>
+                                    </div>
+                                </div>   
+                            @endforeach
+                            {{-- Comment delete Modal --}}
+                            @foreach ($animeComments as $animeComment)
+                            <div class="modal fade" id="deleteComment{{$animeComment->id}}" tabindex="-1" role="dialog" aria-labelledby="charcterModel" aria-hidden="true">
+                                <div class="modal-dialog" style="max-width: 300px;">
+                                  <div class="modal-content bg-dark">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title text-white" id="youtubeModalLabel">Delete Comment</h5>
+                                      <button type="button" class="close text-white" data-dismiss="modal" aria-label="Fermer">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                       <form method="POST" action="/deleteComment">
+                                           @csrf
+                                               <input type="hidden" name="action" value="delete">
+                                               <input type="hidden" name="id" value="{{$animeComment->id}}">
+                                               <p style="color:white">Are you sure you want to delete this Comment?</p>
+                                               <div class="modal-footer">
+                                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                   <button type="submit" class="btn btn-danger">Delete Comment</button>
+                                               </div>
+                                        </form>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div class="anime__review__item__text">
-                                    <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                                    <p>whachikan Just noticed that someone categorized this as belonging to the genre
-                                    "demons" LOL</p>
-                                </div>
-                            </div>
-                            <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-2.jpg" alt="">
-                                </div>
-                                <div class="anime__review__item__text">
-                                    <h6>Lewis Mann - <span>5 Hour ago</span></h6>
-                                    <p>Finally it came out ages ago</p>
-                                </div>
-                            </div>
-                            <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-3.jpg" alt="">
-                                </div>
-                                <div class="anime__review__item__text">
-                                    <h6>Louis Tyler - <span>20 Hour ago</span></h6>
-                                    <p>Where is the episode 15 ? Slow update! Tch</p>
-                                </div>
-                            </div>
-                            <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-4.jpg" alt="">
-                                </div>
-                                <div class="anime__review__item__text">
-                                    <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                                    <p>whachikan Just noticed that someone categorized this as belonging to the genre
-                                    "demons" LOL</p>
-                                </div>
-                            </div>
-                            <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-5.jpg" alt="">
-                                </div>
-                                <div class="anime__review__item__text">
-                                    <h6>Lewis Mann - <span>5 Hour ago</span></h6>
-                                    <p>Finally it came out ages ago</p>
-                                </div>
-                            </div>
-                            <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-6.jpg" alt="">
-                                </div>
-                                <div class="anime__review__item__text">
-                                    <h6>Louis Tyler - <span>20 Hour ago</span></h6>
-                                    <p>Where is the episode 15 ? Slow update! Tch</p>
-                                </div>
-                            </div>
+                              </div>
+                            @endforeach
+                            {{--  --}}  
                         </div>
                         <div class="anime__details__form">
                             <div class="section-title">
                                 <h5>Your Comment</h5>
                             </div>
-                            <form action="#">
-                                <textarea placeholder="Your Comment"></textarea>
+                            <form method="POST" action="/addComment">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $anime->id }}">
+                                <textarea style="color:black" placeholder="Your Comment" name="content" ></textarea>
                                 <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
                             </form>
                         </div>
@@ -455,5 +449,18 @@
       });
        
 </script>
+
+
+{{-- delete comment --}}
+{{-- <script>
+    var deleteCom = document.getElementById('deleteCom');
+    deleteCom.addEventListener('click' , function(){
+        Swal.fire({
+                icon: 'info',
+                title: 'Emmm !',
+                text: 'Are you sure you want to delete this comment',
+            });
+    })
+</script> --}}
 
 @endsection('scripts')

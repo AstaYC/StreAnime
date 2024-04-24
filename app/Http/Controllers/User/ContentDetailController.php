@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Anime;
 use App\Models\Anime_film;
+use App\Models\AnimeComment;
+use App\Models\AnimeFilmComment;
 use App\Models\Character;
 use App\Models\Episode;
 use App\Models\RatingAnime;
@@ -71,9 +73,18 @@ class ContentDetailController extends Controller
             }else{
                 $isExist = false;
             }
-        }
+            }else{
+                $isExist = false;
+            }
 
-        return view('Front-office.AnimeDetails' , compact('anime' , 'seasons' , 'characters' , 'animeViews' , 'filmAssociés' , 'getAvgRating' , 'getCount' , 'isExist'));
+        // /// display Comment in anime //////
+         $animeComments = AnimeComment::select('anime_comments.*' , 'users.picture' , 'users.name')
+                                        ->join('users' , 'users.id' , '=' , 'anime_comments.user_id')
+                                        ->where('anime_comments.anime_id' , $id)
+                                        ->orderBy('created_at' , 'desc')
+                                        ->get();
+        
+        return view('Front-office.AnimeDetails' , compact('anime', 'seasons', 'characters', 'animeViews', 'filmAssociés', 'getAvgRating', 'getCount', 'animeComments', 'isExist'));
     }
 
 
@@ -147,9 +158,20 @@ class ContentDetailController extends Controller
             }else{
                 $isExist = false;
             }
+        }else{
+            $isExist = false;
+        }  
 
-          return view('Front-office.AnimeFilmDetail' , compact('animeFilm' , 'animes' , 'animeFilmSimilars' , 'characters' , 'getAvgRating' , 'getCount' , 'isExist'));
-       }   
+
+        // //// display comments ///
+
+        $animeFilmComments = AnimeFilmComment::select('anime_film_comments.*' , 'users.picture' , 'users.name')
+                                         ->join('users' , 'users.id' , '=' , 'anime_film_comments.user_id')
+                                         ->where('anime_film_comments.anime_film_id' , $id)
+                                         ->orderBy('created_at' , 'desc')
+                                         ->get();
+
+          return view('Front-office.AnimeFilmDetail' , compact('animeFilm' , 'animes' , 'animeFilmSimilars' , 'characters' , 'getAvgRating' , 'getCount' , 'isExist' , 'animeFilmComments'));
     }
 
     public function displayAnimeFilmWatching($id){

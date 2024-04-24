@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\EpisodeController;
 use App\Http\Controllers\Admin\HiddenContentController;
 use App\Http\Controllers\SuperAdmin\RoleController;
 use App\Http\Controllers\SuperAdmin\UserController;
+use App\Http\Controllers\user\CommentController;
 use App\Http\Controllers\User\ContentDetailController;
 use App\Http\Controllers\User\ContentController;
 use App\Http\Controllers\User\RatingSystemController;
@@ -55,6 +56,14 @@ Route::get('/characterList' , [ContentController::class , 'displayCharacterList'
 Route::post('/addAnimeWatchList' , [WatchListController::class , 'addToAnimeWatchList']);
 Route::post('/addToAnimeFilmWatchList' , [WatchListController::class , 'addToAnimeFilmWatchList']);
 Route::get('/watchList' , [WatchListController::class , 'displayWatchList']);
+
+Route::post('/addComment' , [CommentController::class , 'addComment']);
+Route::post('/deleteComment' , [CommentController::class , 'deleteComment']);
+
+Route::post('/addFilmComment' , [CommentController::class , 'addFilmComment']);
+Route::post('/deleteFilmComment' , [CommentController::class , 'deleteFilmComment']);
+
+
 
 // Anime (Season) (Film) Details //
 
