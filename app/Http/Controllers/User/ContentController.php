@@ -225,4 +225,8 @@ class ContentController extends Controller
          return redirect('/');
       }
    }
+
+   public function displayAnimeNews(){
+      return view('Front-office.AnimeNews');
+   }
 }

@@ -82,6 +82,7 @@ Route::post('/episodeWatching/{episodeId}/viewsIncr' , [ContentDetailController:
 Route::post('/animeFilmWatching/{filmId}/viewsIncr' , [ContentDetailController::class , 'viewsFilmsIncriment']);
 
 
+Route::get('/animeNews' , [ContentController::class , 'displayAnimeNews']);
 
 
 

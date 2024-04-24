@@ -288,7 +288,7 @@
                             <div class="section-title">
                                 <h5>Reviews</h5>
                             </div>
-                            @if (count($anime   Comments) == 0)
+                            @if (count($animeComments) == 0)
                                <div style="color: white"><i class="fa fa-exclamation-circle"></i> There Is No Comment for this Film ! </div>
                             @endif
                             @foreach ( $animeComments as $animeComment)

@@ -62,8 +62,10 @@
                         <div class="section-title">
                             <h5>Your Comment</h5>
                         </div>
-                        <form action="#">
-                            <textarea placeholder="Your Comment"></textarea>
+                        <form method="POST" action="/addComment">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $episode->anime_id }}">
+                            <textarea style="color:black" placeholder="Your Comment" name="content" ></textarea>
                             <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
                         </form>
                     </div>
