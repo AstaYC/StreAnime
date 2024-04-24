@@ -32,7 +32,13 @@
                     <div class="col-lg-9">
                         <div class="anime__details__text">
                             <div class="anime__details__title">
-                                <h3>{{ $animeFilm->titre }} ( {{ $animeFilm->anime_titre }} )</h3>
+                                <h3>{{ $animeFilm->titre }} ( {{ $animeFilm->anime_titre }} ) </h3>
+                                @if ($isExist == false)
+                                   <a href="#" id="formClick" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
+                                @endif
+                                @if ($isExist == true)
+                                  <a href="#" id="formClick" class="follow-btn removeButton"><i class="fa fa-heart-o"></i> Remove</a>
+                                @endif
                             </div>
                             <div class="anime__details__rating">
                                 <?php $getIntRating = intval($getAvgRating) ?>
@@ -78,7 +84,11 @@
                                 </div>
                             </div>
                             <div class="anime__details__btn">
-                                <a href="<?php echo url('/animeFilmWatching/' . $animeFilm->id) ?>" class="follow-btn"><i class="fa fa-heart-o"></i> Watch</a>
+                                  <a href="<?php echo url('/animeFilmWatching/' . $animeFilm->id) ?>" class="follow-btn"><i class="fa fa-heart-o"></i> Watch</a>
+                                <form id="formWatchList" method="POST" action="/addToAnimeFilmWatchList">
+                                    @csrf
+                                    <input type="hidden" value="{{ $animeFilm->id }}" name="id">
+                                </form>
                                 <a href="" data-toggle="modal" data-target="#charcterModel" class="follow-btn"><i class="fa fa-user"></i> Characters</a>
                                 <a href="" data-toggle="modal" data-target="#youtubeModal" class="watch-btn"><span>Trailer</span> <i
                                     class="fa fa-angle-right"></i>
@@ -429,6 +439,20 @@
         radio.checked = false;
     });
 });
+</script>
+
+<script>
+    var formClick = document.getElementById('formClick');
+    var formWatchList = document.getElementById('formWatchList');
+    var spanContent = document.getElementById('spanContent');
+
+     
+    formClick.addEventListener('click', function(){
+      formWatchList.submit();
+
+      spanContent.textContent = " Remove" ;
+    });
+
 </script>
 
 @endsection('scripts')

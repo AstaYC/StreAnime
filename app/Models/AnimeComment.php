@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WatchList extends Model
+class AnimeComment extends Model
 {
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'anime_id',
-        'anime_film_id',
-        
-    ];}
+        'anime_id', 
+        'content'       
+    ];
+}

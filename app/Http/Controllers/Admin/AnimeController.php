@@ -39,6 +39,7 @@ class AnimeController extends Controller
             'source_id' => 'required'
         ]);
 
+
         // dd($request->file('posterLink'));
         if ($request->hasFile('posterLink')) {
         $path = $request->file('posterLink')->store('postersAnime ', 's3');

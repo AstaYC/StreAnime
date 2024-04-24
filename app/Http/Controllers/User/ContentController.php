@@ -164,7 +164,7 @@ class ContentController extends Controller
                                   ->orderBy('updated_at' , 'ASC')
                                   ->take(10)
                                   ->get();
-         
+
         return view('Front-office.AnimeList', compact('animes' , 'topAnimeVieweds' , 'lastEpisodes'));
 
      }

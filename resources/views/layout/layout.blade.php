@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{ asset('/asset/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/asset/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/asset/css/style.css') }}" type="text/css">
-    
+    <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
 
     @yield('styles')
     
@@ -41,7 +41,7 @@
                 <div class="col-lg-2">
                     <div class="header__logo">
                         <a href="/">
-                            <img src="img/logo.png" alt="">
+                            <img src="{{ asset('img/logo.png') }}" alt="">
                         </a>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                         @if(session('user_role') == '1')
                         <a class="dropdown-item" href="/user"><i class="fa fa-bookmark"></i>  - Dashboard</a>
                         @endif
-                        <a class="dropdown-item" href="/user/reading-list"><i class="fa fa-heart"></i>  - WhatchList</a>
+                        <a class="dropdown-item" href="/watchList"><i class="fa fa-heart"></i>  - WhatchList</a>
                         <a class="dropdown-item di-bottom" style="background-color: #e53637; color:white" href="/logout">  Logout  <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>

@@ -331,7 +331,8 @@ ol {
 }
 
 .header__logo {
-	padding: 20px 0 17px;
+	padding-top: -30px;
+	max-width: 45%;
 }
 
 .header__logo a {
@@ -999,6 +1000,20 @@ ol {
 	margin-bottom: 20px;
 }
 
+.anime__details__title .follow-btn{
+	font-size: 10px;
+	color: #ffffff;
+	background: #e53637;
+	display: inline-block;
+	font-weight: 700;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	padding: 10px 15px;
+	border-radius: 4px;
+	margin-right: 11px;
+	height: 1%;	
+}
+
 .anime__details__title h3 {
 	color: #ffffff;
 	font-weight: 700;
@@ -1077,7 +1092,7 @@ ol {
 	padding: 14px 20px;
 	border-radius: 4px;
 	margin-right: 11px;
-	height: 1%;
+	height: 1%;	
 }
 
 .anime__details__btn .watch-btn span {
@@ -2380,3 +2395,8 @@ ol {
 	color: yellow;
 	transition: color 0.3s;
   }  
+
+  .removeButton{
+	color: #000!important;
+	background-color: white!important;
+  }

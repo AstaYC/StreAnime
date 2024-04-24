@@ -15,6 +15,7 @@ use App\Http\Controllers\SuperAdmin\UserController;
 use App\Http\Controllers\User\ContentDetailController;
 use App\Http\Controllers\User\ContentController;
 use App\Http\Controllers\User\RatingSystemController;
+use App\Http\Controllers\User\WatchListController;
 use App\Http\Middleware\HasPermission;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +51,10 @@ Route::get('/home' , [ContentController::class , 'displayContent']);
 Route::get('/animeList' , [ContentController::class , 'displayAnimeList']);
 Route::get('/animeFilmList' , [ContentController::class , 'displayAnimeFilmList']);
 Route::get('/characterList' , [ContentController::class , 'displayCharacterList']);
+
+Route::post('/addAnimeWatchList' , [WatchListController::class , 'addToAnimeWatchList']);
+Route::post('/addToAnimeFilmWatchList' , [WatchListController::class , 'addToAnimeFilmWatchList']);
+Route::get('/watchList' , [WatchListController::class , 'displayWatchList']);
 
 // Anime (Season) (Film) Details //
 

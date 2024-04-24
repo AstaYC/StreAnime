@@ -11,6 +11,8 @@ use App\Models\RatingAnime;
 use App\Models\RatingAnimeFilm;
 use App\Models\Season;
 use App\Models\User;
+use App\Models\WatchAnimeFilmList;
+use App\Models\WatchAnimeList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -57,7 +59,21 @@ class ContentDetailController extends Controller
 
         $getCount = RatingAnime::where('anime_id', $id)
                                  ->count();
-        return view('Front-office.AnimeDetails' , compact('anime' , 'seasons' , 'characters' , 'animeViews' , 'filmAssociés' , 'getAvgRating' , 'getCount'));
+
+
+        // // if exist In WatchList // //
+        if(session('user_id')){
+            $watchList = WatchAnimeList::where('anime_id' , $id)
+                                        ->where('user_id' , session('user_id'))
+                                        ->first();
+            if($watchList){
+                $isExist = true ;
+            }else{
+                $isExist = false;
+            }
+        }
+
+        return view('Front-office.AnimeDetails' , compact('anime' , 'seasons' , 'characters' , 'animeViews' , 'filmAssociés' , 'getAvgRating' , 'getCount' , 'isExist'));
     }
 
 
@@ -118,9 +134,23 @@ class ContentDetailController extends Controller
         $getCount = RatingAnimeFilm::where('anime_film_id', $id)
                                  ->count();
                                 
-        $characters = $animeFilm->characters;       
-        return view('Front-office.AnimeFilmDetail' , compact('animeFilm' , 'animes' , 'animeFilmSimilars' , 'characters' , 'getAvgRating' , 'getCount'));
-    }   
+        $characters = $animeFilm->characters;      
+        
+        // if films exist in WatchList //
+
+        if(session('user_id')){
+            $watchList = WatchAnimeFilmList::where('anime_film_id', $id)
+                                            ->where('user_id', session('user_id'))
+                                            ->First(); 
+            if($watchList){
+               $isExist = true;
+            }else{
+                $isExist = false;
+            }
+
+          return view('Front-office.AnimeFilmDetail' , compact('animeFilm' , 'animes' , 'animeFilmSimilars' , 'characters' , 'getAvgRating' , 'getCount' , 'isExist'));
+       }   
+    }
 
     public function displayAnimeFilmWatching($id){
         

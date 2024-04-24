@@ -78,7 +78,16 @@
                                 </div>
                             </div>
                             <div class="anime__details__btn">
-                                <a href="" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
+                                <form id="formWatchList" method="POST" action="/addAnimeWatchList">
+                                    @csrf
+                                    <input type="hidden" value="{{ $anime->id }}" name="id">
+                                </form>
+                                @if ($isExist == false)
+                                  <a href="#" id="formClick" class="follow-btn"><i class="fa fa-heart-o"></i><span id="spanContent"> Follow</span> </a>
+                                @endif
+                                @if ($isExist == true)
+                                <a href="#" id="formClick" class="follow-btn removeButton"><i class="fa fa-heart-o"></i><span id="spanContent"> Remove</span> </a>
+                                @endif
                                 <a href="" class="follow-btn" data-toggle="modal" data-target="#charcterModel"  ><i class="fa fa-user"></i> Characters</a>
                                 <a href="" data-toggle="modal" data-target="#youtubeModal" class="watch-btn"><span>Trailer</span> <i
                                     class="fa fa-angle-right"></i>
@@ -380,7 +389,8 @@
         @if($errors->any())
         {{ $errorsString = implode(' & ', $errors->all()); }}
         @endif
-        
+        <meta name="csrf" content="{{ csrf_token() }}">
+
 @endsection
 
 @section('scripts')
@@ -428,6 +438,22 @@
         radio.checked = false;
     });
 });
+</script>
+
+{{-- add To watch List --}}
+
+<script>
+      var formClick = document.getElementById('formClick');
+      var formWatchList = document.getElementById('formWatchList');
+// span change
+      var spanContent = document.getElementById('spanContent');
+
+       
+      formClick.addEventListener('click', function(){
+        formWatchList.submit();
+        spanContent.textContent = " Remove" ;
+      });
+       
 </script>
 
 @endsection('scripts')
