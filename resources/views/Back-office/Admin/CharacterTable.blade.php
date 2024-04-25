@@ -81,7 +81,7 @@
                             </div>
                         </div>
                     </div>
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="myTable">
                         <thead>
                             <tr>
                                 <th>Picture</th>
@@ -205,11 +205,22 @@
 
 @section('styles')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/css/multi-select-tag.css">
-    @endsection('styles')
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+@endsection('styles')
 
 @section('scripts')
 
+
 <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
+{{-- search --}}
+<script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready( function () {
+      $('#myTable').DataTable();
+       } );
+ </script>
+ {{-- end search --}}
 <script>
 new MultiSelectTag('films_id', {
     rounded: true,    // default true

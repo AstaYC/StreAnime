@@ -241,6 +241,8 @@ body {
 	z-index: 500;
 	padding-bottom: 20px;
 	box-sizing: content-box;
+	display: flex;
+	gap: 20px;
 }
 #sidebar .brand .bx {
 	min-width: 60px;

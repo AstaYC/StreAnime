@@ -5,7 +5,7 @@
         {{ $errorsString = implode(' & ', $errors->all()); }}
     @endif
 
-    <section class="normal-breadcrumb set-bg" data-setbg="img/normal-breadcrumb.jpg">
+    <section class="normal-breadcrumb set-bg" style="background-position: center" data-setbg="{{ asset('img/dragonSlayer.jpg') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -46,20 +46,94 @@
                             </div>
                             <button type="submit" class="site-btn">Register Now</button>
                         </form>
-                        <h5>Already have an account? <a href="/login">Log In!</a></h5>
+                        <h5>Already have an account ? <a href="/login">Log In!</a></h5>
                     </div>
                 </div>
+
+                {{-- earth logo --}}
+
                 <div class="col-lg-6">
-                    <div class="login__social__links">
-                        <h3>Login With:</h3>
-                        <ul>
-                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a>
-                            </li>
-                            <li><a href="#" class="google"><i class="fa fa-google"></i> Sign in With Google</a></li>
-                            <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li>
-                        </ul>
-                    </div>
+                    <div class="section-banner">
+                        <div id="star-1">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      
+                        <div id="star-2">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      
+                        <div id="star-3">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      
+                        <div id="star-4">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      
+                        <div id="star-5">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      
+                        <div id="star-6">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      
+                        <div id="star-7">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      </div>
+                      
                 </div>
+                {{-- end earth logo --}}
             </div>
         </div>
     </section>
@@ -98,3 +172,7 @@
 </script>
 
 @endsection('scripts')
+
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('asset/css/logo.css') }}">
+@endsection('styles')

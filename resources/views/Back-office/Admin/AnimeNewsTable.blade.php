@@ -81,7 +81,7 @@
                             </div>
                         </div>
                     </div>
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="myTable">
                         <thead>
                             <tr>
                                 <th>News Poster</th>
@@ -121,7 +121,7 @@
 
        <!-- modal de update -->
        <div class="modal" id="updateCategoryModal{{$animeNew->id}}">
-    <div class="modal-dialog">
+           <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
@@ -199,7 +199,17 @@
 @endforeach
 @endsection
 
+@section('styles')
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+@endsection('styles')
+
 @section('scripts')
+<script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready( function () {
+      $('#myTable').DataTable();
+       } );
+ </script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

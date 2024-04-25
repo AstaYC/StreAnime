@@ -100,7 +100,7 @@
                             </div>
                         </div>
                     </div>
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="myTable">
                         <thead>
                             <tr>
                                 <th>Poster</th>											
@@ -269,7 +269,7 @@
 @endsection('content')
 
 @section('styles')
-
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/css/multi-select-tag.css">
     
 @endsection('styles')
@@ -277,6 +277,14 @@
 @section('scripts')
 
 <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready( function () {
+      $('#myTable').DataTable();
+       } );
+ </script>
 <script>
 new MultiSelectTag('categories', {
     rounded: true,    // default true

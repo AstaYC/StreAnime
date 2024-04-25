@@ -7,7 +7,7 @@
      @endif
      
     <!-- Normal Breadcrumb Begin -->
-    <section class="normal-breadcrumb set-bg" data-setbg="img/normal-breadcrumb.jpg">
+    <section class="normal-breadcrumb set-bg" style="background-position: center" data-setbg="{{ asset('img/dragonSlayer.jpg') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -43,12 +43,89 @@
                         <a href="#" class="forget_pass">Forgot Your Password?</a>
                     </div>
                 </div>
+                {{-- earth logo --}}
                 <div class="col-lg-6">
-                    <div class="login__register">
-                        <h3>Dont’t Have An Account?</h3>
-                        <a href="/register" class="primary-btn">Register Now</a>
-                    </div>
+                    <div class="section-banner">
+                        <div id="star-1">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      
+                        <div id="star-2">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      
+                        <div id="star-3">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      
+                        <div id="star-4">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      
+                        <div id="star-5">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      
+                        <div id="star-6">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      
+                        <div id="star-7">
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-bottomright"></div>
+                            <div id="curved-corner-bottomleft"></div>
+                          </div>
+                          <div class="curved-corner-star">
+                            <div id="curved-corner-topright"></div>
+                            <div id="curved-corner-topleft"></div>
+                          </div>
+                        </div>
+                      </div>
+                      
                 </div>
+                {{-- end earth logo --}}
             </div>
             <div class="login__social">
                 <div class="row d-flex justify-content-center">
@@ -56,10 +133,12 @@
                         <div class="login__social__links">
                             <span>or</span>
                             <ul>
-                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With
-                                Facebook</a></li>
-                                <li><a href="#" class="google"><i class="fa fa-google"></i> Sign in With Google</a></li>
-                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a>
+
+                                <li>
+                                    <a href="/register" class="google">
+                                        Dont’t Have An Account?
+                                        <a href="/register" class="primary-btn">Register Now</a>
+                                     </a>
                                 </li>
                             </ul>
                         </div>
@@ -116,3 +195,7 @@
     </script>
 
     @endsection('scripts')
+
+    @section('styles')
+       <link rel="stylesheet" href="{{ asset('asset/css/logo.css') }}">
+    @endsection('styles')
