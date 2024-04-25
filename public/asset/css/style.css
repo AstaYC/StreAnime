@@ -2402,3 +2402,15 @@ ol {
 	color: #000!important;
 	background-color: white!important;
   }
+
+  .ep{
+	font-size: 25px;
+	color: #ffffff;
+	background: #e53637;
+	display: inline-block;
+	padding: 2px 12px;
+	border-radius: 4px;
+	position: absolute;
+	left: 10px;
+	top: 10px;
+  }

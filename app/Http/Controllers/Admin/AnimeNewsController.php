@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Anime;
 use App\Models\AnimeNews;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,7 +15,8 @@ class AnimeNewsController extends Controller
         $animeNews = AnimeNews::select('anime_news.*' , 'animes.titre as anime_titre')
                                 ->join('animes' , 'animes.id' ,'=' ,'anime_news.anime_id')
                                 ->get();
-        return view('Back-office.Admin.AnimeNewsTable' , compact('animeNews'));
+        $animes = Anime::all();
+        return view('Back-office.Admin.AnimeNewsTable' , compact('animeNews' , 'animes'));
     }
 
     public function addAnimeNews(Request $request){

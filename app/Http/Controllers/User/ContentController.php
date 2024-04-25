@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use App\Models\Anime;
 use App\Models\Anime_film;
+use App\Models\AnimeNews;
 use App\Models\Character;
 use App\Models\Episode;
 use App\Models\RatingAnime;
@@ -227,6 +228,18 @@ class ContentController extends Controller
    }
 
    public function displayAnimeNews(){
-      return view('Front-office.AnimeNews');
+
+      $lastAnimeNews = AnimeNews::select('anime_news.*' , 'animes.titre as anime_titre')
+                              ->join('animes' , 'animes.id' , '=' , 'anime_news.anime_id')
+                              ->orderBy('created_at', 'desc')
+                              ->first();
+
+                                 
+      $animeNews = AnimeNews::select('anime_news.*' , 'animes.titre as anime_titre')
+                              ->join('animes' , 'animes.id' , '=' , 'anime_news.anime_id')
+                              ->where('anime_news.id' , '<>' , $lastAnimeNews->id)
+                              ->orderBy('created_at', 'desc')
+                              ->get();
+      return view('Front-office.AnimeNews' , compact('lastAnimeNews' , 'animeNews'));
    }
 }

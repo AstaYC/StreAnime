@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SourceController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\AnimeController;
+use App\Http\Controllers\Admin\AnimeNewsController;
 use App\Http\Controllers\Admin\EpisodeController;
 use App\Http\Controllers\Admin\HiddenContentController;
 use App\Http\Controllers\SuperAdmin\RoleController;
@@ -81,8 +82,12 @@ Route::get('/animeFilmWatching/{id}' , [ContentDetailController::class , 'displa
 Route::post('/episodeWatching/{episodeId}/viewsIncr' , [ContentDetailController::class , 'viewsIncriment']);
 Route::post('/animeFilmWatching/{filmId}/viewsIncr' , [ContentDetailController::class , 'viewsFilmsIncriment']);
 
-
 Route::get('/animeNews' , [ContentController::class , 'displayAnimeNews']);
+
+Route::get('/animeNewsTable' , [AnimeNewsController::class , 'displayAnimeNews']);
+Route::post('/animeNewsTable/add' , [AnimeNewsController::class , 'addAnimeNews']);
+Route::post('/animeNewsTable/update' , [AnimeNewsController::class , 'updateAnimeNews']);
+Route::post('/animeNewsTable/delete' , [AnimeNewsController::class , 'deleteAnimeNews']);
 
 
 

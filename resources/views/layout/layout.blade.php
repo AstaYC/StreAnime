@@ -52,8 +52,8 @@
                                 <li <?php if(url()->current() === url('/home') || url()->current() === url('/') ) echo 'class="active"'; ?>><a href="/">Homepage</a></li>
                                 <li <?php if(url()->current() == url('/animeList')) echo 'class="active"'?>><a href="/animeList">Anime List<span class="arrow_carrot-down"></span></a></li>
                                 <li <?php if(url()->current() == url('/animeFilmList')) echo 'class="active"'?>><a href="/animeFilmList">Anime Film List<span class="arrow_carrot-down"></span></a></li>
-                                <li <?php if(url()->current() == url('/characterList')) echo 'class="active"'?> ><a href="/characterList">Characters List</a></li>
-                                <li><a href="#">Contacts</a></li>
+                                <li <?php if(url()->current() == url('/characterList')) echo 'class="active"'?> ><a href="/characterList">Characters List</a></li>                         
+                                <li <?php if(url()->current() == url('/animeNews')) echo 'class="active"'?> ><a href="/animeNews">A.News</a></li>                         
                             </ul>
                         </nav>
                     </div>
