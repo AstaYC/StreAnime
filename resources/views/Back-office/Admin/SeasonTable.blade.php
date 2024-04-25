@@ -1,60 +1,5 @@
 
 @extends('layout.dashboard')
-@section('sidebar')
-<!-- SIDEBAR -->
-<section id="sidebar">
-    <a href="#" class="brand">
-        <i class='bx bxs-smile'></i>
-        <span class="text">Evento Espace d'Admin</span>
-    </a>
-    <ul class="side-menu top">
-        <li class="active">
-            <a href="/categorie">
-                <i class='bx bxs-group' ></i>
-                <span class="text">Categories</span>
-            </a>
-        </li>
-        <li>
-            <a href="/eventValidation">
-                <i class='bx bxs-shopping-bag-alt' ></i>
-                <span class="text">Event Validation</span>
-            </a>
-        </li>
-        <li>
-            <a href="/role">
-                <i class='bx bxs-doughnut-chart' ></i>
-                <span class="text">Permission</span>
-            </a>
-        </li>
-        <li>
-            <a href="/user">
-                <i class='bx bxs-message-dots' ></i>
-                <span class="text">User</span>
-            </a>
-        </li>
-        <li>
-            <a href="/statistique">
-                <i class='bx bxs-message-dots' ></i>
-                <span class="text">Statistique</span>
-            </a>
-        </li>
-    </ul>
-    <ul class="side-menu">
-        <li>
-            <a href="/home" class="logout">
-                <i class='bx bxs-log-out-circle' ></i>
-                <span class="text-info">HOME</span>
-            </a>
-            <a href="/logout" class="logout">
-                <i class='bx bxs-log-out-circle' ></i>
-                <span class="text">Logout</span>
-            </a>
-        </li>
-    </ul>
-</section>
-<!-- SIDEBAR -->
-@endsection('sidebar')
-
 @section('content')
 <!-- CONTENT -->
 
@@ -166,7 +111,13 @@
                             <tr>
                                 <td><img src="{{$season->posterLink}}" width="100px"></img></td>
                                 <td>{{$season->titre}}</td>
-                                <td>{{$season->description}}</td>
+                                <td>@if(strlen($season->description) > 50)
+                                    {{ substr($season->description  , 0, 50 )}}
+                                    <a href="#" , onclick="showMore('{{ $season->description }}')" >read more</a>
+                                    @else
+                                    {{$season->description}}
+                                    @endif
+                                </td>
                                 <td>{{$season->releaseYear}}</td>
                                 <td>{{$season->endYear}}</td>
                                 <td><iframe width="140" height="100" src="https://www.youtube.com/embed/{{ $season->trailerLink }}" frameborder="0" allowfullscreen></iframe></td>
@@ -284,6 +235,7 @@
     </div>
 
 @endforeach
+@endsection('content')
 
 @section('styles')
 
@@ -332,6 +284,11 @@
     })
 </script>  
 
-@endsection('scripts')
+{{-- show more --}}
+<script>
+    function showMore(description){
+        alert(description);
+    }
+</script>
 
-@endsection('content')
+@endsection('scripts')

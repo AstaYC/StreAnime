@@ -112,12 +112,6 @@ class AnimeFilmController extends Controller
           $animeFilm->anime_id = $request->anime_id;
         }
 
-        if($request->status == 's'){
-            $animeFilm->status = 'showing';
-        }else{
-            $animeFilm->status = 'hidden';
-        }
-
         $animeFilm->update();
 
         return redirect('/animeFilm')->with('status' , 'La Modification Est Bien Faite !!');
