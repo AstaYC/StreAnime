@@ -27,7 +27,10 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="login__form">
-                        <h3>Login</h3>
+                        <div class="luffySayYoo">
+                            <h3>Login</h3>
+                            <img src="{{ asset('img/yo.png') }}" alt="">
+                        </div>
                         <form method="POST"  action="/login">
                             @csrf
                             <div class="input__item">

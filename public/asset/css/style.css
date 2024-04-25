@@ -2419,4 +2419,22 @@ ol {
 	align-items: center;
   }
 
-/*  */
+/* Yooo */
+
+.luffySayYoo{
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+.luffySayYoo img{
+	width: 40%;
+}
+
+.bakaLuffy{
+	display: flex;
+	gap: 175px;
+	align-items: flex-end;
+}
+.bakaLuffy img{
+	width: 30%;
+}
