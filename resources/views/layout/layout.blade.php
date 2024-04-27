@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('/asset/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/asset/css/style.css') }}" type="text/css">
     <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
+    
 
     @yield('styles')
     

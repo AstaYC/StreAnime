@@ -22,7 +22,7 @@
     <!-- Signup Section Begin -->
     <section class="signup spad">
         <div class="container">
-            <div class="row">
+            <div class="row centerEarth">
                 <div class="col-lg-6">
                     <div class="login__form">
                         <div class="bakaLuffy">

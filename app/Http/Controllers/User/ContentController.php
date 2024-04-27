@@ -242,4 +242,29 @@ class ContentController extends Controller
                               ->get();
       return view('Front-office.AnimeNews' , compact('lastAnimeNews' , 'animeNews'));
    }
+
+   public function search(){
+      $key = request()->get('keyword');
+
+      $animes = Anime::with('categories')
+                  ->where('animes.status' , '=' , 'showing')
+                  ->where('animes.titre' , 'LIKE' , '%' . $key . '%')
+                  ->get();
+         
+         foreach ($animes as $anime){
+            $anime->rate = RatingAnime::where('anime_id', $anime->id)
+                                             ->avg('stars');
+            $anime->rate = number_format($anime->rate , 1);
+
+            $anime->Views = 0 ;
+            $seasons = Season::where('anime_id', $anime->id)->get();
+            foreach ( $seasons as $season){
+              $season->episodesView = Episode::where('season_id', $season->id)->sum('views');
+              $anime->Views +=  $season->episodesView;
+            }
+         }
+      
+      
+      return response()->json(['status' => 'succes', 'list' => $animes ] ,200 );
+   }
 }

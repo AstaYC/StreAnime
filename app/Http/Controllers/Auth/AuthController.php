@@ -66,13 +66,13 @@ class AuthController extends Controller
      {
         $validatedData = $request->validate([
             'email' => 'email|required',
-            'password' => 'required|'
+            'password' => 'required|min:6'
         ]);
 
         $user = User::where('email', $validatedData['email'])->first();
         
         if (!$user || !Hash::check($validatedData['password'], $user->password)) {
-            return response()->json(['error' => 'Invalid credentials.'], 401);
+            return redirect('/login')->with(['error' => 'Invalid credentials.'], 401);
         }
 
         $token = $this->respondWithToken($user->id);
