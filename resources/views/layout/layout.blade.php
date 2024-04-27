@@ -74,7 +74,7 @@
                      @endif
                     <div id="dropdown_content" class="dropdown-menu dropdown-menu-model show" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 60px; left: 80px;">
                         <a class="dropdown-item" href="/userProfil"><i class="fa fa-user"></i>  - Profile</a>
-                        @if(session('user_role') == '1')
+                        @if(session('user_role') != '3')
                         <a class="dropdown-item" href="/user"><i class="fa fa-bookmark"></i>  - Dashboard</a>
                         @endif
                         <a class="dropdown-item" href="/watchList"><i class="fa fa-heart"></i>  - WhatchList</a>
