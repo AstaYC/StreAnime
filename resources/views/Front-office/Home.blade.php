@@ -76,6 +76,7 @@
                                   </a>
                                     <div class="product__item__text">
                                         <ul>
+
                                             @foreach ( $animes->find($trendanime->id)->categories as $categorie )
                                             <li>{{ $categorie->nom }}</li>
                                             @endforeach
@@ -115,6 +116,7 @@
                                   </a>
                                     <div class="product__item__text">
                                         <ul>
+
                                            @foreach ($animes->find($trendanimeFilm->anime_id)->categories as $categorie)
                                              <li>{{ $categorie->nom }}</li>
                                            @endforeach 

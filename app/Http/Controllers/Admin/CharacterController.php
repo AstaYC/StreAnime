@@ -39,6 +39,9 @@ class CharacterController extends Controller
        $character = new Character();
        $character->nom = $request->nom;
        $character->glance = $request->glance;
+       $character->age = $request->age;
+       $character->birthday = $request->birthday;
+       $character->malLink = $request->malLink;
 
        if ($request->hasFile('picture')) {
         $character->picture = Storage::disk('s3')->url($path);

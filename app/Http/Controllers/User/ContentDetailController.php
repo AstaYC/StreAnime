@@ -126,7 +126,7 @@ class ContentDetailController extends Controller
                                  ->join('sources' , 'sources.id' , '=' , 'animes.source_id')
                                  ->where('anime_films.id' , $id)
                                  ->first();
-
+        
         $anime_id = $animeFilm->anime_id;
 
         $animes = Anime::with('categories');

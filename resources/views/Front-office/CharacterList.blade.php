@@ -53,7 +53,7 @@
                                        </div>
                                     </a>
                                     <div class="product__item__text">
-                                        <h5>Name : {{ $character->nom }}</a></h5>
+                                        <h5 style="color:white">Name : {{ $character->nom }}</a></h5>
                                     </div>
                                 </div>
                             </div>
@@ -103,9 +103,14 @@
                                                     <ul>
                                                         <li><span>Anime:</span> {{ $character->anime_titre }}</li>
                                                         <li><span>AnimeFilms:</span>
+                                                            @if($filmAssociés->find($character->id))
+                                                            {{-- {{ dd($filmAssociés) }} --}}
+
                                                             @foreach ($filmAssociés->find($character->id)->anime_films as $animeFilm)
                                                               {{ $animeFilm->titre }} &
                                                             @endforeach
+                                                    
+                                                            @endif
                                                           </li>                                                   
                                                     </ul>
                                                 </div>

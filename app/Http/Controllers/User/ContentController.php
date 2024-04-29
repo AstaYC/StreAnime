@@ -24,6 +24,7 @@ class ContentController extends Controller
     public function displayContent(){
         $animeSliders = Slider::select('sliders.*' , 'animes.titre as anime_titre' , 'animes.description as anime_description' , 'animes.posterLink')
                   ->join('animes' , 'sliders.anime_id' , '=' , 'animes.id')
+                  ->where('animes.status' , '=' , 'showing')
                   ->whereNotNull('anime_id')
                   ->get();
 
@@ -69,7 +70,7 @@ class ContentController extends Controller
          ////////// THE most Film viewer ////////////
 
          $mostViewedFilms = Anime_film::orderBy('views' , 'DESC')
-                                       ->take(6)
+                                       ->take(3)
                                        ->get();
          foreach($mostViewedFilms as $mostViewedFilm){
             $mostViewedFilm->rate = RatingAnimeFilm::where('anime_film_id', $mostViewedFilm->id)
@@ -103,15 +104,16 @@ class ContentController extends Controller
          ]);
          }
           
-         $topAnimes = $animeWithTotal->sortByDesc('totalViews')->take(6);
+         $topAnimes = $animeWithTotal->sortByDesc('totalViews')->take(3);
 
          // //// last episodes ////
          $lastEpisodes = Episode::select('episodes.*' , 'animes.id as anime_id' , 'animes.titre as anime_titre')
                                   ->join('seasons' , 'seasons.id' , '=' , 'episodes.season_id')
                                   ->join('animes' , 'animes.id' , '=' , 'seasons.anime_id')
-                                  ->orderBy('updated_at' , 'ASC')
-                                  ->take(6)
+                                  ->orderBy('created_at' , 'desc')
+                                  ->take(3)
                                   ->get();
+
 
          ///////// Anime Rating ///////
          foreach ($animes as $anime){
@@ -155,15 +157,15 @@ class ContentController extends Controller
             ]);
          }
 
-         $topAnimeVieweds = $animeWithViews->sortByDesc('totalViews')->take(10);
+         $topAnimeVieweds = $animeWithViews->sortByDesc('totalViews')->take(3);
 
          //// Last Episode ///
         
          $lastEpisodes = Episode::select('episodes.*' , 'animes.id as anime_id' , 'animes.titre as anime_titre')
                                   ->join('seasons' , 'seasons.id' , '=' , 'episodes.season_id')
                                   ->join('animes' , 'animes.id' , '=' , 'seasons.anime_id')
-                                  ->orderBy('updated_at' , 'ASC')
-                                  ->take(10)
+                                  ->orderBy('created_at' , 'DESC')
+                                  ->take(3)
                                   ->get();
 
         return view('Front-office.AnimeList', compact('animes' , 'topAnimeVieweds' , 'lastEpisodes'));
@@ -186,7 +188,7 @@ class ContentController extends Controller
         $animes = Anime::with('categories')->get();
         
         $topAnimeFilmViewers = $animeFilms->sortByDesc('views')
-                                          ->take(8);
+                                          ->take(3);
         foreach($topAnimeFilmViewers as $topAnimeFilmViewer){
               $topAnimeFilmViewer->rate = RatingAnimeFilm::where('anime_film_id' , $topAnimeFilmViewer->id)
                                                 ->avg('stars');
@@ -194,7 +196,7 @@ class ContentController extends Controller
            }  
          
         $lastAnimeFilms = $animeFilms->sortByDesc('releaseYear')
-                                     ->take(8);
+                                     ->take(3);
 
         return view('Front-office.AnimeFilmList', compact('animeFilms' , 'animes' , 'topAnimeFilmViewers' , 'lastAnimeFilms'));
 
@@ -205,7 +207,8 @@ class ContentController extends Controller
                                ->join('animes' , 'animes.id' , '=' , 'characters.anime_id')
                                ->get();
 
-      $filmAssociés = Character::with('anime_films');
+      $filmAssociés = Character::with('anime_films')
+                                 ->get();
       
       return view('Front-office.CharacterList', compact('characters' , 'filmAssociés'));
 

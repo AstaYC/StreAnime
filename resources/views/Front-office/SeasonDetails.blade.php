@@ -106,7 +106,7 @@
       
                                   <div class="col-lg-3 col-md-6 col-sm-6">
                                       <div class="product__item">
-                                        <a href="<?php echo url('/episodeWatching/' . $season->id)?>">
+                                        <a href="<?php echo url('/episodeWatching/' . $episode->id)?>">
                                           <div class="product__item__pic set-bg" data-setbg="{{ $episode->posterLink }}">
                                               <div class="ep">18 / 18</div>
                                               <div class="comment"><i class="fa fa-calendar"></i> {{ $episode->releaseYear }}</div>

@@ -47,6 +47,16 @@
                                                         
                                                         <label for="CategorieName">Character glance:</label>
                                                         <textarea type="text" class="form-control" id="CategorieName" name="glance" required></textarea>
+                                                       
+                                                        <label for="CategorieName">Character Age:</label>
+                                                        <input type="text" class="form-control" id="CategorieName" name="age" required>
+                                                        
+                                                        <label for="CategorieName">Character Birthday:</label>
+                                                        <input type="text" class="form-control" id="CategorieName" name="birthday" placeholder="DD/Septembre" required>
+                                                       
+                                                        <label for="CategorieName">MAL Link </label>
+                                                        <input type="text" class="form-control" id="CategorieName" name="malLink" required>
+                                                        
                                                         
                                                         <label for="CategorieName">Character image:</label>
                                                         <input type="file" class="form-control" id="CategorieName" name="picture" >

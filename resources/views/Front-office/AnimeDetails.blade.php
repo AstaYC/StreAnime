@@ -216,9 +216,11 @@
                                                                                 <ul>
                                                                                     <li><span>Anime:</span> {{ $character->anime_titre }}</li>
                                                                                     <li><span>AnimeFilms:</span>
+                                                                                        @if($filmAssociés->find($character->id))
                                                                                         @foreach ($filmAssociés->find($character->id)->anime_films as $animeFilm)
                                                                                           {{ $animeFilm->titre }} &
                                                                                         @endforeach
+                                                                                        @endif
                                                                                       </li>                                                   
                                                                                 </ul>
                                                                             </div>

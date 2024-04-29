@@ -3,7 +3,7 @@
     width: 250px;
     position: relative;
     transition: left 0.3s linear;
-    background: url("https://streanime.s3.amazonaws.com/postersUser+/lRvXPJ72IOEdbI6TTCFmXOEe2yxhDKfZWmDF3n3F.png");
+    background: url(../../img/logo.png);
     background-size: cover;
     background-position: left;
     /* background-color: rgb(125, 125, 125); */
